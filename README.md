@@ -34,3 +34,5 @@ cd nuti
 npm install
 npm run dev
 
+
+## Will deploy on Vercel. 

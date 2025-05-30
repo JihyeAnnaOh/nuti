@@ -60,7 +60,6 @@ export async function GET(req) {
   const query = searchParams.get('query');
   const location = searchParams.get('location') || 'Sydney';
 
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
     query + ' in ' + location
   )}&key=${process.env.NEXT_PUBLIC_GCP_VISION_API_KEY}`;
