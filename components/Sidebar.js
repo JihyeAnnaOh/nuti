@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Sidebar({ open }) {
   const [visible, setVisible] = useState(open);
+  const pathname = usePathname();
 
   // Animate in/out
   useEffect(() => {
@@ -15,6 +18,10 @@ export default function Sidebar({ open }) {
   }, [open]);
 
   if (!visible) return null;
+
+  const isActive = (path) => {
+    return pathname === path;
+  };
 
   return (
     <aside
@@ -34,11 +41,17 @@ export default function Sidebar({ open }) {
         <h2 className="font-semibold mb-2">🍽️ Food Types</h2>
         <ul className="space-y-1 text-sm">
           {['Pizza', 'Chicken', 'Hamburger', 'Bibimbap'].map((item) => (
-            <li
-              key={item}
-              className="px-2 py-1 rounded hover:bg-[var(--primary)] hover:text-[var(--text-light)] cursor-pointer transition-colors"
-            >
-              {item}
+            <li key={item}>
+              <Link
+                href={`/food/${item.toLowerCase()}`}
+                className={`block px-2 py-1 rounded transition-colors ${
+                  isActive(`/food/${item.toLowerCase()}`)
+                    ? 'bg-[var(--primary)] text-[var(--text-light)]'
+                    : 'hover:bg-[var(--primary)] hover:text-[var(--text-light)]'
+                }`}
+              >
+                {item}
+              </Link>
             </li>
           ))}
         </ul>
@@ -47,11 +60,17 @@ export default function Sidebar({ open }) {
         <h2 className="font-semibold mb-2">🌏 Country</h2>
         <ul className="space-y-1 text-sm">
           {['Korean', 'Chinese', 'Japanese', 'Italian'].map((item) => (
-            <li
-              key={item}
-              className="px-2 py-1 rounded hover:bg-[var(--primary)] hover:text-[var(--text-light)] cursor-pointer transition-colors"
-            >
-              {item}
+            <li key={item}>
+              <Link
+                href={`/country/${item.toLowerCase()}`}
+                className={`block px-2 py-1 rounded transition-colors ${
+                  isActive(`/country/${item.toLowerCase()}`)
+                    ? 'bg-[var(--primary)] text-[var(--text-light)]'
+                    : 'hover:bg-[var(--primary)] hover:text-[var(--text-light)]'
+                }`}
+              >
+                {item}
+              </Link>
             </li>
           ))}
         </ul>
