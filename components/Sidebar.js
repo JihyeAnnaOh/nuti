@@ -26,7 +26,7 @@ export default function Sidebar({ open }) {
   return (
     <aside
       className={`
-        fixed top-20 left-0 z-40 h-[calc(100vh-5rem)] w-64 p-4 space-y-6
+        fixed top-28 left-0 z-40 h-[calc(100vh-5rem)] w-56 p-4 space-y-6
         transition-transform duration-300 ease-in-out
         rounded-r-2xl shadow-md
         ${open ? 'translate-x-0' : '-translate-x-full'}

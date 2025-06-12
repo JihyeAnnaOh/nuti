@@ -9,6 +9,7 @@ export default function UploadBox({ onResult }) {
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const startCamera = async () => {
     try {
@@ -55,6 +56,10 @@ export default function UploadBox({ onResult }) {
     const imageURL = URL.createObjectURL(file);
     setPreview(imageURL);
     analyzeWithVision(imageURL);
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
   };
 
   const getNutritionFromLabel = async (label) => {
@@ -162,31 +167,39 @@ export default function UploadBox({ onResult }) {
     <div className="mb-6">
       <h3 className="text-lg font-bold mb-3">🍽️ Identify Your Food</h3>
 
-      {!streaming ? (
-        <button onClick={startCamera} className="bg-blue-600 text-white px-4 py-2 rounded mb-3">
-          📷 Take a Photo Now
-        </button>
-      ) : (
-        <div className="mb-3">
-          <video ref={videoRef} autoPlay playsInline className="w-64 rounded shadow" />
-          <button onClick={capturePhoto} className="bg-green-600 text-white mt-2 px-4 py-2 rounded">
-            ✅ Capture
+      <div className="space-y-3">
+        {!streaming ? (
+          <button onClick={startCamera} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
+            📷 Take a Photo Now
           </button>
-        </div>
-      )}
+        ) : (
+          <div className="mb-3">
+            <video ref={videoRef} autoPlay playsInline className="w-64 rounded shadow" />
+            <button onClick={capturePhoto} className="bg-green-600 text-white mt-2 px-4 py-2 rounded w-full">
+              ✅ Capture
+            </button>
+          </div>
+        )}
 
-      <canvas ref={canvasRef} className="hidden" />
+        <button onClick={triggerFileInput} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
+          📤 Upload a Photo
+        </button>
+        <input 
+          ref={fileInputRef}
+          type="file" 
+          accept="image/*" 
+          onChange={handleFileUpload} 
+          className="hidden" 
+        />
 
-      <label className="block text-sm font-medium mb-1 mt-4">...or Upload a Photo</label>
-      <input type="file" accept="image/*" onChange={handleFileUpload} className="mb-3" />
+        {preview && (
+          <div className="flex justify-center">
+            <img src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
+          </div>
+        )}
 
-      {preview && (
-        <div>
-          <img src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
-        </div>
-      )}
-
-      {loading && <p className="text-blue-600 text-sm">Analyzing image...</p>}
+        {loading && <p className="text-blue-600 text-sm">Analyzing image...</p>}
+      </div>
     </div>
   );
 }

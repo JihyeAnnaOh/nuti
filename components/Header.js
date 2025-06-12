@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [scrolled, setScrolled] = useState(false);
@@ -18,19 +20,40 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
       className={`fixed top-0 w-full z-50 transition-colors duration-300
         ${scrolled ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-md'
                    : 'bg-transparent text-[var(--foreground)]'}
-        p-4 flex justify-between items-center`}
+        h-25 px-4 flex items-center justify-between overflow-visible`}
     >
-      <div className="flex items-center gap-3">
+      {/* Left: Sidebar toggle */}
+      <div className="flex items-center min-w-[48px]">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="p-2 border rounded shadow bg-white text-black hover:bg-gray-100"
+          style={{ fontSize: 20, width: 40, height: 40 }}
         >
           {sidebarOpen ? '←' : '→'}
         </button>
-        <h1 className="text-xl font-bold">Nuti</h1>
       </div>
-      <div className="flex gap-3 items-center">
-        <button className="text-sm border px-3 py-1 rounded bg-white text-black hover:bg-gray-100">
+
+      {/* Center: Logo */}
+      <div className="flex-1 flex justify-center items-center h-full">
+        <Link href="/" className="hover:opacity-80 transition-opacity h-full flex items-center">
+          <Image
+            src="/images/logo.png"
+            alt="Nuti Logo"
+            width={150}
+            height={0}
+            className="w-[200px]"
+            style={{ maxHeight: 220, marginTop: '10px' }}
+            priority
+          />
+        </Link>
+      </div>
+
+      {/* Right: Language button */}
+      <div className="flex items-center min-w-[120px] justify-end">
+        <button
+          className="text-sm border px-3 py-1 rounded bg-white text-black hover:bg-gray-100"
+          style={{ fontSize: 16, height: 36 }}
+        >
           🌐 Language
         </button>
       </div>
