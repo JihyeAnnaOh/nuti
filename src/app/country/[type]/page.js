@@ -36,7 +36,7 @@ export default function CountryPage({ params }) {
         <main
           className={`transition-all duration-300 ease-in-out ${
             sidebarOpen ? 'ml-64' : 'ml-0'
-          } p-6`}
+          } pt-8 pb-6 px-6`}
         >
           <h1 className="text-3xl font-bold mb-6">🌏 {type} Cuisine</h1>
           

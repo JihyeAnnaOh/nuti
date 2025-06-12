@@ -8,23 +8,39 @@ import Sidebar from "../../components/Sidebar";
 import UploadBox from "../../components/UploadBox";
 import FoodResultCard from "../../components/FoodResultCard";
 import NearbyResults from "../../components/NearbyResults";
+import Image from 'next/image';
 
 export default function Home() {
-  const [meals, setMeals] = useState([]);
   const [result, setResult] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const querySnapshot = await getDocs(collection(db, "test"));
-      const mealList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setMeals(mealList);
+    // Load history from localStorage on mount
+    const savedHistory = localStorage.getItem('foodSearchHistory');
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
     }
-    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (result) {
+      // Add new result to history, ensure no duplicates based on name/calories combination
+      setHistory(prevHistory => {
+        const newHistory = [result, ...prevHistory.filter(item => 
+          !(item.name === result.name && item.calories === result.calories)
+        )];
+        // Keep history to a reasonable length, e.g., 20 items
+        const limitedHistory = newHistory.slice(0, 20);
+        localStorage.setItem('foodSearchHistory', JSON.stringify(limitedHistory));
+        return limitedHistory;
+      });
+    }
+  }, [result]);
+
+  const handleHistoryClick = (item) => {
+    setResult(item);
+  };
 
   return (
     <div
@@ -37,52 +53,53 @@ export default function Home() {
         <main
           className={`transition-all duration-300 ease-in-out ${
             sidebarOpen ? 'ml-64' : 'ml-0'
-          } ${result ? 'p-6' : 'flex items-center justify-center min-h-[calc(100vh-5rem)]'}`}
+          } pt-16 pb-6 px-6 flex flex-wrap lg:flex-nowrap lg:gap-8`}
         >
-          <div className={`${result ? '' : 'max-w-md w-full text-center space-y-6'}`}>
-            <UploadBox onResult={setResult} />
-            <FoodResultCard result={result} />
-            {result?.name && <NearbyResults keyword={result.name} />}
+          {/* Main content area: Upload, Result, Nearby */}
+          <div className="w-full lg:flex-1 mb-8 lg:mb-0">
+            <div className={`space-y-6 ${result ? '' : 'max-w-md w-full text-center mx-auto'}`}>
+              <UploadBox onResult={setResult} />
+              <FoodResultCard result={result} />
+              {result?.name && <NearbyResults keyword={result.name} />}
+            </div>
           </div>
 
-          {result && (
-            <>
-              <h2 className="text-2xl font-bold mb-4 mt-10">🔥 Recommended Meals</h2>
-              {meals.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {meals.map((meal) => (
-                    <div
-                      key={meal.id}
-                      style={{ backgroundColor: 'var(--card-bg)' }}
-                      className="rounded shadow p-4 hover:shadow-lg transition"
-                    >
-                      <h3 className="text-lg font-semibold mb-1">{meal.name}</h3>
-                      <p className="text-sm opacity-80 mb-1">
-                        <strong>Culture:</strong> {meal.culture}
-                      </p>
-                      {meal.Calories && (
-                        <p className="text-sm opacity-80 mb-1">
-                          <strong>Calories(per typical serving):</strong> {meal.Calories}
-                        </p>
-                      )}
-                      {meal.vegetarian !== undefined && (
-                        <p className="text-sm opacity-80 mb-1">
-                          <strong>Vegetarian:</strong> {meal.vegetarian}
-                        </p>
-                      )}
-                      {meal.halal !== undefined && (
-                        <p className="text-sm opacity-80">
-                          <strong>Halal:</strong> {meal.halal}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-gray-500">Loading meals...</p>
-              )}
-            </>
-          )}
+          {/* History Section */}
+          <div className="w-full lg:flex-1">
+            <h2 className="text-2xl font-bold mb-4 lg:mt-0">Recent Searches</h2>
+            {history.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {history.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleHistoryClick(item)}
+                    style={{ backgroundColor: 'var(--card-bg)' }}
+                    className="rounded shadow p-4 hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center"
+                  >
+                    {item.preview && (
+                      <div className="mb-2 w-full flex justify-center">
+                        <Image 
+                          src={item.preview} 
+                          alt="Food Preview" 
+                          width={120} 
+                          height={120} 
+                          className="rounded object-cover h-24 w-24"
+                        />
+                      </div>
+                    )}
+                    <h3 className="font-semibold text-base mb-1">{item.name}</h3>
+                    <p className="text-xs text-gray-600">Calories: {item.calories}</p>
+                    <p className="text-xs text-gray-600">Vegetarian: {item.vegetarian}</p>
+                    <p className="text-xs text-gray-600">Halal: {item.halal}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white text-center text-gray-500">
+                <p>No recent searches yet. Identify a food to see your history here!</p>
+              </div>
+            )}
+          </div>
         </main>
 
       </div>

@@ -141,8 +141,10 @@ export default function UploadBox({ onResult }) {
         name: finalLabel,
         calories: facts.calories,
         vegetarian: facts.vegetarian,
-        halal: facts.halal
+        halal: facts.halal,
+        preview: imageURL
       });
+      setPreview(null);
     } catch (err) {
       setLoading(false);
       console.error("Final fallback failed:", err);
@@ -150,8 +152,10 @@ export default function UploadBox({ onResult }) {
         name: finalLabel,
         calories: "N/A",
         vegetarian: "N/A",
-        halal: "N/A"
+        halal: "N/A",
+        preview: imageURL
       });
+      setPreview(null);
     }
   };
 

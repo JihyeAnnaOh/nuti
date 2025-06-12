@@ -21,11 +21,13 @@ export default function NearbyResults({ keyword }) {
         },
         (error) => {
           console.error("Error getting location:", error);
+          setError("Location access denied. Showing results for Sydney.");
           // Fallback to Sydney if user denies location access
           setUserLocation({ lat: -33.8688, lng: 151.2093 });
         }
       );
     } else {
+      setError("Geolocation not supported. Showing results for Sydney.");
       // Fallback to Sydney if geolocation is not supported
       setUserLocation({ lat: -33.8688, lng: 151.2093 });
     }
