@@ -313,7 +313,9 @@ export default function MealPlannerPage() {
 
                 <div className="flex flex-col items-center gap-4 mt-6">
                   <div className="w-full flex flex-col items-center">
-                    <div className="flex flex-row justify-center items-center gap-8 mt-2">
+                  <span className="text-sm text-gray-500 font-medium mt-1">Show off your meal plan to the world!</span>
+
+                    <div className="flex flex-row justify-center items-center gap-8 mt-5">
                       {/* Download as Image button first */}
                       <button
                         className="w-52 h-16 flex items-center justify-center rounded-2xl bg-[var(--primary)] !text-white font-semibold text-lg shadow-lg hover:bg-[var(--accent)] hover:!text-[var(--text-light)] transition whitespace-nowrap"
@@ -357,7 +359,6 @@ export default function MealPlannerPage() {
                         <Image src={SOCIAL_ICONS.threads} alt="Threads" width={40} height={40} />
                       </button>
                     </div>
-                    <span className="text-sm text-gray-500 font-medium mt-4">Show off your meal plan to the world!</span>
                   </div>
                 </div>
               </div>
