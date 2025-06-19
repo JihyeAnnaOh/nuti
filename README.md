@@ -17,6 +17,10 @@
     - **Custom Location Search:** Allows users to search for places in a specific area with autocomplete suggestions.
     - Results are sorted by distance and link directly to Google Maps.
 - 🔄 **Recent Searches History**: Stores and allows re-visiting of past food analysis results, including the image.
+- 🥗 **Meal Planner Tool**: Generate a daily meal plan based on cultural preference, with the ability to swap dishes, regenerate, and select your favorites. Each meal (breakfast, lunch, dinner, snack) is visually presented with dish images.
+- 📉 **Calorie Finder Tool**: Quickly look up calorie and nutrition info for any food.
+- 🖼️ **Download Meal Plan as Image**: Export your selected meal plan as a beautifully formatted, on-brand image (with dish photos) for easy sharing on any platform.
+- 📤 **Share UI**: Prominent 'Download as Image' button and social media icons (WhatsApp, X, Facebook, Threads) for easy sharing. Note: Direct image sharing to social media is limited by browser/platform; users can always download and upload the image manually.
 
 ### App Screenshots
 
@@ -41,14 +45,14 @@
 To get Nuti up and running on your local machine, follow these steps:
 
 1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/JihyeAnnaOh/nuti.git
-    cd nuti
+```bash
+git clone https://github.com/JihyeAnnaOh/nuti.git
+cd nuti
     ```
 
 2.  **Install dependencies:**
     ```bash
-    npm install
+npm install
     ```
 
 3.  **Set up Environment Variables:**
@@ -71,11 +75,21 @@ To get Nuti up and running on your local machine, follow these steps:
 
 4.  **Run the development server:**
     ```bash
-    npm run dev
+npm run dev
     ```
 
 5.  **Access the application:**
     Open your browser and navigate to `http://localhost:3000` (or the port indicated in your terminal).
+
+---
+
+## 🥗 Meal Planner & Sharing
+
+- Access the **Meal Planner** from the sidebar.
+- Select your cultural preference and choose dishes for each meal.
+- Click **Download as Image** to export your meal plan as a shareable image (includes your selected dishes and their photos, styled to match the NUTI brand).
+- Share the image on WhatsApp, Facebook, X, Threads, or any platform by uploading the downloaded image.
+- Social share buttons provide quick access to share text, but for image sharing, use the download feature.
 
 ---
 

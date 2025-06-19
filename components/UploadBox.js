@@ -172,18 +172,18 @@ export default function UploadBox({ onResult }) {
       <h3 className="text-lg font-bold mb-3">🍽️ Identify Your Food</h3>
 
       <div className="space-y-3">
-        {!streaming ? (
+      {!streaming ? (
           <button onClick={startCamera} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
-            📷 Take a Photo Now
-          </button>
-        ) : (
-          <div className="mb-3">
-            <video ref={videoRef} autoPlay playsInline className="w-64 rounded shadow" />
+          📷 Take a Photo Now
+        </button>
+      ) : (
+        <div className="mb-3">
+          <video ref={videoRef} autoPlay playsInline className="w-64 rounded shadow" />
             <button onClick={capturePhoto} className="bg-green-600 text-white mt-2 px-4 py-2 rounded w-full">
-              ✅ Capture
-            </button>
-          </div>
-        )}
+            ✅ Capture
+          </button>
+        </div>
+      )}
 
         <button onClick={triggerFileInput} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
           📤 Upload a Photo
@@ -196,13 +196,13 @@ export default function UploadBox({ onResult }) {
           className="hidden" 
         />
 
-        {preview && (
+      {preview && (
           <div className="flex justify-center">
-            <img src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
-          </div>
-        )}
+          <img src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
+        </div>
+      )}
 
-        {loading && <p className="text-blue-600 text-sm">Analyzing image...</p>}
+      {loading && <p className="text-blue-600 text-sm">Analyzing image...</p>}
       </div>
     </div>
   );

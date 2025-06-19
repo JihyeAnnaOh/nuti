@@ -37,44 +37,65 @@ export default function Sidebar({ open }) {
         borderRight: '1px solid rgba(0,0,0,0.05)',
       }}
     >
-      <div>
-        <h2 className="font-semibold mb-2">🍽️ Food Types</h2>
+      <nav>
+        <ul className="space-y-3 mt-2">
+          <li>
+            <Link
+              href="/"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+                ${isActive('/')
+                  ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
+                  : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
+              `}
+            >
+              <span role="img" aria-label="Home">🏠</span> Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/meal-planner"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+                ${isActive('/meal-planner')
+                  ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
+                  : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
+              `}
+            >
+              <span role="img" aria-label="Meal Planner">📝</span> Meal Planner
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/calorie"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+                ${isActive('/calorie')
+                  ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
+                  : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
+              `}
+            >
+              <span role="img" aria-label="Calorie Finder">🔥</span> Calorie Finder
+            </Link>
+            </li>
+        </ul>
+        <div className="mt-8">
+          <h2 className="font-semibold mb-2">🍽️ Food Types</h2>
         <ul className="space-y-1 text-sm">
-          {['Pizza', 'Chicken', 'Hamburger', 'Bibimbap'].map((item) => (
-            <li key={item}>
-              <Link
-                href={`/food/${item.toLowerCase()}`}
-                className={`block px-2 py-1 rounded transition-colors ${
-                  isActive(`/food/${item.toLowerCase()}`)
-                    ? 'bg-[var(--primary)] text-[var(--text-light)]'
-                    : 'hover:bg-[var(--primary)] hover:text-[var(--text-light)]'
-                }`}
-              >
-                {item}
-              </Link>
+            {['Pizza', 'Chicken', 'Hamburger', 'Bibimbap'].map((item) => (
+              <li key={item}>
+                <Link
+                  href={`/food/${item.toLowerCase()}`}
+                  className={`block px-2 py-1 rounded transition-colors font-semibold text-base
+                    ${isActive(`/food/${item.toLowerCase()}`)
+                      ? 'bg-[var(--primary)] text-[var(--text-light)] shadow'
+                      : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
+                  `}
+            >
+              {item}
+                </Link>
             </li>
           ))}
         </ul>
       </div>
-      <div>
-        <h2 className="font-semibold mb-2">🌏 Country</h2>
-        <ul className="space-y-1 text-sm">
-          {['Korean', 'Chinese', 'Japanese', 'Italian'].map((item) => (
-            <li key={item}>
-              <Link
-                href={`/country/${item.toLowerCase()}`}
-                className={`block px-2 py-1 rounded transition-colors ${
-                  isActive(`/country/${item.toLowerCase()}`)
-                    ? 'bg-[var(--primary)] text-[var(--text-light)]'
-                    : 'hover:bg-[var(--primary)] hover:text-[var(--text-light)]'
-                }`}
-              >
-                {item}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      </nav>
     </aside>
   );
 }

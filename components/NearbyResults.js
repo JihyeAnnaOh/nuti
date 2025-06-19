@@ -48,7 +48,7 @@ export default function NearbyResults({ keyword }) {
           setError(data.error);
           setResults([]);
         } else {
-          setResults(data.results || []);
+        setResults(data.results || []);
         }
       } catch (err) {
         console.error('Failed to fetch nearby results:', err);
@@ -109,10 +109,10 @@ export default function NearbyResults({ keyword }) {
                   </button>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-gray-500">
-                  {place.open_now !== undefined && (
+              {place.open_now !== undefined && (
                     <span className={`inline-flex items-center ${place.open_now ? 'text-green-600' : 'text-red-600'}`}>
                       <span className={`w-2 h-2 rounded-full mr-1.5 ${place.open_now ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                      {place.open_now ? 'Open Now' : 'Closed'}
+                  {place.open_now ? 'Open Now' : 'Closed'}
                     </span>
                   )}
                   {place.distance && (
@@ -122,7 +122,7 @@ export default function NearbyResults({ keyword }) {
                       </svg>
                       {place.distance.toFixed(1)} km away
                     </span>
-                  )}
+              )}
                 </div>
               </div>
             </li>

@@ -9,6 +9,7 @@ import UploadBox from "../../components/UploadBox";
 import FoodResultCard from "../../components/FoodResultCard";
 import NearbyResults from "../../components/NearbyResults";
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   const [result, setResult] = useState(null);
@@ -43,65 +44,14 @@ export default function Home() {
   };
 
   return (
-    <div
-      style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
-      className="min-h-screen"
-    >
+    <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="pt-20 relative transition-all duration-300 ease-in-out">
         <Sidebar open={sidebarOpen} />
-        <main
-          className={`transition-all duration-300 ease-in-out ${
-            sidebarOpen ? 'ml-64' : 'ml-0'
-          } pt-16 pb-6 px-6 flex flex-wrap lg:flex-nowrap lg:gap-8`}
-        >
-          {/* Main content area: Upload, Result, Nearby */}
-          <div className="w-full lg:flex-1 mb-8 lg:mb-0">
-            <div className={`space-y-6 ${result ? '' : 'max-w-md w-full text-center mx-auto'}`}>
-              <UploadBox onResult={setResult} />
-              <FoodResultCard result={result} />
-              {result?.name && <NearbyResults keyword={result.name} />}
-            </div>
-          </div>
-
-          {/* History Section */}
-          <div className="w-full lg:flex-1">
-            <h2 className="text-2xl font-bold mb-4 lg:mt-0">Recent Searches</h2>
-            {history.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                {history.map((item, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleHistoryClick(item)}
-                    style={{ backgroundColor: 'var(--card-bg)' }}
-                    className="rounded shadow p-4 hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center"
-                  >
-                    {item.preview && (
-                      <div className="mb-2 w-full flex justify-center">
-                        <Image 
-                          src={item.preview} 
-                          alt="Food Preview" 
-                          width={120} 
-                          height={120} 
-                          className="rounded object-cover h-24 w-24"
-                        />
-                      </div>
-                    )}
-                    <h3 className="font-semibold text-base mb-1">{item.name}</h3>
-                    <p className="text-xs text-gray-600">Calories: {item.calories}</p>
-                    <p className="text-xs text-gray-600">Vegetarian: {item.vegetarian}</p>
-                    <p className="text-xs text-gray-600">Halal: {item.halal}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white text-center text-gray-500">
-                <p>No recent searches yet. Identify a food to see your history here!</p>
-              </div>
-            )}
-          </div>
+        <main className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'ml-64' : 'ml-0'} flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]`}> 
+          <h1 className="text-4xl font-bold mb-8 mt-8 text-center">Welcome to Nuti!</h1>
+          <p className="mb-8 text-lg text-center max-w-xl">Nuti helps you identify foods, get AI-powered nutrition info, and find nearby places tailored to your culture and health goals.</p>
         </main>
-
       </div>
     </div>
   );

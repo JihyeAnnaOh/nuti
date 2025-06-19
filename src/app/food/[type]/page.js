@@ -1,16 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { use } from 'react';
 import { db } from '../../../../lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import Header from '../../../../components/Header';
 import Sidebar from '../../../../components/Sidebar';
+import { toPng } from "html-to-image";
 
 export default function FoodTypePage({ params }) {
   const [meals, setMeals] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const type = use(params).type;
+  const mealPlanRef = useRef(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,6 +26,32 @@ export default function FoodTypePage({ params }) {
     }
     fetchData();
   }, [type]);
+
+  const handleExport = async (ref) => {
+    if (!ref.current) return;
+    try {
+      const dataUrl = await toPng(ref.current, { cacheBust: true });
+      // Option 1: Download the image
+      const link = document.createElement("a");
+      link.download = "meal-plan.png";
+      link.href = dataUrl;
+      link.click();
+
+      // Option 2: Open share dialog (if supported)
+      // if (navigator.share) {
+      //   const response = await fetch(dataUrl);
+      //   const blob = await response.blob();
+      //   const file = new File([blob], "meal-plan.png", { type: blob.type });
+      //   navigator.share({
+      //     files: [file],
+      //     title: "My Meal Plan",
+      //     text: "Check out my meal plan from Nuti!",
+      //   });
+      // }
+    } catch (err) {
+      alert("Failed to export image.");
+    }
+  };
 
   return (
     <div
@@ -73,6 +101,10 @@ export default function FoodTypePage({ params }) {
           ) : (
             <p className="text-gray-500">No meals found for this type.</p>
           )}
+          <div ref={mealPlanRef}>
+            {/* Meal plan content here */}
+          </div>
+          <button onClick={() => handleExport(mealPlanRef)}>Share as Image</button>
         </main>
       </div>
     </div>
