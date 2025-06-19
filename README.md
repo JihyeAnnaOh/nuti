@@ -24,10 +24,15 @@
 
 ### App Screenshots
 
-![Nuti Homepage Screenshot 1](public/images/Screenshot_home1.png)
+![Nuti Homepage Screenshot-> Ongoing](public/images/Landpage_screenshot 1.png)
 
-![Nuti Homepage Screenshot 2](public/images/Screenshot_home2.png)
+![Nuti Meal Planner Screenshot 1](public/images/MealPlanner_screenshot 1.png)
+![Nuti Meal Planner Screenshot 2](public/images/MealPlanner_screenshot 2.png)
+![Nuti Meal Planner Screenshot 3](public/images/MealPlanner_screenshot 3.png)
+![Nuti Meal Planner image Screenshot](public/images/Download as image_sample.png)
 
+![Nuti Calorie Finder Screenshot 1](public/images/CalorieFinder_screenshot 1.png)
+![Nuti Calorie Finder Screenshot 2](public/images/CalorieFinder_screenshot 2.png)
 ---
 
 ## 🛠️ Tech Stack
