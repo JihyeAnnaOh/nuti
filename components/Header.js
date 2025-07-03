@@ -26,8 +26,8 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
       <div className="flex items-center min-w-[48px]">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 border rounded shadow bg-white text-black hover:bg-gray-100"
-          style={{ fontSize: 20, width: 40, height: 40 }}
+          className="flex items-center justify-center h-10 w-10 border rounded shadow bg-white text-black hover:bg-gray-100"
+          style={{ fontSize: 24, lineHeight: '1' }}
         >
           {sidebarOpen ? '←' : '→'}
         </button>
