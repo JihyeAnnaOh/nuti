@@ -19,6 +19,7 @@
 - 🔄 **Recent Searches History**: Stores and allows re-visiting of past food analysis results, including the image.
 - 🥗 **Meal Planner Tool**: Generate a daily meal plan based on cultural preference, with the ability to swap dishes, regenerate, and select your favorites. Each meal (breakfast, lunch, dinner, snack) is visually presented with dish images.
 - 📉 **Calorie Finder Tool**: Quickly look up calorie and nutrition info for any food.
+- 🍳 **Recipe Discovery Tool**: Find recipes based on ingredients you have at home. Filter by cuisine type, diet preferences, and cooking time to discover new dishes you can make with your available ingredients.
 - 🖼️ **Download Meal Plan as Image**: Export your selected meal plan as a beautifully formatted, on-brand image (with dish photos) for easy sharing on any platform.
 - 📤 **Share UI**: Prominent 'Download as Image' button and social media icons (WhatsApp, X, Facebook, Threads) for easy sharing. Note: Direct image sharing to social media is limited by browser/platform; users can always download and upload the image manually.
 
@@ -34,6 +35,12 @@
 
 ![Nuti Calorie Finder Screenshot 1](public/images/CalorieFinder_screenshot_1.png)
 ![Nuti Calorie Finder Screenshot 2](public/images/CalorieFinder_screenshot_2.png)
+
+![Nuti Recipe Discovery Screenshot 1](public/images/RecipeDiscovery_Screenshot1.png)
+![Nuti Recipe Discovery Screenshot 2](public/images/RecipeDiscovery_Screenshot2.png)
+![Nuti Recipe Discovery Screenshot 3](public/images/RecipeDiscovery_Screenshot3.png)
+![Nuti Recipe Discovery Screenshot 4](public/images/RecipeDiscovery_Screenshot4.png)
+![Nuti Recipe Discovery Screenshot 5](public/images/RecipeDiscovery_Screenshot5.png)
 ---
 
 ## 🛠️ Tech Stack

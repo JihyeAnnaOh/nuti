@@ -75,26 +75,19 @@ export default function Sidebar({ open }) {
               <span role="img" aria-label="Calorie Finder">🔥</span> Calorie Finder
             </Link>
             </li>
-        </ul>
-        <div className="mt-8">
-          <h2 className="font-semibold mb-2">🍽️ Food Types</h2>
-        <ul className="space-y-1 text-sm">
-            {['Pizza', 'Chicken', 'Hamburger', 'Bibimbap'].map((item) => (
-              <li key={item}>
-                <Link
-                  href={`/food/${item.toLowerCase()}`}
-                  className={`block px-2 py-1 rounded transition-colors font-semibold text-base
-                    ${isActive(`/food/${item.toLowerCase()}`)
-                      ? 'bg-[var(--primary)] text-[var(--text-light)] shadow'
-                      : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
-                  `}
+          <li>
+            <Link
+              href="/what-can-i-cook"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+                ${isActive('/what-can-i-cook')
+                  ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
+                  : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
+              `}
             >
-              {item}
-                </Link>
-            </li>
-          ))}
+              <span role="img" aria-label="Recipe Discovery">🧠</span> Recipe Discovery
+            </Link>
+          </li>
         </ul>
-      </div>
       </nav>
     </aside>
   );

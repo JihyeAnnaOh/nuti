@@ -40,6 +40,12 @@ export default function CaloriePage() {
     setResult(item);
   };
 
+  const handleDeleteHistory = (indexToDelete) => {
+    const updatedHistory = history.filter((_, index) => index !== indexToDelete);
+    setHistory(updatedHistory);
+    localStorage.setItem('foodSearchHistory', JSON.stringify(updatedHistory));
+  };
+
   return (
     <div
       style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
@@ -72,19 +78,19 @@ export default function CaloriePage() {
                     key={index}
                     onClick={() => handleHistoryClick(item)}
                     style={{ backgroundColor: 'var(--card-bg)' }}
-                    className="rounded shadow p-4 hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center"
+                    className="rounded shadow p-4 hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center relative"
                   >
-                    {item.preview && (
-                      <div className="mb-2 w-full flex justify-center">
-                        <Image 
-                          src={item.preview} 
-                          alt="Food Preview" 
-                          width={120} 
-                          height={120} 
-                          className="rounded object-cover h-24 w-24"
-                        />
-                      </div>
-                    )}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteHistory(index);
+                      }}
+                      className="absolute top-2 right-2 w-7 h-7 bg-pink-200 hover:bg-pink-300 text-red-500 hover:text-red-700 text-lg font-bold transition-colors rounded flex items-center justify-center"
+                      style={{ width: '28px', height: '28px', minWidth: '28px', minHeight: '28px' }}
+                      title="Delete from history"
+                    >
+                      ×
+                    </button>
                     <h3 className="font-semibold text-base mb-1">{item.name}</h3>
                     <p className="text-xs text-gray-600">Calories: {item.calories}</p>
                     <p className="text-xs text-gray-600">Vegetarian: {item.vegetarian}</p>

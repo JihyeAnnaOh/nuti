@@ -315,10 +315,10 @@ export default function MealPlannerPage() {
                   <div className="w-full flex flex-col items-center">
                   <span className="text-sm text-gray-500 font-medium mt-1">Show off your meal plan to the world!</span>
 
-                    <div className="flex flex-row justify-center items-center gap-8 mt-5">
+                    <div className="flex flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 mt-5 flex-wrap">
                       {/* Download as Image button first */}
                       <button
-                        className="w-52 h-16 flex items-center justify-center rounded-2xl bg-[var(--primary)] !text-white font-semibold text-lg shadow-lg hover:bg-[var(--accent)] hover:!text-[var(--text-light)] transition whitespace-nowrap"
+                        className="w-40 md:w-48 lg:w-52 h-12 md:h-14 lg:h-16 flex items-center justify-center rounded-2xl bg-[var(--primary)] !text-white font-semibold text-sm md:text-base lg:text-lg shadow-lg hover:bg-[var(--accent)] hover:!text-[var(--text-light)] transition whitespace-nowrap"
                         onClick={handleDownloadImage}
                         type="button"
                         title="Download as Image"
@@ -327,36 +327,36 @@ export default function MealPlannerPage() {
                       </button>
                       {/* Social media icons */}
                       <button
-                        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToWhatsApp}
                         type="button"
                         title="Share on WhatsApp"
                       >
-                        <Image src={SOCIAL_ICONS.whatsapp} alt="WhatsApp" width={40} height={40} />
+                        <Image src={SOCIAL_ICONS.whatsapp} alt="WhatsApp" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                       <button
-                        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToX}
                         type="button"
                         title="Share on X"
                       >
-                        <Image src={SOCIAL_ICONS.x} alt="X" width={40} height={40} />
+                        <Image src={SOCIAL_ICONS.x} alt="X" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                       <button
-                        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToFacebook}
                         type="button"
                         title="Share on Facebook"
                       >
-                        <Image src={SOCIAL_ICONS.facebook} alt="Facebook" width={40} height={40} />
+                        <Image src={SOCIAL_ICONS.facebook} alt="Facebook" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                       <button
-                        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToThreads}
                         type="button"
                         title="Share on Threads"
                       >
-                        <Image src={SOCIAL_ICONS.threads} alt="Threads" width={40} height={40} />
+                        <Image src={SOCIAL_ICONS.threads} alt="Threads" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                     </div>
                   </div>
