@@ -40,7 +40,7 @@
 ![Nuti Recipe Discovery Screenshot 2](public/images/RecipeDiscovery_Screenshot2.png)
 ![Nuti Recipe Discovery Screenshot 3](public/images/RecipeDiscovery_Screenshot3.png)
 ![Nuti Recipe Discovery Screenshot 4](public/images/RecipeDiscovery_Screenshot4.png)
-![Nuti Recipe Discovery Screenshot 5](public/images/RecipeDiscovery_Screenshot5.png)
+![Nuti Recipe Discovery Screenshot 5](public/images/RecipeDiscovery_screenshot5.png)
 ---
 
 ## 🛠️ Tech Stack
