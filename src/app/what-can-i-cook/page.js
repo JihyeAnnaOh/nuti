@@ -144,28 +144,28 @@ export default function WhatCanICookPage() {
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
+    <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen bg-[#F8F4F2]">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="pt-20 relative transition-all duration-300 ease-in-out">
+      <div className="pt-40 relative transition-all duration-300e-in-out">
         <Sidebar open={sidebarOpen} />
-        <main className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'ml-64' : 'ml-0'} flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]`}>
-          <div className="container mx-auto mt-10 p-4 sm:p-6 md:p-10 bg-white rounded-2xl shadow-lg w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center">Recipe Discovery</h1>
-            <p className="text-md text-gray-500 text-center mb-5 opacity-70 italic">Find Recipes with Your Ingredients</p>
-            
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <main className={`transition-all duration-300e-in-out flex flex-col items-center justify-center min-h-calc(100h-5rem)]`}>
+          <div className="container mx-auto mt-10 p-6 sm:p-8 md:p-12 bg-white/80 rounded-3xl shadow-lg w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-4 drop-shadow-lg font-sans" style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}>
+              Recipe Discovery
+            </h1>
+            <p className="text-md text-gray-500 text-center mb-8 opacity-70 italic">Find Recipes with Your Ingredients</p>
+            <div className="bg-white/90 rounded-2xl shadow p-6 mb-6">
               <IngredientInput ingredients={ingredients} setIngredients={setIngredients} />
               <RecipeFilters filters={filters} setFilters={setFilters} />
               <button
                 onClick={handleSearch}
-                className="mt-4 px-8 py-3 mt-10 rounded bg-[var(--primary)] text-[var(--text-light)] font-semibold hover:opacity-90 transition"
+                className="mt-4 px-4 py-2 rounded-full bg-[var(--primary)] text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-[var(--accent)] transition-all duration-200 w-full"
                 disabled={loading || ingredients.length === 0}
               >
                 {loading ? 'Searching...' : 'Find Recipes'}
               </button>
               {error && <p className="text-red-500 mt-2 font-semibold">{error}</p>}
             </div>
-
             <div className="mt-8">
               {recipes.length === 0 && !loading && (
                 <div className="text-center text-gray-400">
@@ -174,9 +174,9 @@ export default function WhatCanICookPage() {
               )}
               {recipes.map(recipe => (
                 <div key={recipe.id} className="mb-6">
-                  <RecipeResultCard recipe={recipe} onViewRecipe={handleViewRecipe} />
+                  <RecipeResultCard recipe={recipe} onViewRecipe={handleViewRecipe} cardClassName="bg-white/90 rounded-2xl shadow-lg p-6 border border-[#EECFD4] hover:shadow-xl transition-shadow" btnClassName="mt-4 px-4 py-2 rounded-full bg-blue-500 text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-blue-600 transition-all duration-200 w-full" />
                   {recipe.missingIngredients && recipe.missingIngredients.length > 0 && (
-                    <div className="ml-4 p-4 bg-white rounded-3xl shadow-lg border border-[#EECFD4] hover:shadow-xl transition-shadow">
+                    <div className="ml-4 p-4 bg-white/90 rounded-2xl shadow-lg border border-[#EECFD4] hover:shadow-xl transition-shadow">
                       <span className="text-ml font-semibold text-[#B48C8C] block mb-3">🔍 Find missing ingredients nearby:</span>
                       <ul className="list-disc list-inside space-y-2">
                         {recipe.missingIngredients.map(ing => (

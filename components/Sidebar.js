@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 export default function Sidebar({ open }) {
   const [visible, setVisible] = useState(open);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   // Animate in/out
@@ -17,6 +20,15 @@ export default function Sidebar({ open }) {
     }
   }, [open]);
 
+  // Scroll detection (same as header)
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   if (!visible) return null;
 
   const isActive = (path) => {
@@ -24,71 +36,94 @@ export default function Sidebar({ open }) {
   };
 
   return (
-    <aside
+    <nav
       className={`
-        fixed top-28 left-0 z-40 h-[calc(100vh-5rem)] w-56 p-4 space-y-6
-        transition-transform duration-300 ease-in-out
-        rounded-r-2xl shadow-md
-        ${open ? 'translate-x-0' : '-translate-x-full'}
+        fixed top-28 w-full px-6 space-y-0
+        transition-all duration-300 ease-in-out
+        z-40 ${open ? 'opacity-100' : 'opacity-0'}
+        bg-transparent md:bg-transparent
       `}
       style={{
-        backgroundColor: 'var(--card-bg)',
-        color: 'var(--foreground)',
-        borderRight: '1px solid rgba(0,0,0,0.05)',
+        backgroundColor: scrolled ? 'var(--primary)' : 'transparent',
+        color: scrolled ? 'var(--text-light)' : '#B48C8C',
       }}
     >
-      <nav>
-        <ul className="space-y-3 mt-2">
-          <li>
-            <Link
-              href="/"
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+      {/* Hamburger for mobile */}
+      <div className="flex md:hidden justify-end items-center w-full">
+        <button
+          onClick={() => setMobileMenuOpen(v => !v)}
+          className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+          aria-label="Open navigation menu"
+        >
+          {mobileMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+        </button>
+      </div>
+      {/* Nav links */}
+      <ul
+        className={`
+          ${mobileMenuOpen ? 'flex' : 'hidden'}
+          flex-col md:flex md:flex-row md:justify-center md:items-center md:space-x-12
+          mt-2 md:mt-0
+          bg-white md:bg-transparent
+          rounded-2xl md:rounded-none
+          shadow-lg md:shadow-none
+          p-6 md:p-0
+          absolute md:static left-0 right-0 top-14 md:top-0 z-50
+        `}
+      >
+        <li>
+          <Link
+            href="/"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base italic transition-all duration-200
                 ${isActive('/')
                   ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
-            >
-              <span role="img" aria-label="Home">🏠</span> Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/meal-planner"
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span role="img" aria-label="Home" className="text-lg"></span> HOME
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/meal-planner"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base italic transition-all duration-200
                 ${isActive('/meal-planner')
                   ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
-            >
-              <span role="img" aria-label="Meal Planner">📝</span> Meal Planner
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/calorie"
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span role="img" aria-label="Meal Planner" className="text-lg"></span>MEAL PLANNER
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/calorie"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base italic transition-all duration-200
                 ${isActive('/calorie')
                   ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
-            >
-              <span role="img" aria-label="Calorie Finder">🔥</span> Calorie Finder
-            </Link>
-            </li>
-          <li>
-            <Link
-              href="/what-can-i-cook"
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base shadow-sm transition-all duration-200
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span role="img" aria-label="Calorie Finder" className="text-lg"></span>CALORIE FINDER
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/what-can-i-cook"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base italic transition-all duration-200
                 ${isActive('/what-can-i-cook')
                   ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
-            >
-              <span role="img" aria-label="Recipe Discovery">🧠</span> Recipe Discovery
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span role="img" aria-label="Recipe Discovery" className="text-lg"></span>RECIPE DISCOVERY
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 }

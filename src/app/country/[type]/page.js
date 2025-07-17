@@ -109,9 +109,9 @@ export default function CountryPage({ params }) {
     return (
       <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <div className="pt-20 relative transition-all duration-300 ease-in-out">
+        <div className="pt-40 relative transition-all duration-300 ease-in-out">
           <Sidebar open={sidebarOpen} />
-          <main className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'ml-64' : 'ml-0'} pt-8 pb-6 px-6 max-w-2xl mx-auto`}>
+          <main className={`transition-all duration-300 ease-in-out pt-8 pb-6 px-6 max-w-2 mx-auto`}>
             <h1 className="text-3xl font-bold mb-6">🍱 {type.charAt(0).toUpperCase() + type.slice(1)} Meal Planner</h1>
             <form className="mb-8 flex flex-col md:flex-row gap-4 items-center">
               <label className="font-semibold">Health Goal:</label>
@@ -185,9 +185,9 @@ export default function CountryPage({ params }) {
   return (
     <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="pt-20 relative transition-all duration-300 ease-in-out">
+      <div className="pt-40 relative transition-all duration-300 ease-in-out">
         <Sidebar open={sidebarOpen} />
-        <main className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'ml-64' : 'ml-0'} pt-8 pb-6 px-6`}>
+        <main className={`transition-all duration-300 ease-in-out pt-8 pb-6 px-6`}>
           <h1 className="text-3xl font-bold mb-6">🌏 {type.charAt(0).toUpperCase() + type.slice(1)} Cuisine</h1>
           <p className="text-gray-500">Meal planner is coming soon for this cuisine.</p>
         </main>

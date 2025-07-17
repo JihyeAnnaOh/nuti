@@ -49,28 +49,28 @@ export default function CaloriePage() {
   return (
     <div
       style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
-      className="min-h-screen"
+      className="min-h-screen bg-[#F8F4F2]"
     >
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="pt-20 relative transition-all duration-300 ease-in-out">
+      <div className="pt-40 relative transition-all duration-300e-in-out">
         <Sidebar open={sidebarOpen} />
-        <main
-          className={`transition-all duration-300 ease-in-out ${
-            sidebarOpen ? 'ml-64' : 'ml-0'
-          } pt-16 pb-6 px-6 flex flex-wrap lg:flex-nowrap lg:gap-8`}
-        >
-          {/* Main content area: Upload, Result, Nearby */}
-          <div className="w-full lg:flex-1 mb-8 lg:mb-0">
-            <div className={`space-y-6 ${result ? '' : 'max-w-md w-full text-center mx-auto'}`}>
+        <main className={`transition-all duration-300e-in-out flex flex-col items-center justify-center min-h-calc(100h-5rem)]`}>
+          <div className="container mx-auto mt-10 p-6 sm:p-8 md:p-12 bg-white/80 rounded-3xl shadow-lg w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans" style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}>
+              Calorie Finder
+            </h1>
+            <div className="space-y-6 max-w-xl mx-auto">
               <UploadBox onResult={setResult} />
-              <FoodResultCard result={result} />
+              <div className="flex flex-col items-center">
+                <FoodResultCard result={result} imgClassName="w-28 h-28 md:w-32 md:h-32 object-cover rounded-2xl shadow-lg mb-4" />
+              </div>
               {result?.name && <NearbyResults keyword={result.name} />}
             </div>
           </div>
 
           {/* History Section */}
-          <div className="w-full lg:flex-1">
-            <h2 className="text-2xl font-bold mb-4 lg:mt-0">Recent Searches</h2>
+          <div className="container mx-auto mt-8 p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+            <h2 className="text-xl md:text-2xl font-bold mb-4 text-center text-[#B48C8C] italic tracking-widest uppercase">Recent Searches</h2>
             {history.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {history.map((item, index) => (
@@ -85,7 +85,7 @@ export default function CaloriePage() {
                         e.stopPropagation();
                         handleDeleteHistory(index);
                       }}
-                      className="absolute top-2 right-2 w-7 h-7 bg-pink-200 hover:bg-pink-300 text-red-500 hover:text-red-700 text-lg font-bold transition-colors rounded flex items-center justify-center"
+                      className="absolute top-2 right-2 w-7 h-7 bg-[var(--primary)] hover:bg-[var(--accent)] text-white text-lg font-bold transition-colors rounded-full flex items-center justify-center"
                       style={{ width: '28px', height: '28px', minWidth: '28px', minHeight: '28px' }}
                       title="Delete from history"
                     >

@@ -60,9 +60,9 @@ export default function Home() {
   return (
     <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="pt-20 relative transition-all duration-300 ease-in-out">
+      <div className="pt-33 relative transition-all duration-300e-in-out">
         <Sidebar open={sidebarOpen} />
-        <main className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'ml-64' : 'ml-0'} flex flex-col items-center min-h-[calc(100vh-5rem)] bg-[#F8F4F2]`}>
+        <main className={`transition-all duration-300e-in-out flex flex-col items-center min-h-[calc(100vh-5rem)] bg-[#F8F4F2]`}>
 
           {/* 1. Hero Section */}
           <section className="w-full flex flex-col items-center justify-center mt-6 min-h-[85vh] relative overflow-hidden">
@@ -80,7 +80,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-[#F8F4F2]/30 z-10" />
             <div className="relative z-20 flex flex-col items-center justify-center py-24">
               <h1
-                className="text-5xl md:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans"
                 style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}
               >
                 Wellness That Feels Like Home
@@ -158,7 +158,12 @@ export default function Home() {
                 >
                   <span className="text-3xl mb-2">{c.flag}</span>
                   <h4 className="text-lg font-bold mb-2 text-[#B48C8C]">{c.name}</h4>
-                  <button className="px-5 py-2 rounded-full bg-[#EECFD4] text-[#3B3B3B] font-semibold shadow hover:bg-[#DDB7AB] transition text-sm">Find Near Me</button>
+                  <Link 
+                    href={`/meal-planner?cuisine=${encodeURIComponent(c.name)}`}
+                    className="px-5 py-2 rounded-full bg-[#EECFD4] text-[#3B3B3B] font-semibold shadow hover:bg-[#DDB7AB] transition text-sm block text-center"
+                  >
+                    Find Near Me
+                  </Link>
                 </motion.div>
               ))}
             </div>

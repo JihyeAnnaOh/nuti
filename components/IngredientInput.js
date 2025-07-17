@@ -51,7 +51,7 @@ export default function IngredientInput({ ingredients, setIngredients }) {
           />
           <button 
             onClick={addIngredient} 
-            className="px-6 py-3 rounded-xl bg-[var(--primary)] text-[var(--text-light)] font-semibold hover:opacity-90 transition shadow-lg hover:shadow-xl"
+            className="px-4 py-2 rounded-full bg-[var(--primary)] text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-[var(--accent)] transition-all duration-200"
           >
             Add
           </button>

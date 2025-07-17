@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import LocationSearch from '../../../components/LocationSearch';
 import { toPng } from 'html-to-image';
+import { useSearchParams } from 'next/navigation';
 
 const MEAL_TYPES = ["breakfast", "lunch", "dinner", "snack"];
 
@@ -26,6 +27,7 @@ function getRandomItems(arr, n) {
 }
 
 export default function MealPlannerPage() {
+  const searchParams = useSearchParams();
   const [cuisines, setCuisines] = useState([]);
   const [cuisine, setCuisine] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -49,7 +51,13 @@ export default function MealPlannerPage() {
       const data = await res.json();
       if (data.meals) {
         setCuisines(data.meals.map(m => m.strArea));
-        setCuisine(data.meals[0]?.strArea || "");
+        // Check for cuisine query param
+        const cuisineParam = searchParams.get('cuisine');
+        if (cuisineParam && data.meals.some(m => m.strArea === cuisineParam)) {
+          setCuisine(cuisineParam);
+        } else {
+          setCuisine(data.meals[0]?.strArea || "");
+        }
       }
     }
     fetchCuisines();
@@ -205,13 +213,15 @@ export default function MealPlannerPage() {
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
+    <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen bg-[#F8F4F2]">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="pt-20 relative transition-all duration-300 ease-in-out">
+      <div className="pt-40 relative transition-all duration-300 ease-in-out">
         <Sidebar open={sidebarOpen} />
-        <main className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'ml-64' : 'ml-0'} flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]`}>
-          <div className="container mx-auto mt-10 p-4 sm:p-6 md:p-10 bg-white rounded-2xl shadow-lg w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">Meal Planner</h1>
+        <main className={`transition-all duration-300 ease-in-out flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]`}>
+          <div className="container mx-auto mt-10 p-6 sm:p-8 md:p-12 bg-white/80 rounded-3xl shadow-lg w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans" style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}>
+              Meal Planner
+            </h1>
             <div className="flex flex-col md:flex-row gap-4 mb-8">
               <div className="flex-1">
                 <label className="block mb-1 font-medium">Cultural Preference</label>
@@ -232,11 +242,11 @@ export default function MealPlannerPage() {
             {loading ? (
               <div className="text-center text-gray-400">Loading meal plan...</div>
             ) : mealPlan ? (
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
+              <div className="bg-white rounded-2xl shadow p-6 mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Your Daily Plan</h2>
                   <button
-                    className="px-4 py-2 rounded bg-[var(--primary)] text-[var(--text-light)] font-semibold hover:opacity-90 ml-4"
+                    className="px-5 py-2 rounded-full bg-[var(--primary)] text-white font-bold text-base shadow hover:bg-[var(--accent)] hover:text-[var(--primary)] ml-4 transition-all duration-200 tracking-wide"
                     onClick={regeneratePlan}
                     type="button"
                   >
@@ -255,18 +265,18 @@ export default function MealPlannerPage() {
                           className={`flex flex-col items-center gap-2 mb-2 p-2 rounded cursor-pointer transition border-2 min-w-0 ${selectedDishes[mealType]?.idMeal === dish.idMeal ? 'border-[var(--primary)] bg-[var(--primary-light)]' : 'border-transparent hover:bg-gray-100'}`}
                           onClick={() => handleSelectDish(mealType, dish)}
                         >
-                          <img src={dish.strMealThumb} alt={dish.strMeal} className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded shadow flex-shrink-0" />
+                          <img src={dish.strMealThumb} alt={dish.strMeal} className="w-24 h-24 object-cover rounded-2xl shadow-lg flex-shrink-0" />
                           <span className="font-semibold text-[var(--primary)] truncate block text-base md:text-lg text-center w-full">{dish.strMeal}</span>
                           <div className="flex gap-2 mt-2 w-full justify-center">
                             <button
-                              className="text-xs px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+                              className="text-xs px-4 py-2 rounded-full bg-gray-200 text-[var(--primary)] font-bold hover:bg-gray-300 transition-all duration-200 tracking-wide"
                               onClick={e => { e.stopPropagation(); swapMeal(mealType, idx); }}
                               type="button"
                             >
                               Swap
                             </button>
                             <button
-                              className="text-xs px-2 py-1 rounded bg-blue-200 text-blue-700 hover:bg-blue-300"
+                              className="text-xs px-4 py-2 rounded-full bg-blue-500 text-white font-bold hover:bg-blue-600 transition-all duration-200 tracking-wide"
                               onClick={e => {
                                 e.stopPropagation();
                                 setOptionsModal({ open: true, mealType, dish });
@@ -295,7 +305,7 @@ export default function MealPlannerPage() {
                           <span className="font-semibold capitalize text-[var(--primary)] text-base mb-2">{mealType}</span>
                           {dish ? (
                             <>
-                              <img src={dish.strMealThumb} alt={dish.strMeal} className="w-20 h-20 object-cover rounded-lg shadow mb-2 border border-gray-200" />
+                              <img src={dish.strMealThumb} alt={dish.strMeal} className="w-28 h-28 object-cover rounded-2xl shadow-lg mb-2 border border-gray-200" />
                               <span className="font-semibold text-center text-gray-800">{dish.strMeal}</span>
                             </>
                           ) : (
@@ -318,7 +328,7 @@ export default function MealPlannerPage() {
                     <div className="flex flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 mt-5 flex-wrap">
                       {/* Download as Image button first */}
                       <button
-                        className="w-40 md:w-48 lg:w-52 h-12 md:h-14 lg:h-16 flex items-center justify-center rounded-2xl bg-[var(--primary)] !text-white font-semibold text-sm md:text-base lg:text-lg shadow-lg hover:bg-[var(--accent)] hover:!text-[var(--text-light)] transition whitespace-nowrap"
+                        className="w-40 md:w-48 lg:w-52 h-12 md:h-14 lg:h-16 flex items-center justify-center rounded-full bg-[var(--primary)] !text-white font-bold text-sm md:text-base lg:text-lg shadow-lg hover:bg-[var(--accent)] hover:!text-[var(--text-light)] transition whitespace-nowrap"
                         onClick={handleDownloadImage}
                         type="button"
                         title="Download as Image"
@@ -327,7 +337,7 @@ export default function MealPlannerPage() {
                       </button>
                       {/* Social media icons */}
                       <button
-                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-full bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToWhatsApp}
                         type="button"
                         title="Share on WhatsApp"
@@ -335,7 +345,7 @@ export default function MealPlannerPage() {
                         <Image src={SOCIAL_ICONS.whatsapp} alt="WhatsApp" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                       <button
-                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-full bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToX}
                         type="button"
                         title="Share on X"
@@ -343,7 +353,7 @@ export default function MealPlannerPage() {
                         <Image src={SOCIAL_ICONS.x} alt="X" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                       <button
-                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-full bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToFacebook}
                         type="button"
                         title="Share on Facebook"
@@ -351,7 +361,7 @@ export default function MealPlannerPage() {
                         <Image src={SOCIAL_ICONS.facebook} alt="Facebook" width={40} height={40} className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                       </button>
                       <button
-                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl bg-neutral-900 hover:scale-110 transition shadow-lg"
+                        className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-full bg-neutral-900 hover:scale-110 transition shadow-lg"
                         onClick={shareToThreads}
                         type="button"
                         title="Share on Threads"

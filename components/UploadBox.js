@@ -168,25 +168,25 @@ export default function UploadBox({ onResult }) {
     });
 
   return (
-    <div className="mb-6">
-      <h3 className="text-lg font-bold mb-3">🍽️ Identify Your Food</h3>
-
-      <div className="space-y-3">
-      {!streaming ? (
-          <button onClick={startCamera} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
-          📷 Take a Photo Now
-        </button>
-      ) : (
-        <div className="mb-3">
-          <video ref={videoRef} autoPlay playsInline className="w-64 rounded shadow" />
-            <button onClick={capturePhoto} className="bg-green-600 text-white mt-2 px-4 py-2 rounded w-full">
-            ✅ Capture
+    <div className="mb-6 bg-white/80 rounded-2xl shadow-lg p-6">
+      <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-6 drop-shadow-lg font-sans">
+        🍽️ Identify Your Food
+      </h3>
+      <div className="space-y-4">
+        {!streaming ? (
+          <button onClick={startCamera} className="w-full px-4 py-2 rounded-full bg-[var(--primary)] text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-[var(--accent)] transition-all duration-200 flex items-center justify-center gap-2">
+            <span role="img" aria-label="camera">📷</span> Take a Photo Now
           </button>
-        </div>
-      )}
-
-        <button onClick={triggerFileInput} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
-          📤 Upload a Photo
+        ) : (
+          <div className="mb-3 flex flex-col items-center">
+            <video ref={videoRef} autoPlay playsInline className="w-72 h-56 rounded-2xl shadow-lg object-cover mb-2" />
+            <button onClick={capturePhoto} className="w-full px-4 py-2 rounded-full bg-green-600 text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-green-700 transition-all duration-200 flex items-center justify-center gap-2 mt-2">
+              <span role="img" aria-label="capture">✅</span> Capture
+            </button>
+          </div>
+        )}
+        <button onClick={triggerFileInput} className="w-full px-4 py-2 rounded-full bg-blue-500 text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-blue-600 transition-all duration-200 flex items-center justify-center gap-2">
+          <span role="img" aria-label="upload">📤</span> Upload a Photo
         </button>
         <input 
           ref={fileInputRef}
@@ -196,8 +196,8 @@ export default function UploadBox({ onResult }) {
           className="hidden" 
         />
 
-      {preview && (
-          <div className="flex justify-center">
+        {preview && (
+          <div className="flex justify-center mt-4">
           <img src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
         </div>
       )}

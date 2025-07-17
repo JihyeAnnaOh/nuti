@@ -3,9 +3,29 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [scrolled, setScrolled] = useState(false);
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const router = useRouter();
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'ko', label: '한국어' },
+    { code: 'zh', label: '中文' },
+    { code: 'ja', label: '日本語' },
+    { code: 'vi', label: 'Tiếng Việt' },
+    { code: 'ar', label: 'العربية' },
+    { code: 'hi', label: 'हिन्दी' },
+    { code: 'ms', label: 'Bahasa Melayu' },
+    { code: 'it', label: 'Italiano' },
+  ];
+  const handleLanguageChange = (code) => {
+    setShowLangMenu(false);
+    // Remove existing locale prefix if present
+    const path = window.location.pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '');
+    router.push(`/${code}${path}`);
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -23,15 +43,6 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
         h-25 px-4 flex items-center justify-between overflow-visible`}
     >
       {/* Left: Sidebar toggle */}
-      <div className="flex items-center min-w-[48px]">
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="flex items-center justify-center h-10 w-10 border rounded shadow bg-white text-black hover:bg-gray-100"
-          style={{ fontSize: 24, lineHeight: '1' }}
-        >
-          {sidebarOpen ? '←' : '→'}
-        </button>
-      </div>
 
       {/* Center: Logo */}
       <div className="flex-1 flex justify-center items-center h-full">
@@ -49,13 +60,27 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
       </div>
 
       {/* Right: Language button */}
-      <div className="flex items-center min-w-[120px] justify-end">
+      <div className="flex items-center min-w-[120px] justify-end relative">
         <button
-          className="text-sm border px-3 py-1 rounded bg-white text-black hover:bg-gray-100"
-          style={{ fontSize: 16, height: 36 }}
+          className={`px-2 py-1 rounded-lg font-bold italic text-xs transition-all duration-200 bg-transparent text-white hover:bg-[var(--primary-light)] hover:text-[var(--primary)] shadow-none border-none outline-none`}
+          style={{ fontSize: 13, height: 28 }}
+          onClick={() => setShowLangMenu(v => !v)}
         >
-          🌐 Language
+          <span className="text-white">🌐 LANGUAGE</span>
         </button>
+        {showLangMenu && (
+          <div className="absolute right-0 top-full mt-1 bg-white border rounded shadow-lg z-50 min-w-[180px] max-h-[320px] overflow-y-auto">
+            {languages.map((lang, idx) => (
+              <button
+                key={lang.code}
+                onClick={() => handleLanguageChange(lang.code)}
+                className={`block w-full text-left px-4 py-2 hover:bg-gray-100 ${idx !== languages.length - 1 ? 'border-b' : ''}`}
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </header>
   );
