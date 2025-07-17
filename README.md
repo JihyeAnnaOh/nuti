@@ -26,10 +26,10 @@
 ### App Screenshots
 
 
-![Nuti Homepage Screenshot](public/images/Landpage_screenshot_1.png)
-![Nuti Homepage Screenshot](public/images/Landpage_screenshot_2.png)
-![Nuti Homepage Screenshot](public/images/Landpage_screenshot_3.png)
-![Nuti Homepage Screenshot](public/images/Landpage_screenshot_4.png)
+![Nuti Homepage Screenshot](public/images/Landpage_screenshot1.png)
+![Nuti Homepage Screenshot](public/images/Landpage_screenshot2.png)
+![Nuti Homepage Screenshot](public/images/Landpage_screenshot3.png)
+![Nuti Homepage Screenshot](public/images/Landpage_screenshot4.png)
 
 ![Nuti Meal Planner Screenshot 1](public/images/MealPlanner_screenshot_1.png)
 ![Nuti Meal Planner Screenshot 2](public/images/MealPlanner_screenshot_2.png)
@@ -40,12 +40,12 @@
 ![Nuti Calorie Finder Screenshot 2](public/images/CalorieFinder_screenshot_2.png)
 ![Nuti Calorie Finder Screenshot 3](public/images/CalorieFinder_screenshot_3.png)
 
-![Nuti Recipe Discovery Screenshot 1](public/images/RecipeDiscovery_Screenshot1.png)
-![Nuti Recipe Discovery Screenshot 2](public/images/RecipeDiscovery_Screenshot2.png)
-![Nuti Recipe Discovery Screenshot 3](public/images/RecipeDiscovery_Screenshot3.png)
-![Nuti Recipe Discovery Screenshot 4](public/images/RecipeDiscovery_Screenshot4.png)
-![Nuti Recipe Discovery Screenshot 5](public/images/RecipeDiscovery_Screenshot5.png)
-![Nuti Recipe Discovery Screenshot 6](public/images/RecipeDiscovery_Screenshot6.png)
+![Nuti Recipe Discovery Screenshot 1](public/images/RecipeDiscovery_Screenshot_1.png)
+![Nuti Recipe Discovery Screenshot 2](public/images/RecipeDiscovery_Screenshot_2.png)
+![Nuti Recipe Discovery Screenshot 3](public/images/RecipeDiscovery_Screenshot_3.png)
+![Nuti Recipe Discovery Screenshot 4](public/images/RecipeDiscovery_Screenshot_4.png)
+![Nuti Recipe Discovery Screenshot 5](public/images/RecipeDiscovery_Screenshot_5.png)
+![Nuti Recipe Discovery Screenshot 6](public/images/RecipeDiscovery_Screenshot_6.png)
 
 ---
 
