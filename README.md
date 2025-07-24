@@ -1,5 +1,9 @@
 ### ON-GOING PERSONAL PROJECT ###
 
+# Deployment
+https://nuti-nu.vercel.app/
+
+
 # 🥗 Nuti - AI-Powered Cultural Food Recognition
 
 **Nuti** is a single-page web app (SPA) that helps multicultural Australians identify foods through AI image recognition and discover nearby restaurants or groceries that match their cultural preferences.
@@ -111,5 +115,3 @@ npm run dev
 - Social share buttons provide quick access to share text, but for image sharing, use the download feature.
 
 ---
-
-## Will deploy on Vercel. 
