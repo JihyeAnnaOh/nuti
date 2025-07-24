@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
 import Image from 'next/image';
@@ -26,7 +26,7 @@ function getRandomItems(arr, n) {
   return shuffled.slice(0, n);
 }
 
-export default function MealPlannerPage() {
+function MealPlannerPage() {
   const searchParams = useSearchParams();
   const [cuisines, setCuisines] = useState([]);
   const [cuisine, setCuisine] = useState("");
@@ -544,5 +544,13 @@ export default function MealPlannerPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PageWrapper(props) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MealPlannerPage {...props} />
+    </Suspense>
   );
 } 
