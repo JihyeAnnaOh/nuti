@@ -416,7 +416,7 @@ export default function MealPlannerPage() {
               </div>
             ) : (
               <div className="mt-4">
-                <h4 className="font-semibold mb-2 text-center">Nearby Restaurants for "{optionsModal.dish.strMeal}"</h4>
+                <h4 className="font-semibold mb-2 text-center">Nearby Restaurants for &quot;{optionsModal.dish.strMeal}&quot;</h4>
                 {nearbyLoading ? (
                   <p className="text-gray-500 text-center">Searching nearby places...</p>
                 ) : nearbyError ? (
