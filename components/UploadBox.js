@@ -1,4 +1,6 @@
 'use client';
+import Image from 'next/image';
+
 
 import { useState, useRef } from 'react';
 
@@ -198,7 +200,7 @@ export default function UploadBox({ onResult }) {
 
         {preview && (
           <div className="flex justify-center mt-4">
-          <img src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
+          <Image src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
         </div>
       )}
 
