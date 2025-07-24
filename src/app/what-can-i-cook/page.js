@@ -8,6 +8,7 @@ import RecipeResultCard from '../../../components/RecipeResultCard';
 import { getRecipesByIngredients } from '../../../lib/recipesApi';
 import { getMapsSearchUrl } from '../../../lib/mapsApi';
 import jsPDF from 'jspdf';
+import Image from 'next/image';
 
 export default function WhatCanICookPage() {
   const [ingredients, setIngredients] = useState([]);
@@ -209,7 +210,7 @@ export default function WhatCanICookPage() {
                 </button>
               </div>
               
-              <img src={selectedRecipe.image} alt={selectedRecipe.title} className="w-full h-48 object-cover rounded-lg mb-4" />
+              <Image src={selectedRecipe.image} alt={selectedRecipe.title} width={600} height={192} className="w-full h-48 object-cover rounded-lg mb-4" />
               
               <div className="flex gap-2 mb-4">
                 <button

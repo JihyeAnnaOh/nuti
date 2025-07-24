@@ -61,7 +61,7 @@ export default function MealPlannerPage() {
       }
     }
     fetchCuisines();
-  }, []);
+  }, [searchParams]);
 
   // Fetch 3 random dishes per meal type from TheMealDB
   const fetchMealPlan = async (selectedCuisine) => {
@@ -265,7 +265,7 @@ export default function MealPlannerPage() {
                           className={`flex flex-col items-center gap-2 mb-2 p-2 rounded cursor-pointer transition border-2 min-w-0 ${selectedDishes[mealType]?.idMeal === dish.idMeal ? 'border-[var(--primary)] bg-[var(--primary-light)]' : 'border-transparent hover:bg-gray-100'}`}
                           onClick={() => handleSelectDish(mealType, dish)}
                         >
-                          <img src={dish.strMealThumb} alt={dish.strMeal} className="w-24 h-24 object-cover rounded-2xl shadow-lg flex-shrink-0" />
+                          <Image src={dish.strMealThumb} alt={dish.strMeal} width={96} height={96} className="w-24 h-24 object-cover rounded-2xl shadow-lg flex-shrink-0" />
                           <span className="font-semibold text-[var(--primary)] truncate block text-base md:text-lg text-center w-full">{dish.strMeal}</span>
                           <div className="flex gap-2 mt-2 w-full justify-center">
                             <button
@@ -305,7 +305,7 @@ export default function MealPlannerPage() {
                           <span className="font-semibold capitalize text-[var(--primary)] text-base mb-2">{mealType}</span>
                           {dish ? (
                             <>
-                              <img src={dish.strMealThumb} alt={dish.strMeal} className="w-28 h-28 object-cover rounded-2xl shadow-lg mb-2 border border-gray-200" />
+                              <Image src={dish.strMealThumb} alt={dish.strMeal} width={112} height={112} className="w-28 h-28 object-cover rounded-2xl shadow-lg mb-2 border border-gray-200" />
                               <span className="font-semibold text-center text-gray-800">{dish.strMeal}</span>
                             </>
                           ) : (
@@ -466,9 +466,11 @@ export default function MealPlannerPage() {
           }}
         >
           {/* Big Logo on Top */}
-          <img
+          <Image
             src="/images/logo.png"
             alt="NUTI Logo"
+            width={110}
+            height={40}
             style={{ width: 110, height: 'auto', margin: '0 auto 0.5px auto', display: 'block' }}
           />
           {/* Title */}
@@ -486,9 +488,11 @@ export default function MealPlannerPage() {
                   <div style={{ fontWeight: 800, color: '#DDB7AB', fontSize: 20, marginBottom: 8, textTransform: 'capitalize', letterSpacing: 0.2 }}>{mealType}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 18, minHeight: 64 }}>
                     {dish && (
-                      <img
+                      <Image
                         src={dish.strMealThumb}
                         alt={dish.strMeal}
+                        width={64}
+                        height={64}
                         style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #eee', background: '#faf7f6' }}
                       />
                     )}
@@ -526,9 +530,9 @@ export default function MealPlannerPage() {
             </button>
             <h3 className="text-lg font-bold mb-4 text-center">How to Share</h3>
             <p className="mb-2 text-gray-700 text-center">
-              To share on KakaoTalk, WeChat, or Instagram:<br />
+              To share on KakaoTalk, WeChat, or Instagram:&quot;<br />
               1. Download the image.<br />
-              2. Open the app and upload the image from your gallery.
+              2. Open the app and upload the image from your gallery.&quot;
             </p>
             <button
               className="block w-full mt-4 px-4 py-2 rounded bg-green-600 text-white font-semibold text-center hover:bg-green-700 transition"

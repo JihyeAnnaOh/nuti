@@ -1,7 +1,9 @@
+import Image from 'next/image';
+
 export default function RecipeResultCard({ recipe, onViewRecipe }) {
   return (
     <div className="bg-white rounded-xl shadow p-4 flex flex-col md:flex-row gap-4 border border-[#EECFD4] mb-4">
-      <img src={recipe.image} alt={recipe.title} className="w-32 h-32 object-cover rounded-xl" />
+      <Image src={recipe.image} alt={recipe.title} width={128} height={128} className="w-32 h-32 object-cover rounded-xl" />
       <div className="flex-1 flex flex-col justify-between">
         <div>
           <h3 className="text-xl font-bold mb-2">{recipe.title}</h3>

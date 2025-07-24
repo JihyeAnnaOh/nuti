@@ -80,7 +80,7 @@ export default function NearbyResults({ keyword }) {
         <LocationSearch onLocationSelect={handleLocationSelect} />
       </div>
 
-      <h3 className="text-xl font-semibold mb-3">Nearby Places for "{keyword}"</h3>
+      <h3 className="text-xl font-semibold mb-3">Nearby Places for &quot;{keyword}&quot;</h3>
       {loading ? (
         <p className="text-gray-500">Searching nearby places...</p>
       ) : error ? (

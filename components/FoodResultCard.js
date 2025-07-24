@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function FoodResultCard({ result }) {
     if (!result) return null;
   
@@ -6,7 +8,7 @@ export default function FoodResultCard({ result }) {
         <h3 className="text-xl font-bold mb-2">🍱 AI Result</h3>
         {result.preview && (
           <div className="mb-3 flex justify-center">
-            <img src={result.preview} alt="Food Preview" className="max-h-64 w-auto rounded shadow" />
+            <Image src={result.preview} alt="Food Preview" width={256} height={256} className="max-h-64 w-auto rounded shadow" />
           </div>
         )}
         <p><strong>Food:</strong> {result.name}</p>
