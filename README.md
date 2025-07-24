@@ -1,14 +1,12 @@
 ### ON-GOING PERSONAL PROJECT ###
 
-# Deployment
-https://nuti-nu.vercel.app/
-
 
 # 🥗 Nuti - AI-Powered Cultural Food Recognition
 
 **Nuti** is a single-page web app (SPA) that helps multicultural Australians identify foods through AI image recognition and discover nearby restaurants or groceries that match their cultural preferences.
 
----
+## Deployment
+https://nuti-nu.vercel.app/
 
 ## 🚀 Features
 
@@ -114,4 +112,43 @@ npm run dev
 - Share the image on WhatsApp, Facebook, X, Threads, or any platform by uploading the downloaded image.
 - Social share buttons provide quick access to share text, but for image sharing, use the download feature.
 
+**Technical Highlights:**
+- **Dynamic Meal Generation:** Uses user-selected cultural preferences to generate a daily meal plan, leveraging Firestore for dish data and custom logic for meal diversity.
+- **Interactive UI:** Users can swap dishes, regenerate plans, and select favorites, with real-time UI updates using React state management.
+- **Image Export:** Exports the meal plan as a styled image using the `html-to-image` library, enabling easy sharing on social platforms.
+- **Social Integration:** Quick-share buttons for WhatsApp, Facebook, X, and Threads, with custom share text and downloadable images.
+- **Tech Stack:** React, Next.js, TailwindCSS, Firebase Firestore, html-to-image, custom hooks.
+
 ---
+
+## 📉 Calorie Finder
+
+- Access the **Calorie Finder** from the sidebar or homepage.
+- Ever wondered how many calories are in your meal? Instantly estimate calories and nutrition by uploading a photo of your meal.
+- Upload a food photo and get instant calorie, vegetarian, and halal info.
+- See your recent searches and quickly revisit past results.
+
+**Technical Highlights:**
+- **AI-Powered Food Recognition:** Integrates Google Vision API for image label detection, providing robust food identification from user-uploaded photos.
+- **Nutrition Data Fetching:** Fetches calorie, vegetarian, and halal information from the Spoonacular API, with error handling and fallback logic.
+- **Recent Search History:** Implements localStorage-based history for instant access to previous analyses, with UI for deletion and re-analysis.
+- **Nearby Search:** Uses Google Maps API to find restaurants or stores related to the identified food, based on user geolocation or custom search.
+- **Tech Stack:** Next.js, React, Google Vision API, Spoonacular API, Google Maps API, localStorage.
+
+---
+
+## 🍳 Recipe Discovery
+
+- Access the **Recipe Discovery** tool from the sidebar.
+- Staring at your fridge, unsure what to cook? Find recipes you can make with the ingredients you have at home.
+- Enter your available ingredients and discover recipes you can make right now.
+- Filter by cuisine, diet, and cooking time to find the perfect dish.
+- Missing an ingredient? Find nearby stores to complete your recipe.
+
+**Technical Highlights:**
+- **Ingredient-Based Search:** Users input available ingredients, and the app fetches matching recipes from the Spoonacular API.
+- **Advanced Filtering:** Supports filtering by cuisine, diet, and cooking time, with dynamic UI updates.
+- **Missing Ingredient Detection:** Highlights missing ingredients and provides Google Maps links to find them nearby.
+- **PDF Export:** Allows users to download recipe details as a formatted PDF using `jsPDF`.
+- **Responsive UI:** Built with React and TailwindCSS for a seamless experience across devices.
+- **Tech Stack:** React, Next.js, Spoonacular API, Google Maps API, jsPDF.
