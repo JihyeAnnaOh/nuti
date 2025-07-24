@@ -200,7 +200,7 @@ export default function UploadBox({ onResult }) {
 
         {preview && (
           <div className="flex justify-center mt-4">
-          <Image src={preview} alt="Selected" className="w-64 rounded shadow mb-3" />
+          <Image src={preview} alt="Selected" width="20" height ="20" className="w-64 rounded shadow mb-3" />
         </div>
       )}
 

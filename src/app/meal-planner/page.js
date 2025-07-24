@@ -222,6 +222,7 @@ function MealPlannerPage() {
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans" style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}>
               Meal Planner
             </h1>
+            <p className="text-md text-gray-500 text-center mb-8 opacity-70 italic">Not sure what to eat today? Generate a daily meal plan based on your cultural and dietary preferences.</p>
             <div className="flex flex-col md:flex-row gap-4 mb-8">
               <div className="flex-1">
                 <label className="block mb-1 font-medium">Cultural Preference</label>

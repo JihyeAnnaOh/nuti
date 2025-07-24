@@ -6,7 +6,7 @@ const nextConfig = {
     localeDetection: true,
   },
   images: {
-    domains: ['www.themealdb.com', 'spoonacular.com', 'upload.wikimedia.org'],
+    domains: ['www.themealdb.com', 'spoonacular.com', 'upload.wikimedia.org', 'img.spoonacular.com'],
   },
 };
 

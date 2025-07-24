@@ -59,6 +59,7 @@ export default function CaloriePage() {
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans" style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}>
               Calorie Finder
             </h1>
+            <p className="text-md text-gray-500 text-center mb-8 opacity-70 italic">Ever wondered how many calories are in your meal? Instantly estimate calories and nutrition by uploading a photo of your meal.</p>
             <div className="space-y-6 max-w-xl mx-auto">
               <UploadBox onResult={setResult} />
               <div className="flex flex-col items-center">

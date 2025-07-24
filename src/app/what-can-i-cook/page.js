@@ -154,7 +154,7 @@ export default function WhatCanICookPage() {
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-4 drop-shadow-lg font-sans" style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}>
               Recipe Discovery
             </h1>
-            <p className="text-md text-gray-500 text-center mb-8 opacity-70 italic">Find Recipes with Your Ingredients</p>
+            <p className="text-md text-gray-500 text-center mb-8 opacity-70 italic">Staring at your fridge, unsure what to cook? Find recipes you can make with the ingredients you have at home.</p>
             <div className="bg-white/90 rounded-2xl shadow p-6 mb-6">
               <IngredientInput ingredients={ingredients} setIngredients={setIngredients} />
               <RecipeFilters filters={filters} setFilters={setFilters} />
