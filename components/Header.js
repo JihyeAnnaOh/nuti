@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '../src/app/contexts/TranslationContext';
 
 export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [scrolled, setScrolled] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
   const router = useRouter();
+  const { t, currentLanguage, changeLanguage } = useTranslation();
+  
   const languages = [
     { code: 'en', label: 'English' },
     { code: 'ko', label: '한국어' },
@@ -20,8 +23,11 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
     { code: 'ms', label: 'Bahasa Melayu' },
     { code: 'it', label: 'Italiano' },
   ];
+
   const handleLanguageChange = (code) => {
     setShowLangMenu(false);
+    changeLanguage(code);
+    
     // Remove existing locale prefix if present
     const path = window.location.pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '');
     router.push(`/${code}${path}`);
@@ -66,7 +72,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
           style={{ fontSize: 13, height: 28 }}
           onClick={() => setShowLangMenu(v => !v)}
         >
-          <span className="text-white">🌐 LANGUAGE</span>
+          <span className="text-white">🌐 {t('common.language')}</span>
         </button>
         {showLangMenu && (
           <div className="absolute right-0 top-full mt-1 bg-white border rounded shadow-lg z-50 min-w-[180px] max-h-[320px] overflow-y-auto">
@@ -74,7 +80,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`block w-full text-left px-4 py-2 hover:bg-gray-100 ${idx !== languages.length - 1 ? 'border-b' : ''}`}
+                className={`block w-full text-left px-4 py-2 hover:bg-gray-100 ${idx !== languages.length - 1 ? 'border-b' : ''} ${currentLanguage === lang.code ? 'bg-blue-50 font-semibold' : ''}`}
               >
                 {lang.label}
               </button>

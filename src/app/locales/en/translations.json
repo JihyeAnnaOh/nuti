@@ -1,0 +1,132 @@
+{
+  "common": {
+    "language": "LANGUAGE",
+    "home": "HOME",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "download": "Download",
+    "share": "Share",
+    "close": "Close"
+  },
+  "navigation": {
+    "home": "HOME",
+    "mealPlanner": "MEAL PLANNER",
+    "calorieFinder": "CALORIE FINDER",
+    "recipeDiscovery": "RECIPE DISCOVERY",
+    "foodRecognition": "FOOD RECOGNITION"
+  },
+  "home": {
+    "title": "AI-Powered Cultural Food Recognition",
+    "subtitle": "Discover foods through AI image recognition and find nearby restaurants or groceries that match your cultural preferences.",
+    "features": {
+      "camera": "Camera & Image Upload",
+      "ai": "AI Recognition",
+      "nutrition": "Nutritional Info",
+      "cultural": "Cultural Relevance",
+      "nearby": "Smart Nearby Places",
+      "history": "Recent Searches History",
+      "mealPlanner": "Meal Planner Tool",
+      "calorieFinder": "Calorie Finder Tool",
+      "recipeDiscovery": "Recipe Discovery Tool",
+      "download": "Download Meal Plan as Image",
+      "share": "Share UI"
+    }
+  },
+  "foodRecognition": {
+    "title": "Food Recognition",
+    "uploadImage": "Upload Image",
+    "takePhoto": "Take Photo",
+    "dragDrop": "Drag and drop an image here, or click to select",
+    "analyzing": "Analyzing image...",
+    "results": {
+      "name": "Food Name",
+      "calories": "Calories",
+      "vegetarian": "Vegetarian",
+      "halal": "Halal",
+      "unknown": "Unknown"
+    }
+  },
+  "mealPlanner": {
+    "title": "Meal Planner",
+    "selectCuisine": "Select your cultural preference:",
+    "cuisines": {
+      "american": "American",
+      "chinese": "Chinese",
+      "italian": "Italian",
+      "japanese": "Japanese",
+      "korean": "Korean",
+      "indian": "Indian",
+      "mexican": "Mexican",
+      "thai": "Thai",
+      "vietnamese": "Vietnamese",
+      "mediterranean": "Mediterranean"
+    },
+    "meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack"
+    },
+    "actions": {
+      "generate": "Generate Meal Plan",
+      "regenerate": "Regenerate",
+      "swap": "Swap",
+      "select": "Select",
+      "download": "Download as Image"
+    },
+    "noMeals": "No meals found for this cuisine. Please try another."
+  },
+  "calorieFinder": {
+    "title": "Calorie Finder",
+    "searchPlaceholder": "Enter food name...",
+    "search": "Search",
+    "results": {
+      "calories": "Calories",
+      "protein": "Protein",
+      "carbs": "Carbohydrates",
+      "fat": "Fat",
+      "fiber": "Fiber",
+      "sugar": "Sugar"
+    },
+    "noResults": "No results found"
+  },
+  "recipeDiscovery": {
+    "title": "Recipe Discovery",
+    "ingredients": "Ingredients",
+    "addIngredient": "Add ingredient",
+    "filters": {
+      "title": "Filters",
+      "cuisine": "Cuisine",
+      "diet": "Diet",
+      "time": "Max Cooking Time (minutes)",
+      "maxIngredients": "Max Ingredients"
+    },
+    "search": "Find Recipes",
+    "results": {
+      "cookingTime": "Cooking Time",
+      "servings": "Servings",
+      "missingIngredients": "Missing Ingredients",
+      "instructions": "Instructions",
+      "viewRecipe": "View Recipe",
+      "findNearby": "Find Nearby"
+    }
+  },
+  "nearby": {
+    "title": "Nearby Places",
+    "searchPlaceholder": "Search for places...",
+    "location": "Location",
+    "useCurrentLocation": "Use Current Location",
+    "results": {
+      "openNow": "Open Now",
+      "closed": "Closed",
+      "distance": "Distance",
+      "directions": "Get Directions"
+    }
+  }
+} 

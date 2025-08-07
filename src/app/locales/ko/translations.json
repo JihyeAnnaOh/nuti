@@ -1,0 +1,132 @@
+{
+  "common": {
+    "language": "언어",
+    "home": "홈",
+    "loading": "로딩 중...",
+    "error": "오류",
+    "success": "성공",
+    "cancel": "취소",
+    "save": "저장",
+    "search": "검색",
+    "filter": "필터",
+    "clear": "지우기",
+    "download": "다운로드",
+    "share": "공유",
+    "close": "닫기"
+  },
+  "navigation": {
+    "home": "홈",
+    "mealPlanner": "식단 계획",
+    "calorieFinder": "칼로리 검색",
+    "recipeDiscovery": "레시피 발견",
+    "foodRecognition": "음식 인식"
+  },
+  "home": {
+    "title": "AI 기반 문화별 음식 인식",
+    "subtitle": "AI 이미지 인식을 통해 음식을 발견하고 문화적 선호도에 맞는 주변 레스토랑이나 식료품점을 찾아보세요.",
+    "features": {
+      "camera": "카메라 및 이미지 업로드",
+      "ai": "AI 인식",
+      "nutrition": "영양 정보",
+      "cultural": "문화적 관련성",
+      "nearby": "스마트 주변 장소",
+      "history": "최근 검색 기록",
+      "mealPlanner": "식단 계획 도구",
+      "calorieFinder": "칼로리 검색 도구",
+      "recipeDiscovery": "레시피 발견 도구",
+      "download": "식단 계획을 이미지로 다운로드",
+      "share": "공유 UI"
+    }
+  },
+  "foodRecognition": {
+    "title": "음식 인식",
+    "uploadImage": "이미지 업로드",
+    "takePhoto": "사진 촬영",
+    "dragDrop": "여기에 이미지를 끌어다 놓거나 클릭하여 선택하세요",
+    "analyzing": "이미지 분석 중...",
+    "results": {
+      "name": "음식 이름",
+      "calories": "칼로리",
+      "vegetarian": "채식주의",
+      "halal": "할랄",
+      "unknown": "알 수 없음"
+    }
+  },
+  "mealPlanner": {
+    "title": "식단 계획",
+    "selectCuisine": "문화적 선호도를 선택하세요:",
+    "cuisines": {
+      "american": "미국식",
+      "chinese": "중국식",
+      "italian": "이탈리아식",
+      "japanese": "일본식",
+      "korean": "한국식",
+      "indian": "인도식",
+      "mexican": "멕시코식",
+      "thai": "태국식",
+      "vietnamese": "베트남식",
+      "mediterranean": "지중해식"
+    },
+    "meals": {
+      "breakfast": "아침",
+      "lunch": "점심",
+      "dinner": "저녁",
+      "snack": "간식"
+    },
+    "actions": {
+      "generate": "식단 계획 생성",
+      "regenerate": "재생성",
+      "swap": "교체",
+      "select": "선택",
+      "download": "이미지로 다운로드"
+    },
+    "noMeals": "이 요리에 대한 식사가 없습니다. 다른 것을 시도해보세요."
+  },
+  "calorieFinder": {
+    "title": "칼로리 검색",
+    "searchPlaceholder": "음식 이름을 입력하세요...",
+    "search": "검색",
+    "results": {
+      "calories": "칼로리",
+      "protein": "단백질",
+      "carbs": "탄수화물",
+      "fat": "지방",
+      "fiber": "섬유질",
+      "sugar": "당분"
+    },
+    "noResults": "결과를 찾을 수 없습니다"
+  },
+  "recipeDiscovery": {
+    "title": "레시피 발견",
+    "ingredients": "재료",
+    "addIngredient": "재료 추가",
+    "filters": {
+      "title": "필터",
+      "cuisine": "요리",
+      "diet": "식단",
+      "time": "최대 조리 시간 (분)",
+      "maxIngredients": "최대 재료 수"
+    },
+    "search": "레시피 찾기",
+    "results": {
+      "cookingTime": "조리 시간",
+      "servings": "인분",
+      "missingIngredients": "부족한 재료",
+      "instructions": "조리법",
+      "viewRecipe": "레시피 보기",
+      "findNearby": "주변에서 찾기"
+    }
+  },
+  "nearby": {
+    "title": "주변 장소",
+    "searchPlaceholder": "장소 검색...",
+    "location": "위치",
+    "useCurrentLocation": "현재 위치 사용",
+    "results": {
+      "openNow": "영업 중",
+      "closed": "폐점",
+      "distance": "거리",
+      "directions": "길찾기"
+    }
+  }
+} 

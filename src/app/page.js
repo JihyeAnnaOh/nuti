@@ -12,11 +12,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from "./contexts/TranslationContext";
 
 export default function Home() {
   const [result, setResult] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [history, setHistory] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Load history from localStorage on mount
@@ -83,7 +85,7 @@ export default function Home() {
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold italic tracking-widest uppercase text-center text-[#B48C8C] mb-8 drop-shadow-lg font-sans"
                 style={{ WebkitTextStroke: '2px #fff', textShadow: '0 2px 16px #fff, 0 1px 0 #EECFD4' }}
               >
-                Wellness That Feels Like Home
+                {t('home.title')}
               </h1>
             </div>
           </section>
