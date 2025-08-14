@@ -28,20 +28,7 @@ export default function SeasonalBanner() {
   const currentFestival = upcomingFestivals[currentIndex];
   if (!currentFestival) return null;
 
-  const getThemeColors = (theme) => {
-    switch (theme) {
-      case 'purple-blue':
-        return 'from-purple-500 to-blue-500';
-      case 'red-gold':
-        return 'from-red-500 to-yellow-500';
-      case 'orange-yellow':
-        return 'from-orange-500 to-yellow-500';
-      case 'red-green':
-        return 'from-red-500 to-green-500';
-      default:
-        return 'from-purple-500 to-blue-500';
-    }
-  };
+  // NUTI palette status pill colors (no blue)
 
   const getFestivalIcon = (key) => {
     switch (key) {
@@ -69,59 +56,47 @@ export default function SeasonalBanner() {
   };
 
   const getStatusColor = () => {
-    if (isToday) return 'bg-green-500 text-white';
-    if (isPast) return 'bg-gray-500 text-white';
-    return 'bg-blue-500 text-white';
+    if (isToday) return 'bg-[#B48C8C] text-white';
+    if (isPast) return 'bg-gray-300 text-[#3B3B3B]';
+    return 'bg-[var(--primary)] text-[#3B3B3B]';
   };
 
   return (
-    <div className="w-full bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-      <div className="max-w-6xl mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">{getFestivalIcon(currentFestival.key)}</span>
-            <div>
-              <h3 className="text-sm font-semibold text-gray-800">
-                {currentFestival.name}
-                {currentFestival.chineseName && (
-                  <span className="text-gray-600 ml-2">({currentFestival.chineseName})</span>
-                )}
-                {currentFestival.hindiName && (
-                  <span className="text-gray-600 ml-2">({currentFestival.hindiName})</span>
-                )}
-              </h3>
-              <p className="text-xs text-gray-600">{currentFestival.description}</p>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="bg-white/80 backdrop-blur-sm border border-[#EECFD4] rounded-2xl shadow-sm px-4 py-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">{getFestivalIcon(currentFestival.key)}</span>
+              <div>
+                <h3 className="text-sm font-semibold text-[#B48C8C]">
+                  {currentFestival.name}
+                  {currentFestival.chineseName && (
+                    <span className="text-[#7C6A6A] ml-2">({currentFestival.chineseName})</span>
+                  )}
+                  {currentFestival.hindiName && (
+                    <span className="text-[#7C6A6A] ml-2">({currentFestival.hindiName})</span>
+                  )}
+                </h3>
+                <p className="text-xs text-[#7C6A6A]">{currentFestival.description}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor()}`}>
+                {getStatusText()}
+              </span>
+              <Link
+                href={`/what-can-i-cook?season=autumn&festival=${currentFestival.key}`}
+                className="text-xs px-3 py-1 rounded-full bg-[var(--primary)] text-[#3B3B3B] font-semibold shadow hover:bg-[var(--accent)] transition"
+              >
+                View Recipes →
+              </Link>
             </div>
           </div>
-          
-          <div className="flex items-center gap-3">
-            <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor()}`}>
-              {getStatusText()}
-            </span>
-            
-            <Link
-              href={`/what-can-i-cook?season=autumn&festival=${currentFestival.key}`}
-              className="text-xs text-blue-600 hover:text-blue-800 font-medium"
-            >
-              View Recipes →
-            </Link>
-          </div>
-        </div>
 
-        {/* Progress dots for multiple festivals */}
-        {upcomingFestivals.length > 1 && (
-          <div className="flex justify-center gap-1 mt-2">
-            {upcomingFestivals.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-blue-500' : 'bg-gray-300'
-                }`}
-              />
-            ))}
-          </div>
-        )}
+          {/* Progress dots removed per branding preference */}
+        </div>
       </div>
     </div>
   );

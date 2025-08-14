@@ -46,7 +46,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
       className={`fixed top-0 w-full z-50 transition-colors duration-300
         ${scrolled ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-md'
                    : 'bg-transparent text-[var(--foreground)]'}
-        h-25 px-4 flex items-center justify-between overflow-visible`}
+        h-24 px-4 flex items-center justify-between overflow-visible`}
     >
       {/* Left: Sidebar toggle */}
 

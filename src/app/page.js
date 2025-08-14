@@ -64,15 +64,15 @@ export default function Home() {
   return (
     <div style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }} className="min-h-screen">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="pt-33 relative transition-all duration-300e-in-out">
+      <div className="pt-38 relative transition-all duration-300 ease-in-out">
         <Sidebar open={sidebarOpen} />
-        <main className={`transition-all duration-300e-in-out flex flex-col items-center min-h-[calc(100vh-5rem)] bg-[#F8F4F2]`}>
+        <main className={`transition-all duration-300 ease-in-out flex flex-col items-center min-h-[calc(100vh-5rem)] bg-[#F8F4F2]`}>
 
           {/* Seasonal Banner */}
           <SeasonalBanner />
 
           {/* 1. Hero Section */}
-          <section className="w-full flex flex-col items-center justify-center mt-6 min-h-[85vh] relative overflow-hidden">
+          <section className="w-full flex flex-col items-center justify-center mt-0 min-h-[85vh] relative overflow-hidden">
             <video
               autoPlay
               loop
