@@ -1,6 +1,7 @@
 import Image from 'next/image';
+import FeedbackWidget from './FeedbackWidget';
 
-export default function FoodResultCard({ result }) {
+export default function FoodResultCard({ result, confidence, latency }) {
     if (!result) return null;
   
     return (
@@ -15,6 +16,14 @@ export default function FoodResultCard({ result }) {
         <p><strong>Calories(per typical serving):</strong> {result.calories}</p>
         <p><strong>Vegetarian:</strong> {result.vegetarian}</p>
         <p><strong>Halal:</strong> {result.halal}</p>
+        
+        <div className="mt-4 pt-3 border-t">
+          <FeedbackWidget 
+            context={`food:${result.name}`}
+            confidence={confidence}
+            latency={latency}
+          />
+        </div>
       </div>
     );
   }

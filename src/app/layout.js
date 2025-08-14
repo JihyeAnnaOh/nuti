@@ -3,6 +3,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TranslationProvider } from "./contexts/TranslationContext";
+import FloatingFeedbackWidget from "../../components/FloatingFeedbackWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       >
         <TranslationProvider>
           {children}
+          <FloatingFeedbackWidget />
         </TranslationProvider>
       </body>
     </html>

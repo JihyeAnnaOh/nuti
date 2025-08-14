@@ -3,11 +3,14 @@ import Image from 'next/image';
 
 
 import { useState, useRef } from 'react';
+import FeedbackWidget from './FeedbackWidget';
 
 export default function UploadBox({ onResult }) {
   const [preview, setPreview] = useState(null);
   const [streaming, setStreaming] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [analysisLatency, setAnalysisLatency] = useState(null);
+  const [lastResult, setLastResult] = useState(null);
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -97,6 +100,7 @@ export default function UploadBox({ onResult }) {
 
   const analyzeWithVision = async (imageURL) => {
     setLoading(true);
+    const startTime = performance.now();
     let finalLabel = "Unknown food";
 
     try {
@@ -137,26 +141,36 @@ export default function UploadBox({ onResult }) {
     // Continue regardless of above failure
     try {
       const facts = await getNutritionFromLabel(finalLabel);
+      const endTime = performance.now();
+      const latency = Math.round(endTime - startTime);
+      
       setLoading(false);
-      console.log(facts)
-      onResult({
+      setAnalysisLatency(latency);
+      
+      const resultData = {
         name: finalLabel,
         calories: facts.calories,
         vegetarian: facts.vegetarian,
         halal: facts.halal,
         preview: imageURL
-      });
+      };
+      
+      setLastResult(resultData);
+      onResult(resultData);
       setPreview(null);
     } catch (err) {
       setLoading(false);
       console.error("Final fallback failed:", err);
-      onResult({
+      const resultData = {
         name: finalLabel,
         calories: "N/A",
         vegetarian: "N/A",
         halal: "N/A",
         preview: imageURL
-      });
+      };
+      
+      setLastResult(resultData);
+      onResult(resultData);
       setPreview(null);
     }
   };
@@ -205,6 +219,16 @@ export default function UploadBox({ onResult }) {
       )}
 
       {loading && <p className="text-blue-600 text-sm">Analyzing image...</p>}
+      
+      {lastResult && (
+        <div className="mt-4 pt-4 border-t">
+          <FeedbackWidget 
+            context={`food-identification:${lastResult.name}`}
+            confidence={lastResult.calories !== "N/A" ? 'high' : 'low'}
+            latency={analysisLatency ? `${analysisLatency}ms` : 'unknown'}
+          />
+        </div>
+      )}
       </div>
     </div>
   );
