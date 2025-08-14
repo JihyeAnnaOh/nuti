@@ -8,6 +8,8 @@ import Sidebar from "../../components/Sidebar";
 import UploadBox from "../../components/UploadBox";
 import FoodResultCard from "../../components/FoodResultCard";
 import NearbyResults from "../../components/NearbyResults";
+import SeasonalPopup from "../../components/SeasonalPopup";
+import SeasonalBanner from "../../components/SeasonalBanner";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
@@ -65,6 +67,9 @@ export default function Home() {
       <div className="pt-33 relative transition-all duration-300e-in-out">
         <Sidebar open={sidebarOpen} />
         <main className={`transition-all duration-300e-in-out flex flex-col items-center min-h-[calc(100vh-5rem)] bg-[#F8F4F2]`}>
+
+          {/* Seasonal Banner */}
+          <SeasonalBanner />
 
           {/* 1. Hero Section */}
           <section className="w-full flex flex-col items-center justify-center mt-6 min-h-[85vh] relative overflow-hidden">
@@ -194,6 +199,9 @@ export default function Home() {
 
         </main>
       </div>
+      
+      {/* Seasonal Festival Popup */}
+      <SeasonalPopup />
     </div>
   );
 }
