@@ -102,7 +102,7 @@ export default function FloatingFeedbackWidget() {
   const getFeedbackTitle = () => {
     if (isSubmitted) return 'Thank you!';
     if (feedbackType === 'positive') return 'Great!';
-    if (feedbackType === 'negative') return 'We\'re sorry';
+    if (feedbackType === 'negative') return 'We are sorry';
     if (feedbackType === 'suggestion') return 'Share your idea';
     if (feedbackType === 'bug') return 'Report an issue';
     return 'Feedback';
@@ -176,7 +176,7 @@ export default function FloatingFeedbackWidget() {
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">😞</span>
                       <div>
-                        <div className="font-medium text-gray-900">Something's wrong</div>
+                        <div className="font-medium text-gray-900">Something&apos;s wrong</div>
                         <div className="text-sm text-gray-500">Tell us what's not working</div>
                       </div>
                     </div>
@@ -223,9 +223,9 @@ export default function FloatingFeedbackWidget() {
                       value={feedback}
                       onChange={(e) => setFeedback(e.target.value)}
                       placeholder={
-                        feedbackType === 'negative' ? 'Tell us what happened...' :
-                        feedbackType === 'suggestion' ? 'Share your idea...' :
-                        'Describe the bug...'
+                        feedbackType === 'negative' ? 'Tell us what happened…' :
+                        feedbackType === 'suggestion' ? 'Share your idea…' :
+                        'Describe the bug…'
                       }
                       className="w-full p-3 text-sm border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       rows="4"

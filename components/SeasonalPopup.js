@@ -262,7 +262,7 @@ export default function SeasonalPopup() {
                         </div>
                         <p className="text-sm text-gray-600 mb-2">{dish.description}</p>
                         {dish.culturalSignificance && (
-                          <p className="text-xs text-gray-500 mb-2 italic">"{dish.culturalSignificance}"</p>
+                          <p className="text-xs text-gray-500 mb-2 italic">{dish.culturalSignificance}</p>
                         )}
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-gray-500">~{dish.calories} cal</span>

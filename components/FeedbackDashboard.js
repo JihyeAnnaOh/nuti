@@ -286,7 +286,7 @@ export default function FeedbackDashboard() {
                   
                   {item.feedback && (
                     <div className="text-sm text-gray-700 bg-gray-50 p-3 rounded">
-                      "{item.feedback}"
+                      {item.feedback}
                     </div>
                   )}
                   
