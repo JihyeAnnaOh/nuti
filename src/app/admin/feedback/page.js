@@ -1,4 +1,4 @@
-import FeedbackDashboard from '@/components/FeedbackDashboard';
+import FeedbackDashboard from '@components/FeedbackDashboard';
 
 export default function FeedbackAdminPage() {
   return (
