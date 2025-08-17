@@ -9,6 +9,14 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [...compat.extends("next/core-web-vitals")];
+const eslintConfig = [
+  ...compat.extends("next/core-web-vitals"),
+  {
+    rules: {
+      // Allow apostrophes and quotes in JSX text without forcing HTML entities
+      'react/no-unescaped-entities': 'off',
+    },
+  },
+];
 
 export default eslintConfig;
