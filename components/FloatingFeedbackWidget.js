@@ -128,7 +128,7 @@ export default function FloatingFeedbackWidget() {
       {showHint && !isExpanded && (
         <div className="absolute bottom-16 right-0 w-48 bg-gray-800 text-white text-xs rounded-lg p-2 animate-in">
           <div className="text-center">
-            <p>💡 We'd love your feedback!</p>
+            <p>💡 We&apos;d love your feedback!</p>
             <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800 mx-auto mt-1"></div>
           </div>
         </div>
@@ -177,7 +177,7 @@ export default function FloatingFeedbackWidget() {
                       <span className="text-2xl">😞</span>
                       <div>
                         <div className="font-medium text-gray-900">Something&apos;s wrong</div>
-                        <div className="text-sm text-gray-500">Tell us what's not working</div>
+                        <div className="text-sm text-gray-500">Tell us what&apos;s not working</div>
                       </div>
                     </div>
                   </button>
