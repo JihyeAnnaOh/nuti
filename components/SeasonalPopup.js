@@ -266,12 +266,14 @@ export default function SeasonalPopup() {
                         )}
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-gray-500">~{dish.calories} cal</span>
-                          <Link
-                            href={`/food/${encodeURIComponent(dish.name.toLowerCase())}`}
+                          <a
+                            href={`https://www.google.com/search?q=${encodeURIComponent(dish.name)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={`text-xs text-[#B48C8C] hover:text-[#8f6f6f] font-medium`}
                           >
                             Learn More →
-                          </Link>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -299,31 +301,25 @@ export default function SeasonalPopup() {
 
             {/* Call to Action */}
             <div className={`text-center p-6 bg-white/70 backdrop-blur-sm rounded-lg border border-[#EECFD4]`}>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                🎯 Discover More Festival Foods
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Explore our curated collection of seasonal and festival dishes
-              </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
-                  href={`/what-can-i-cook?season=autumn&festival=${currentFestival.key}`}
+                  href="/meal-planner"
                   className={`px-6 py-3 bg-[var(--primary)] text-[#3B3B3B] rounded-lg font-semibold transition-colors hover:bg-[var(--accent)]`}
                 >
-                  Browse Festival Recipes
+                  Quick Meal Planner
                 </Link>
                 <Link
-                  href={`/meal-planner?theme=festival&festival=${currentFestival.key}`}
+                  href="/calorie"
                   className="px-6 py-3 bg-[var(--accent)] text-white rounded-lg font-semibold hover:opacity-90 transition-colors"
                 >
-                  Plan Festival Menu
+                  Calorie Calculator
                 </Link>
-                <button
-                  onClick={findNearbyFestivalFoods}
+                <Link
+                  href="/what-can-i-cook"
                   className="px-6 py-3 border border-[#EECFD4] text-[#7C6A6A] rounded-lg font-semibold hover:bg-[#EECFD4] hover:text-[#3B3B3B] transition-colors"
                 >
-                  Find Near Me
-                </button>
+                  Recipe Explorer
+                </Link>
               </div>
             </div>
 

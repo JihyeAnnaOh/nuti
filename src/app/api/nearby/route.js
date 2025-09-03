@@ -4,7 +4,9 @@ export async function GET(req) {
   const lat = searchParams.get('lat');
   const lng = searchParams.get('lng');
 
-  if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+  if (!apiKey) {
     return new Response(
       JSON.stringify({ error: 'Google Maps API key is not configured' }),
       {
@@ -15,7 +17,7 @@ export async function GET(req) {
   }
 
   // Use location-based search if coordinates are provided
-  const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&keyword=${encodeURIComponent(query)}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+  const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&keyword=${encodeURIComponent(query)}&key=${apiKey}`;
 
   try {
     const res = await fetch(apiUrl);

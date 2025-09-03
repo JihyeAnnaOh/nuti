@@ -2,7 +2,9 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const input = searchParams.get('input');
 
-  if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+  if (!apiKey) {
     return new Response(
       JSON.stringify({ error: 'Google Maps API key is not configured' }),
       {
@@ -14,7 +16,7 @@ export async function GET(req) {
 
   try {
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}`
     );
     const data = await response.json();
 
