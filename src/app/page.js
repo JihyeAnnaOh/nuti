@@ -1,5 +1,15 @@
 'use client';
 
+/**
+ * Landing page for Nuti.
+ *
+ * Responsibilities
+ * - Presents the marketing/overview sections (hero, features, carousel, CTA)
+ * - Shows seasonal banner and popup content
+ * - Persists simple client-side history of scanned/selected foods in localStorage
+ * - Integrates with global `useTranslation()` for i18n copy
+ */
+
 import { useEffect, useState } from "react";
 import { db } from "../../lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -16,6 +26,10 @@ import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from "./contexts/TranslationContext";
 
+/**
+ * Home route component.
+ * @returns {JSX.Element}
+ */
 export default function Home() {
   const [result, setResult] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -32,7 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     if (result) {
-      // Add new result to history, ensure no duplicates based on name/calories combination
+      // Add new result to history, ensure no duplicates by name+calories pair
       setHistory(prevHistory => {
         const newHistory = [result, ...prevHistory.filter(item => 
           !(item.name === result.name && item.calories === result.calories)
@@ -45,6 +59,10 @@ export default function Home() {
     }
   }, [result]);
 
+  /**
+   * Restore a previous result from the local history UI.
+   * @param {any} item
+   */
   const handleHistoryClick = (item) => {
     setResult(item);
   };
@@ -68,7 +86,7 @@ export default function Home() {
         <Sidebar open={sidebarOpen} />
         <main className={`transition-all duration-300 ease-in-out flex flex-col items-center min-h-[calc(100vh-5rem)] bg-[#F8F4F2]`}>
 
-          {/* Seasonal Banner */}
+          {/* Seasonal Banner: highlights current festival/seasonal content */}
           <SeasonalBanner />
 
           {/* 1. Hero Section */}

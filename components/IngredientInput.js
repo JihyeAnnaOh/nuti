@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+/**
+ * Controlled input to add/remove ingredients for recipe search.
+ */
 export default function IngredientInput({ ingredients, setIngredients }) {
   const [input, setInput] = useState('');
 

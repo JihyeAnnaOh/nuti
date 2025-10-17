@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HiMenu, HiX } from 'react-icons/hi';
 
+/**
+ * Responsive top navigation bar that collapses to a hamburger menu on mobile.
+ * Mirrors header scroll behavior and highlights the active route.
+ */
 export default function Sidebar({ open }) {
   const [visible, setVisible] = useState(open);
   const [scrolled, setScrolled] = useState(false);

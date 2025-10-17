@@ -1,3 +1,13 @@
+/**
+ * GET /api/nearby?query=...&lat=...&lng=...
+ *
+ * Proxies the Google Places Nearby Search API to avoid exposing API keys on the client.
+ * Responds with a normalized list of places sorted by distance from the given coordinates.
+ *
+ * Query params
+ * - query: string keyword to search for (e.g., "ramen")
+ * - lat, lng: strings/numbers representing the current user location
+ */
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get('query');

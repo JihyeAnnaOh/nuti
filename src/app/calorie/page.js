@@ -1,5 +1,14 @@
 'use client';
 
+/**
+ * Calorie Finder page.
+ *
+ * - Lets users upload a food photo via `UploadBox`
+ * - Displays AI recognition results in `FoodResultCard`
+ * - Shows nearby restaurants that serve the recognized dish
+ * - Persists recent results in localStorage with simple de-duplication
+ */
+
 import { useEffect, useState } from "react";
 import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
@@ -23,7 +32,7 @@ export default function CaloriePage() {
 
   useEffect(() => {
     if (result) {
-      // Add new result to history, ensure no duplicates based on name/calories combination
+      // Add new result to history, ensure no duplicates based on name+calories combination
       setHistory(prevHistory => {
         const newHistory = [result, ...prevHistory.filter(item => 
           !(item.name === result.name && item.calories === result.calories)
@@ -36,10 +45,12 @@ export default function CaloriePage() {
     }
   }, [result]);
 
+  // Restore a previous result from the local history UI
   const handleHistoryClick = (item) => {
     setResult(item);
   };
 
+  // Remove an entry from history and persist the update
   const handleDeleteHistory = (indexToDelete) => {
     const updatedHistory = history.filter((_, index) => index !== indexToDelete);
     setHistory(updatedHistory);

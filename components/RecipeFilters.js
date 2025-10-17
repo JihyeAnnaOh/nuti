@@ -2,6 +2,10 @@ const CUISINES = ['Any', 'Korean', 'Chinese', 'Japanese', 'Vietnamese', 'Lebanes
 const DIETS = ['Any', 'Vegetarian', 'Vegan', 'Halal', 'Low-calorie', 'Gluten Free'];
 const TIMES = [15, 30, 45, 60];
 
+/**
+ * Filter controls for recipe discovery.
+ * Drives query params for `getRecipesByIngredients`.
+ */
 export default function RecipeFilters({ filters, setFilters }) {
   return (
     <div className="space-y-6">

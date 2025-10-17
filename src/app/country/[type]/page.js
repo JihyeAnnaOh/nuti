@@ -1,5 +1,13 @@
 'use client';
 
+/**
+ * Country-specific meal planner demo for selected cuisines.
+ *
+ * - Supports `korean` and `chinese` mock data sets
+ * - Generates a simple plan and allows swapping items
+ * - Demonstrates share/export affordances
+ */
+
 import { useEffect, useState, use } from 'react';
 import Header from '../../../../components/Header';
 import Sidebar from '../../../../components/Sidebar';
@@ -82,6 +90,7 @@ export default function CountryPage({ params }) {
     }
   }, [type]);
 
+  // Build a new randomized plan using the mock dataset
   const regeneratePlan = () => {
     setMealPlan({
       breakfast: getRandomMeal(type, 'breakfast'),
@@ -91,14 +100,17 @@ export default function CountryPage({ params }) {
     });
   };
 
+  // Replace a single meal slot with a different random option
   const swapMeal = (mealType) => {
     setMealPlan((prev) => ({ ...prev, [mealType]: getRandomMeal(type, mealType) }));
   };
 
+  // Placeholder: hook up a real PDF export if needed
   const exportToPDF = () => {
     alert('Export to PDF coming soon!');
   };
 
+  // Share the current plan as a WhatsApp text message
   const shareToWhatsApp = () => {
     const text = `${type.charAt(0).toUpperCase() + type.slice(1)} Meal Plan (%23${healthGoal}):\n\nBreakfast: ${mealPlan.breakfast}\nLunch: ${mealPlan.lunch}\nDinner: ${mealPlan.dinner}\nSnack: ${mealPlan.snack}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);

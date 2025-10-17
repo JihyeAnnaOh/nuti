@@ -1,5 +1,13 @@
 'use client';
 
+/**
+ * FeedbackDashboard
+ *
+ * Reads feedback entries from Firestore (with a localStorage fallback) and
+ * shows basic analytics plus a filterable list. This page is used under
+ * `/admin/feedback`.
+ */
+
 import { useEffect, useState } from 'react';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -67,6 +75,7 @@ export default function FeedbackDashboard() {
     fetchFeedback();
   }, []);
 
+  // Read locally captured feedback when Firebase is unavailable
   function getLocalFeedback() {
     try {
       const raw = localStorage.getItem('nutifeedback');
@@ -78,6 +87,7 @@ export default function FeedbackDashboard() {
     }
   }
 
+  // Normalize Firestore Timestamp or ISO strings for display
   function formatTimestamp(timestamp) {
     if (!timestamp) return 'Unknown';
     let date;

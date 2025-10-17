@@ -6,6 +6,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../src/app/contexts/TranslationContext';
 
+/**
+ * Sticky header with brand logo and language selector.
+ * Language changes are applied via context and the current route is reloaded
+ * with a `/{lang}` prefix for user-friendly localized URLs.
+ */
 export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [scrolled, setScrolled] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);

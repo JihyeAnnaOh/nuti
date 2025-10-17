@@ -1,7 +1,7 @@
 // Utility functions for managing feedback data
 
 /**
- * Get all feedback from localStorage
+ * Get all feedback from localStorage.
  */
 export function getLocalFeedback() {
   try {
@@ -14,7 +14,7 @@ export function getLocalFeedback() {
 }
 
 /**
- * Clear all local feedback
+ * Clear all local feedback.
  */
 export function clearLocalFeedback() {
   try {
@@ -27,7 +27,7 @@ export function clearLocalFeedback() {
 }
 
 /**
- * Export local feedback as JSON
+ * Export local feedback as JSON for debugging or support.
  */
 export function exportLocalFeedback() {
   try {
@@ -48,7 +48,7 @@ export function exportLocalFeedback() {
 }
 
 /**
- * Get feedback statistics
+ * Compute aggregate statistics across a feedback array.
  */
 export function getFeedbackStats(feedback) {
   const stats = {
@@ -96,7 +96,7 @@ export function getFeedbackStats(feedback) {
 }
 
 /**
- * Filter feedback by type
+ * Filter feedback by a UI-selected type.
  */
 export function filterFeedback(feedback, filterType) {
   if (filterType === 'all') return feedback;

@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 import LocationSearch from './LocationSearch';
 import FeedbackWidget from './FeedbackWidget';
 
+/**
+ * Renders a list of nearby places for a given keyword.
+ * Uses browser geolocation (with graceful fallbacks) and the internal
+ * `/api/nearby` proxy which sorts results by distance.
+ */
 export default function NearbyResults({ keyword }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);

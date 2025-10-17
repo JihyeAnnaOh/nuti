@@ -1,5 +1,14 @@
 'use client';
 
+/**
+ * Lightweight i18n context for client components.
+ *
+ * - Loads translations for supported languages (en, ko)
+ * - Persists the selected language in localStorage
+ * - Exposes `t(key)` to lookup nested translation keys like `home.title`
+ * - Exposes `changeLanguage(code)` and `availableLanguages`
+ */
+
 import { createContext, useContext, useState, useEffect } from 'react';
 import enTranslations from '../locales/en/translations.json';
 import koTranslations from '../locales/ko/translations.json';
@@ -12,6 +21,10 @@ const translations = {
 
 const TranslationContext = createContext();
 
+/**
+ * Provider component to make i18n utilities available via context.
+ * @param {{ children: React.ReactNode }} props
+ */
 export function TranslationProvider({ children }) {
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
@@ -28,6 +41,12 @@ export function TranslationProvider({ children }) {
     localStorage.setItem('nuti-language', currentLanguage);
   }, [currentLanguage]);
 
+  /**
+   * Resolve a dot-delimited translation key for the current language,
+   * falling back to English or the key itself if missing.
+   * @param {string} key
+   * @returns {string}
+   */
   const t = (key) => {
     const keys = key.split('.');
     let value = translations[currentLanguage];
@@ -52,6 +71,10 @@ export function TranslationProvider({ children }) {
     return typeof value === 'string' ? value : key;
   };
 
+  /**
+   * Update the active language if it is supported.
+   * @param {string} languageCode
+   */
   const changeLanguage = (languageCode) => {
     if (translations[languageCode]) {
       setCurrentLanguage(languageCode);
@@ -72,6 +95,10 @@ export function TranslationProvider({ children }) {
   );
 }
 
+/**
+ * Convenience hook to read the translation context.
+ * Must be used under a `TranslationProvider`.
+ */
 export function useTranslation() {
   const context = useContext(TranslationContext);
   if (!context) {

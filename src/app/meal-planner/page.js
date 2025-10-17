@@ -1,4 +1,12 @@
 "use client";
+/**
+ * Meal Planner flow powered by TheMealDB API.
+ *
+ * - Loads cuisines list and picks one (or uses `?cuisine=` query)
+ * - For the chosen cuisine, selects random dishes per meal type
+ * - Lets the user select one dish per meal and export/share
+ * - Can find nearby restaurants for the selected dish via internal API
+ */
 import { useState, useEffect, useRef, Suspense } from "react";
 import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
@@ -21,6 +29,7 @@ const SOCIAL_ICONS = {
   kakao: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg',
 };
 
+// Helper: pick N random items without caring about uniqueness across runs
 function getRandomItems(arr, n) {
   const shuffled = arr.slice().sort(() => 0.5 - Math.random());
   return shuffled.slice(0, n);
@@ -63,7 +72,7 @@ function MealPlannerPage() {
     fetchCuisines();
   }, [searchParams]);
 
-  // Fetch 3 random dishes per meal type from TheMealDB
+  // Fetch 2 random dishes per meal type from TheMealDB (proxy for breakfast/lunch/dinner/snack)
   const fetchMealPlan = async (selectedCuisine) => {
     setLoading(true);
     setError(null);
@@ -94,10 +103,12 @@ function MealPlannerPage() {
     if (cuisine) fetchMealPlan(cuisine);
   }, [cuisine]);
 
+  // Refresh choices for each meal type
   const regeneratePlan = () => {
     fetchMealPlan(cuisine);
   };
 
+  // Replace a single dish within a meal type with a new random choice
   const swapMeal = async (mealType, idx) => {
     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisine}`);
     const data = await res.json();
@@ -114,6 +125,7 @@ function MealPlannerPage() {
     }
   };
 
+  // Choose a dish for the given meal type to include in the export/share card
   const handleSelectDish = (mealType, dish) => {
     setSelectedDishes(prev => ({ ...prev, [mealType]: dish }));
   };
@@ -161,7 +173,7 @@ function MealPlannerPage() {
     alert('Instagram sharing is not supported directly via web. Please screenshot and share manually.');
   };
 
-  // Fetch nearby restaurants for a dish and location
+  // Fetch nearby restaurants for a dish and location (via internal API proxy)
   const fetchNearby = async (dishName, location) => {
     setNearbyLoading(true);
     setNearbyError(null);
@@ -198,6 +210,7 @@ function MealPlannerPage() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [optionsModal.open]);
 
+  // Export the curated plan section as an image users can share
   const handleDownloadImage = async () => {
     if (!exportCardRef.current) return;
     try {

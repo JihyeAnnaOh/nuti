@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import FeedbackWidget from './FeedbackWidget';
 
+/**
+ * Compact recipe card with a CTA and embedded feedback block.
+ */
 export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency }) {
   return (
     <div className="bg-white rounded-xl shadow p-4 flex flex-col md:flex-row gap-4 border border-[#EECFD4] mb-4">

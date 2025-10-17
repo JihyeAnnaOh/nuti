@@ -5,6 +5,13 @@ import { useState, useEffect } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
+/**
+ * FloatingFeedbackWidget
+ *
+ * Global floating control anchored at the bottom-right of the viewport that
+ * captures quick sentiment, suggestions, or bug reports from anywhere.
+ * Falls back to localStorage if Firestore is unavailable.
+ */
 export default function FloatingFeedbackWidget() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [feedback, setFeedback] = useState('');
@@ -265,10 +272,6 @@ export default function FloatingFeedbackWidget() {
               <div className="text-4xl mb-2 animate-bounce">🎉</div>
               <p className="text-green-600 font-medium">Thank you for your feedback!</p>
               <p className="text-sm text-gray-500 mt-1">We appreciate your input.</p>
-              {firebaseError && (
-                <p className="text-xs text-orange-600 mt-2 bg-orange-50 p-2 rounded">
-                </p>
-              )}
             </div>
           )}
         </div>

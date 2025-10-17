@@ -1,3 +1,9 @@
+/**
+ * GET /api/places/autocomplete?input=...
+ *
+ * Simple proxy to Google Places Autocomplete API to keep the API key server-side.
+ * Returns the raw response from Google which includes `predictions`.
+ */
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const input = searchParams.get('input');

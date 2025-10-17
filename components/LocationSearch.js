@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 
+/**
+ * Location search with Google Places Autocomplete proxy and details lookup.
+ * Emits `{ lat, lng }` to parent when a place is selected or geolocated.
+ */
 export default function LocationSearch({ onLocationSelect }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [predictions, setPredictions] = useState([]);

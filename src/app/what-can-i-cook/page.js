@@ -1,4 +1,12 @@
 "use client";
+/**
+ * Recipe Discovery page backed by Spoonacular.
+ *
+ * - Users enter available ingredients and optional filters
+ * - Calls `getRecipesByIngredients` to fetch candidate recipes
+ * - Shows missing ingredients with handy Google Maps links
+ * - Offers print and PDF download for a selected recipe
+ */
 import { useState } from 'react';
 import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
@@ -21,6 +29,7 @@ export default function WhatCanICookPage() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showRecipeModal, setShowRecipeModal] = useState(false);
 
+  // Query Spoonacular with current ingredients and filters
   const handleSearch = async () => {
     setLoading(true);
     setError('');
@@ -33,11 +42,13 @@ export default function WhatCanICookPage() {
     setLoading(false);
   };
 
+  // Open modal with full recipe details
   const handleViewRecipe = (recipe) => {
     setSelectedRecipe(recipe);
     setShowRecipeModal(true);
   };
 
+  // Print a simplified recipe view in a new window
   const handlePrintRecipe = () => {
     if (selectedRecipe) {
       const printWindow = window.open('', '_blank');
@@ -71,6 +82,7 @@ export default function WhatCanICookPage() {
     }
   };
 
+  // Generate a lightweight PDF containing ingredients and instructions
   const handleDownloadRecipe = () => {
     if (selectedRecipe) {
       const doc = new jsPDF();

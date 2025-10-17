@@ -5,6 +5,13 @@ import Image from 'next/image';
 import { useState, useRef } from 'react';
 import FeedbackWidget from './FeedbackWidget';
 
+/**
+ * Camera/file upload box for AI food recognition.
+ *
+ * - Captures either webcam snapshot or uploaded image
+ * - Calls Google Vision API for label detection, then Spoonacular for nutrition
+ * - Emits a normalized `result` to parent and displays a contextual feedback block
+ */
 export default function UploadBox({ onResult }) {
   const [preview, setPreview] = useState(null);
   const [streaming, setStreaming] = useState(false);

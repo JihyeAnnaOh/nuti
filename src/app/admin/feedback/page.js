@@ -1,5 +1,10 @@
 import FeedbackDashboard from '../../../../components/FeedbackDashboard';
 
+/**
+ * Admin page to monitor feedback and performance metrics.
+ * Renders the `FeedbackDashboard` component which reads from Firestore.
+ */
+
 export default function FeedbackAdminPage() {
   return (
     <div className="min-h-screen bg-gray-50">

@@ -1,5 +1,10 @@
 'use client';
 
+/**
+ * Developer page to validate translations wiring.
+ * Lets you toggle languages and preview keys across namespaces.
+ */
+
 import { useTranslation } from '../contexts/TranslationContext';
 import Header from '../../../components/Header';
 

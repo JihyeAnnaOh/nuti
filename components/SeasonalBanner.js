@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getCurrentSeasonalData } from '../utils/seasonalData';
 
+/**
+ * Slim banner that cycles through upcoming seasonal festivals with CTA links.
+ */
 export default function SeasonalBanner() {
   const [upcomingFestivals, setUpcomingFestivals] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);

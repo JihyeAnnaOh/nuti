@@ -8,6 +8,7 @@ export default function FeedbackWidget({
   latency, 
   className = "" 
 }) {
+  // Inline widget for "Was this useful?" feedback near a feature
   const [isUseful, setIsUseful] = useState(null);
   const [feedback, setFeedback] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -82,11 +83,6 @@ export default function FeedbackWidget({
     return (
       <div className={`text-sm ${className}`}>
         <div className="text-green-600 mb-1">✓ Thank you for your feedback!</div>
-        {firebaseError && (
-          <div className="text-xs text-orange-600 bg-orange-50 p-1 rounded">
-            ⚠️ Saved locally (Firebase unavailable)
-          </div>
-        )}
       </div>
     );
   }

@@ -5,6 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getCurrentSeasonalData, getFestivalByKey } from '../utils/seasonalData';
 
+/**
+ * Rich seasonal popup highlighting an upcoming festival, suggested dishes,
+ * and quick actions. Optionally queries nearby places for festival foods.
+ */
 export default function SeasonalPopup() {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);

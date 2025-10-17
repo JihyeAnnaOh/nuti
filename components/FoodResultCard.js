@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import FeedbackWidget from './FeedbackWidget';
 
+/**
+ * Displays the AI detection result with an optional preview image and
+ * embeds a contextual feedback widget to rate the result quality.
+ */
 export default function FoodResultCard({ result, confidence, latency }) {
     if (!result) return null;
   

@@ -1,3 +1,9 @@
+/**
+ * GET /api/places/details?placeId=...
+ *
+ * Proxies Google Place Details API to fetch geometry for a given placeId.
+ * Keeping this server-side protects the API key from the client.
+ */
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const placeId = searchParams.get('placeId');

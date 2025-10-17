@@ -1,5 +1,13 @@
 'use client';
 
+/**
+ * Food type listing page backed by Firestore.
+ *
+ * - Reads from `test` collection filtering by `name == type`
+ * - Displays simple cards per meal with basic attributes
+ * - Offers a share-as-image utility using `html-to-image`
+ */
+
 import { useEffect, useState, useRef } from 'react';
 import { use } from 'react';
 import { db } from '../../../../lib/firebase';
@@ -27,6 +35,7 @@ export default function FoodTypePage({ params }) {
     fetchData();
   }, [type]);
 
+  // Export a DOM node as a PNG image
   const handleExport = async (ref) => {
     if (!ref.current) return;
     try {

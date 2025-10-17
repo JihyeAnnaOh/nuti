@@ -1,5 +1,5 @@
 // Seasonal and Festival Food Data
-// This file contains curated seasonal dishes for different festivals and celebrations
+// Curated seasonal dishes and activities for different cultural festivals.
 
 export const seasonalData = {
   // Mid-Autumn Festival (中秋节) - October
