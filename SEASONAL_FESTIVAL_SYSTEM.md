@@ -24,26 +24,14 @@ The Seasonal Festival System automatically displays festival-related content on 
 
 ## Current Festivals
 
-### 🌕 Mid-Autumn Festival (中秋节)
-- **Date**: October 17, 2024
-- **Theme**: Purple-Blue
-- **Dishes**: Mooncakes, Osmanthus Rice Wine, Pomelo, Tea Eggs, Sweet Rice Balls
-- **Significance**: Family reunion, moon gazing, unity
-
-### 🧨 Lunar New Year (春节)
-- **Date**: February 10, 2024
+### 🧨 Chinese New Year (春节)
+- **Date**: February 17, 2026
 - **Theme**: Red-Gold
 - **Dishes**: Dumplings, Spring Rolls, Nian Gao
 - **Significance**: New beginnings, prosperity, good fortune
 
-### 🪔 Diwali (दीपावली)
-- **Date**: November 12, 2024
-- **Theme**: Orange-Yellow
-- **Dishes**: Gulab Jamun, Samosa
-- **Significance**: Victory of light over darkness
-
 ### 🎄 Christmas
-- **Date**: December 25, 2024
+- **Date**: December 25, 2025
 - **Theme**: Red-Green
 - **Dishes**: Christmas Pudding, Roast Turkey
 - **Significance**: Christian celebration, family gathering

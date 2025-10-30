@@ -244,13 +244,13 @@ export default function SeasonalPopup() {
                 {currentFestival.dishes.map((dish, index) => (
                   <div key={index} className={`bg-white/70 rounded-lg p-4 border border-[#EECFD4] hover:border-[#DDB7AB] transition-colors`}>
                     <div className="flex items-start gap-3">
-                      <div className={`w-16 h-16 bg-[#EECFD4]/40 rounded-lg flex items-center justify-center text-2xl`}>
+                      <div className={`w-24 h-24 rounded-lg flex items-center justify-center text-2xl`}>
                         {dish.image ? (
                           <Image 
                             src={dish.image} 
                             alt={dish.name}
-                            width={48}
-                            height={48}
+                            width={96}
+                            height={96}
                             className="rounded-lg object-cover"
                           />
                         ) : (

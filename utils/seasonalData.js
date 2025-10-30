@@ -2,89 +2,11 @@
 // Curated seasonal dishes and activities for different cultural festivals.
 
 export const seasonalData = {
-  // Mid-Autumn Festival (中秋节) - October
-  moonFestival: {
-    name: 'Mid-Autumn Festival',
-    chineseName: '中秋节',
-    date: 'October 17, 2024',
-    description: 'A time for family reunions, moon gazing, and enjoying traditional foods',
-    theme: 'purple-blue',
-    dishes: [
-      {
-        name: 'Mooncakes (月饼)',
-        description: 'Traditional round pastries filled with sweet bean paste, lotus seed paste, or salted egg yolks',
-        image: '/images/mooncake.jpg',
-        calories: '~300-400',
-        category: 'Dessert',
-        culturalSignificance: 'Symbolizes the full moon and family unity',
-        ingredients: ['glutinous rice flour', 'sweet bean paste', 'lotus seed paste', 'salted egg yolk']
-      },
-      {
-        name: 'Osmanthus Rice Wine (桂花酒)',
-        description: 'Fragrant rice wine infused with sweet osmanthus flowers',
-        image: '/images/Osmanthus Rice Wine.png',
-        calories: '~150-200',
-        category: 'Beverage',
-        culturalSignificance: 'Represents the sweet fragrance of autumn',
-        ingredients: ['rice wine', 'osmanthus flowers', 'honey']
-      },
-      {
-        name: 'Pomelo (柚子)',
-        description: 'Large citrus fruit symbolizing abundance and good fortune',
-        image: '/images/pomelo.jpg',
-        calories: '~60-80',
-        category: 'Fruit',
-        culturalSignificance: 'Symbolizes prosperity and family togetherness',
-        ingredients: ['pomelo']
-      },
-      {
-        name: 'Tea Eggs (茶叶蛋)',
-        description: 'Hard-boiled eggs steeped in tea and spices, representing family unity',
-        image: '/images/Tea%20eggs.jpg',
-        calories: '~80-100',
-        category: 'Snack',
-        culturalSignificance: 'Symbolizes the strength and unity of family bonds',
-        ingredients: ['eggs', 'black tea', 'soy sauce', 'star anise', 'cinnamon']
-      },
-      {
-        name: 'Sweet Rice Balls (汤圆)',
-        description: 'Glutinous rice balls in sweet soup, symbolizing family togetherness',
-        image: '/images/Sweet%20rice%20balls.jpg',
-        calories: '~120-150',
-        category: 'Dessert',
-        culturalSignificance: 'Represents the roundness of the moon and family unity',
-        ingredients: ['glutinous rice flour', 'sesame paste', 'sweet red bean paste', 'brown sugar']
-      }
-    ],
-    activities: [
-      {
-        icon: '🌕',
-        title: 'Moon Gazing',
-        description: 'Admire the full moon with family and friends'
-      },
-      {
-        icon: '🏮',
-        title: 'Lantern Display',
-        description: 'Light colorful lanterns to guide the way'
-      },
-      {
-        icon: '👨‍👩‍👧‍👦',
-        title: 'Family Reunion',
-        description: 'Share a special meal with loved ones'
-      }
-    ],
-    links: {
-      recipes: '/what-can-i-cook?season=autumn&festival=moon',
-      mealPlanner: '/meal-planner?theme=festival',
-      culturalInfo: '/country/chinese?festival=moon'
-    }
-  },
-
-  // Lunar New Year (春节) - February
+  // Chinese New Year (春节) - February
   lunarNewYear: {
-    name: 'Lunar New Year',
+    name: 'Chinese New Year',
     chineseName: '春节',
-    date: 'February 10, 2024',
+    date: 'February 17, 2026',
     description: 'The most important festival in Chinese culture, celebrating new beginnings',
     theme: 'red-gold',
     dishes: [
@@ -135,63 +57,17 @@ export const seasonalData = {
     ]
   },
 
-  // Diwali (Festival of Lights) - November
-  diwali: {
-    name: 'Diwali',
-    hindiName: 'दीपावली',
-    date: 'November 12, 2024',
-    description: 'The festival of lights celebrating the victory of light over darkness',
-    theme: 'orange-yellow',
-    dishes: [
-      {
-        name: 'Gulab Jamun',
-        description: 'Sweet milk solids soaked in rose-flavored sugar syrup',
-        image: '/images/landpage/gulab-jamun.jpg',
-        calories: '~200-250',
-        category: 'Dessert',
-        culturalSignificance: 'Symbolizes sweetness and celebration',
-        ingredients: ['milk solids', 'flour', 'sugar syrup', 'rose water', 'cardamom']
-      },
-      {
-        name: 'Samosa',
-        description: 'Crispy pastry filled with spiced potatoes and peas',
-        image: '/images/landpage/samosa.jpg',
-        calories: '~250-300',
-        category: 'Snack',
-        culturalSignificance: 'Represents the triumph of good over evil',
-        ingredients: ['flour', 'potatoes', 'peas', 'spices', 'oil']
-      }
-    ],
-    activities: [
-      {
-        icon: '🪔',
-        title: 'Light Diyas',
-        description: 'Light oil lamps to dispel darkness'
-      },
-      {
-        icon: '🎆',
-        title: 'Fireworks',
-        description: 'Celebrate with colorful fireworks displays'
-      },
-      {
-        icon: '🛍️',
-        title: 'Shopping',
-        description: 'Buy new clothes and gifts for loved ones'
-      }
-    ]
-  },
-
   // Christmas - December
   christmas: {
     name: 'Christmas',
-    date: 'December 25, 2024',
+    date: 'December 25, 2025',
     description: 'Christian celebration of the birth of Jesus Christ',
     theme: 'red-green',
     dishes: [
       {
         name: 'Christmas Pudding',
         description: 'Rich fruit pudding served with brandy sauce',
-        image: '/images/landpage/christmas-pudding.jpg',
+        image: '/images/pudding.png',
         calories: '~300-400',
         category: 'Dessert',
         culturalSignificance: 'Traditional British Christmas dessert',
@@ -200,7 +76,7 @@ export const seasonalData = {
       {
         name: 'Roast Turkey',
         description: 'Traditional roasted turkey with stuffing and gravy',
-        image: '/images/landpage/roast-turkey.jpg',
+        image: '/images/turkey.png',
         calories: '~300-400',
         category: 'Main Dish',
         culturalSignificance: 'Centerpiece of Christmas dinner',
@@ -250,7 +126,8 @@ export function getCurrentSeasonalData() {
     const daysDiff = Math.ceil((targetDate.getTime() - now.getTime()) / (1000 * 3600 * 24));
 
     // Show festivals within [-30, 90] day window relative to now
-    if (daysDiff >= -30 && daysDiff <= 90) {
+    // Always include Chinese New Year regardless of window
+    if ((daysDiff >= -30 && daysDiff <= 90) || key === 'lunarNewYear') {
       upcomingFestivals.push({
         ...festival,
         key,
