@@ -6,7 +6,7 @@ export const seasonalData = {
   lunarNewYear: {
     name: 'Chinese New Year',
     chineseName: '春节',
-    date: 'February 17, 2026',
+    date: '2026-02-17',
     description: 'The most important festival in Chinese culture, celebrating new beginnings',
     theme: 'red-gold',
     dishes: [
@@ -60,7 +60,7 @@ export const seasonalData = {
   // Christmas - December
   christmas: {
     name: 'Christmas',
-    date: 'December 25, 2025',
+    date: '2025-12-25',
     description: 'Christian celebration of the birth of Jesus Christ',
     theme: 'red-green',
     dishes: [
@@ -103,6 +103,14 @@ export const seasonalData = {
   }
 };
 
+// Day-level difference ignoring time-of-day
+function daysBetweenCalendarDates(startDate, endDate) {
+  const a = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+  const b = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  return Math.round((b.getTime() - a.getTime()) / MS_PER_DAY);
+}
+
 // Get current seasonal data based on date
 export function getCurrentSeasonalData() {
   const now = new Date();
@@ -118,12 +126,12 @@ export function getCurrentSeasonalData() {
 
     // If the date is far in the past (more than 30 days ago), check next year as the next occurrence
     let targetDate = thisYearDate;
-    const daysFromNowThisYear = Math.ceil((thisYearDate.getTime() - now.getTime()) / (1000 * 3600 * 24));
+    const daysFromNowThisYear = daysBetweenCalendarDates(now, thisYearDate);
     if (daysFromNowThisYear < -30) {
       targetDate = new Date(now.getFullYear() + 1, baseDate.getMonth(), baseDate.getDate());
     }
 
-    const daysDiff = Math.ceil((targetDate.getTime() - now.getTime()) / (1000 * 3600 * 24));
+    const daysDiff = daysBetweenCalendarDates(now, targetDate);
 
     // Show festivals within [-30, 90] day window relative to now
     // Always include Chinese New Year regardless of window
@@ -139,8 +147,13 @@ export function getCurrentSeasonalData() {
     }
   });
 
-  // Sort by closest date
-  upcomingFestivals.sort((a, b) => Math.abs(a.daysUntil) - Math.abs(b.daysUntil));
+  // Sort: future first (ascending), then past (ascending by absolute)
+  upcomingFestivals.sort((a, b) => {
+    const aFuture = a.daysUntil >= 0;
+    const bFuture = b.daysUntil >= 0;
+    if (aFuture !== bFuture) return aFuture ? -1 : 1;
+    return aFuture ? a.daysUntil - b.daysUntil : Math.abs(a.daysUntil) - Math.abs(b.daysUntil);
+  });
 
   return upcomingFestivals;
 }
@@ -153,45 +166,42 @@ export function getFestivalByKey(key) {
 // Get seasonal dishes by category
 export function getSeasonalDishesByCategory(category) {
   const allDishes = [];
-  
-  Object.values(seasonalData).forEach(festival => {
-    festival.dishes.forEach(dish => {
+  for (const [festivalKey, festival] of Object.entries(seasonalData)) {
+    for (const dish of festival.dishes) {
       if (dish.category === category) {
         allDishes.push({
           ...dish,
           festival: festival.name,
-          festivalKey: Object.keys(seasonalData).find(key => seasonalData[key] === festival)
+          festivalKey
         });
       }
-    });
-  });
-  
+    }
+  }
   return allDishes;
 }
 
 // Get dishes by season
 export function getDishesBySeason(season) {
   const seasonMap = {
-    spring: ['march', 'april', 'may'],
-    summer: ['june', 'july', 'august'],
-    autumn: ['september', 'october', 'november'],
-    winter: ['december', 'january', 'february']
+    spring: [2, 3, 4],   // Mar, Apr, May
+    summer: [5, 6, 7],   // Jun, Jul, Aug
+    autumn: [8, 9, 10],  // Sep, Oct, Nov
+    winter: [11, 0, 1]   // Dec, Jan, Feb
   };
-  
-  const currentSeason = seasonMap[season] || [];
+
+  const seasonMonths = seasonMap[season] || [];
   const seasonalDishes = [];
-  
-  Object.entries(seasonalData).forEach(([key, festival]) => {
+
+  for (const [key, festival] of Object.entries(seasonalData)) {
     const festivalDate = new Date(festival.date);
-    const festivalMonth = festivalDate.toLocaleString('en', { month: 'long' }).toLowerCase();
-    
-    if (currentSeason.includes(festivalMonth)) {
+    const festivalMonthIndex = festivalDate.getMonth();
+    if (seasonMonths.includes(festivalMonthIndex)) {
       seasonalDishes.push({
         ...festival,
         key
       });
     }
-  });
-  
+  }
+
   return seasonalDishes;
 } 

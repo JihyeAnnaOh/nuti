@@ -20,6 +20,7 @@ import FoodResultCard from "../../components/FoodResultCard";
 import NearbyResults from "../../components/NearbyResults";
 import SeasonalPopup from "../../components/SeasonalPopup";
 import SeasonalBanner from "../../components/SeasonalBanner";
+import CommunityDietFeed from "../../components/CommunityDietFeed";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
@@ -207,13 +208,8 @@ export default function Home() {
             </div>
           </section>
 
-          {/* 6. Quote/Testimonial */}
-          <section className="w-full py-16 flex flex-col items-center bg-[#F8F4F2]">
-            <div className="max-w-2xl mx-auto bg-[#F8F4F2] rounded-2xl p-8 text-center shadow-none">
-              <blockquote className="italic text-2xl md:text-3xl text-[#B48C8C] font-serif mb-4 whitespace-nowrap overflow-x-auto">&apos;Eating well shouldnt mean eating the same.&apos;</blockquote>
-              <span className="text-[#7C6A6A] font-medium">— Founder, Anna Oh</span>
-            </div>
-          </section>
+          {/* 6. Community Styled-By-You Feed */}
+          <CommunityDietFeed />
 
         </main>
       </div>

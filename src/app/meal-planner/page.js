@@ -214,7 +214,7 @@ function MealPlannerPage() {
   const handleDownloadImage = async () => {
     if (!exportCardRef.current) return;
     try {
-      const dataUrl = await toPng(exportCardRef.current, { cacheBust: true });
+      const dataUrl = await toPng(exportCardRef.current, { cacheBust: true, pixelRatio: 2 });
       const link = document.createElement('a');
       link.download = 'meal-plan.png';
       link.href = dataUrl;
@@ -480,11 +480,11 @@ function MealPlannerPage() {
           }}
         >
           {/* Big Logo on Top */}
-          <Image
+          <img
             src="/images/logo.png"
             alt="NUTI Logo"
-            width={110}
-            height={40}
+            width="110"
+            height="40"
             style={{ width: 110, height: 'auto', margin: '0 auto 0.5px auto', display: 'block' }}
           />
           {/* Title */}
@@ -502,11 +502,13 @@ function MealPlannerPage() {
                   <div style={{ fontWeight: 800, color: '#DDB7AB', fontSize: 20, marginBottom: 8, textTransform: 'capitalize', letterSpacing: 0.2 }}>{mealType}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 18, minHeight: 64 }}>
                     {dish && (
-                      <Image
+                      <img
                         src={dish.strMealThumb}
                         alt={dish.strMeal}
-                        width={64}
-                        height={64}
+                        width="64"
+                        height="64"
+                        crossOrigin="anonymous"
+                        referrerPolicy="no-referrer"
                         style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #eee', background: '#faf7f6' }}
                       />
                     )}
