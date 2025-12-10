@@ -5,7 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../src/app/contexts/TranslationContext';
+import dynamic from 'next/dynamic';
 
+const AuthButton = dynamic(() => import('./AuthButton'), { ssr: false });
 /**
  * Sticky header with brand logo and language selector.
  * Language changes are applied via context and the current route is reloaded
@@ -70,8 +72,11 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
         </Link>
       </div>
 
-      {/* Right: Language button */}
-      <div className="flex items-center min-w-[120px] justify-end relative">
+      {/* Right: Auth + Language */}
+      <div className="flex items-center gap-3 min-w-[160px] justify-end relative">
+        <div className="hidden sm:block">
+          <AuthButton />
+        </div>
         <button
           className={`px-2 py-1 rounded-lg font-bold italic text-xs transition-all duration-200 bg-transparent text-white hover:bg-[var(--primary-light)] hover:text-[var(--primary)] shadow-none border-none outline-none`}
           style={{ fontSize: 13, height: 28 }}
