@@ -45,71 +45,84 @@ export default function CommunityDietFeed() {
   if (posts.length === 0) return null;
 
   return (
-    <section className="w-full max-w-6xl mx-auto py-12 relative bg-white">
+    <section className="w-full py-12 relative bg-white">
       <div className="flex flex-col items-center mb-6">
         <h2 className="text-xl md:text-2xl font-extrabold tracking-tight text-[#3B3B3B]">Styled By You</h2>
         <p className="text-xs md:text-sm text-[#7C6A6A] mt-2">Click to explore the meals our community loves</p>
       </div>
 
-      {/* Arrows */}
-      <button
-        onClick={() => scrollByAmount('left')}
-        className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white/90 border border-[#EECFD4] shadow hover:bg-[var(--primary)] hover:text-white transition"
-        aria-label="Scroll left"
-      >
-        ‹
-      </button>
-      <button
-        onClick={() => scrollByAmount('right')}
-        className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white/90 border border-[#EECFD4] shadow hover:bg-[var(--primary)] hover:text-white transition"
-        aria-label="Scroll right"
-      >
-        ›
-      </button>
+      {/* Full-width section; inner track constrained to max 4 cards */}
+      <div className="relative mx-auto w-full max-w-[1120px] px-4">
+        {/* Arrows anchored to inner track */}
+        <button
+          onClick={() => {
+            const el = scrollerRef.current;
+            const card = el?.querySelector('article');
+            const step = (card?.offsetWidth || 260) + 16; // width + gap
+            el?.scrollBy({ left: -step, behavior: 'smooth' });
+          }}
+          className="hidden sm:flex absolute -left-1.5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white/90 border border-[#EECFD4] shadow hover:bg-[var(--primary)] hover:text-white transition"
+          aria-label="Scroll left"
+        >
+          ‹
+        </button>
+        <button
+          onClick={() => {
+            const el = scrollerRef.current;
+            const card = el?.querySelector('article');
+            const step = (card?.offsetWidth || 260) + 16;
+            el?.scrollBy({ left: step, behavior: 'smooth' });
+          }}
+          className="hidden sm:flex absolute -right-1.5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white/90 border border-[#EECFD4] shadow hover:bg-[var(--primary)] hover:text-white transition"
+          aria-label="Scroll right"
+        >
+          ›
+        </button>
 
-      {/* Carousel */}
-      <div
-        ref={scrollerRef}
-        className="flex gap-4 overflow-x-auto px-1 scroll-smooth bg-white"
-        style={{ scrollSnapType: 'x mandatory' }}
-      >
-        {posts.map((post) => (
-          <article
-            key={post.id}
-            className="group relative min-w-[200px] sm:min-w-[220px] lg:min-w-[240px] max-w-[240px]"
-            style={{ scrollSnapAlign: 'start' }}
-          >
-            <button
-              type="button"
-              onClick={() => setActiveIndex(posts.findIndex((p) => p.id === post.id))}
-              className="relative w-full h-[200px] sm:h-[220px] lg:h-[240px] cursor-zoom-in bg-white overflow-hidden"
-              aria-label="Zoom image"
+        {/* Carousel */}
+        <div
+          ref={scrollerRef}
+          className="flex gap-4 overflow-x-auto px-1 scroll-smooth bg-white"
+          style={{ scrollSnapType: 'x mandatory' }}
+        >
+          {posts.map((post) => (
+            <article
+              key={post.id}
+              className="group relative w-[200px] min-w-[200px] max-w-[200px] sm:w-[240px] sm:min-w-[240px] sm:max-w-[240px] lg:w-[260px] lg:min-w-[260px] lg:max-w-[260px]"
+              style={{ scrollSnapAlign: 'start' }}
             >
-              <Image
-                src={post.image}
-                alt={post.caption || post.handle}
-                fill
-                className="object-cover transition-transform duration-500 scale-[1.12] group-hover:scale-[1.16] will-change-transform"
-                sizes="(max-width: 640px) 200px, (max-width: 1024px) 220px, 240px"
-                priority={false}
-              />
-            </button>
+              <button
+                type="button"
+                onClick={() => setActiveIndex(posts.findIndex((p) => p.id === post.id))}
+                className="relative w-full h-[200px] sm:h-[220px] lg:h-[240px] cursor-zoom-in bg-white overflow-hidden"
+                aria-label="Zoom image"
+              >
+                <Image
+                  src={post.image}
+                  alt={post.caption || post.handle}
+                  fill
+                  className="object-cover transition-transform duration-500 scale-[1.12] group-hover:scale-[1.16] will-change-transform"
+                  sizes="(max-width: 640px) 200px, (max-width: 1024px) 220px, 240px"
+                  priority={false}
+                />
+              </button>
 
-            <div className="pt-2 flex flex-col items-center gap-2">
-              <span className="text-[11px] sm:text-sm font-medium text-[#3B3B3B] text-center">{post.handle}</span>
-              <div className="flex flex-wrap justify-center gap-2">
-                {(post.tags || []).slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] sm:text-[11px] px-2 py-[2px] rounded-full bg-[#EECFD4] text-[#7C6A6A] whitespace-nowrap"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+              <div className="pt-2 flex flex-col items-center gap-2">
+                <span className="text-[11px] sm:text-sm font-medium text-[#3B3B3B] text-center">{post.handle}</span>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {(post.tags || []).slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] sm:text-[11px] px-2 py-[2px] rounded-full bg-[#EECFD4] text-[#7C6A6A] whitespace-nowrap"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
 
       <div className="mt-8 flex justify-center">
