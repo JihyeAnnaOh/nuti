@@ -5,6 +5,32 @@ import FeedbackWidget from './FeedbackWidget';
  * Compact recipe card with a CTA and embedded feedback block.
  */
 export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency }) {
+  const handleSave = async () => {
+    try {
+      // Try include ID token if signed in (optional)
+      let idToken = null;
+      try {
+        const { auth } = await import('../lib/firebase');
+        if (auth.currentUser) {
+          idToken = await auth.currentUser.getIdToken();
+        }
+      } catch {}
+      const res = await fetch('/api/saved-recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {})
+        },
+        body: JSON.stringify({ recipe: { id: recipe.id, title: recipe.title, image: recipe.image } })
+      });
+      if (!res.ok) {
+        throw new Error('Failed to save');
+      }
+      alert('Saved to My Page');
+    } catch (e) {
+      alert('Sign in to save recipes');
+    }
+  };
   return (
     <div className="bg-white rounded-xl shadow p-4 flex flex-col md:flex-row gap-4 border border-[#EECFD4] mb-4">
       <Image src={recipe.image} alt={recipe.title} width={128} height={128} className="w-32 h-32 object-cover rounded-xl" />
@@ -21,6 +47,12 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
             className="mt-2 px-4 py-2 rounded bg-[var(--primary)] text-[var(--text-light)] font-semibold hover:bg-[var(--primary-light)]"
           >
             View Recipe
+          </button>
+          <button
+            onClick={handleSave}
+            className="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700"
+          >
+            Save
           </button>
           <FeedbackWidget 
             context={`recipe:${recipe.title}`}

@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HiMenu, HiX } from 'react-icons/hi';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 /**
  * Responsive top navigation bar that collapses to a hamburger menu on mobile.
@@ -14,6 +16,7 @@ export default function Sidebar({ open }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [user, setUser] = useState(null);
 
   // Animate in/out
   useEffect(() => {
@@ -31,6 +34,12 @@ export default function Sidebar({ open }) {
     };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Auth state for conditional My Page link
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    return () => unsub();
   }, []);
 
   if (!visible) return null;
@@ -127,6 +136,21 @@ export default function Sidebar({ open }) {
             <span role="img" aria-label="Recipe Discovery" className="text-lg"></span>RECIPE DISCOVERY
           </Link>
         </li>
+        {user && (
+          <li>
+            <Link
+              href="/my"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-base italic transition-all duration-200
+                ${isActive('/my')
+                  ? 'bg-[var(--primary)] text-[var(--text-light)] shadow-lg scale-105'
+                  : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
+              `}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span role="img" aria-label="My Page" className="text-lg"></span>MY PAGE
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

@@ -94,6 +94,25 @@ npm install
     
     **Important:** For Google Maps, you need to enable the **Places API** and **Maps JavaScript API** in your Google Cloud Console to obtain `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`.
 
+    #### Server-only environment variables (Membership & Rate Limiting)
+    For secure, server-side enforcement of the free/member search limits and for protected proxying to Spoonacular, also add these:
+
+    ```
+    # Firebase Admin SDK (used in API routes for token verification + Firestore)
+    FIREBASE_PROJECT_ID=your_project_id
+    FIREBASE_CLIENT_EMAIL=your_service_account_email@your_project.iam.gserviceaccount.com
+    # Use escaped newlines (\\n). The code converts them to real newlines.
+    FIREBASE_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\\nYOUR_PRIVATE_KEY_WITH_ESCAPED_NEWLINES\\n-----END PRIVATE KEY-----\\n
+
+    # Spoonacular (server-only; used by /api/recipes/search)
+    SPOONACULAR_API_KEY=your_server_spoonacular_key
+
+    # Google Maps (server preferred; API routes fall back to NEXT_PUBLIC_ if absent)
+    GOOGLE_MAPS_API_KEY=your_server_maps_key
+    ```
+
+    After updating `.env.local`, restart the dev server.
+
 4.  **Run the development server:**
     ```bash
 npm run dev

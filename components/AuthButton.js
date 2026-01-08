@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { auth, GoogleAuthProvider, signInWithPopup, signOut } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import Link from 'next/link';
 
 export default function AuthButton() {
   const [user, setUser] = useState(null);
@@ -42,6 +43,9 @@ export default function AuthButton() {
 
   return (
     <div className="flex items-center gap-2">
+      <Link href="/my" className="hidden sm:inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-white/10 text-white border border-white/30 hover:bg-white/20 transition">
+        My Page
+      </Link>
       <span className="text-xs text-white/90 max-w-[120px] truncate">{user.displayName || user.email}</span>
       <button
         onClick={handleSignOut}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase-admin": "^12.5.0",
     "firebase": "^11.8.1",
     "framer-motion": "^12.18.1",
     "html-to-image": "^1.11.13",
