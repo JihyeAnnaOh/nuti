@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
 import { auth } from '../../../lib/firebase';
@@ -10,7 +10,6 @@ import { db } from '../../../lib/firebase';
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 export default function MyPage() {
-  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -140,12 +139,12 @@ export default function MyPage() {
         <div className="bg-white rounded-2xl shadow p-8 text-center border">
           <h2 className="text-xl font-bold mb-2">Sign in required</h2>
           <p className="text-gray-600 mb-4">My Page is only available to signed-in users.</p>
-          <a
+          <Link
             href="/"
             className="inline-block px-4 py-2 rounded-full bg-[var(--primary)] text-white font-semibold hover:bg-[var(--accent)] transition"
           >
             Go Home
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -189,12 +188,12 @@ export default function MyPage() {
             <div className="bg-white rounded-2xl border p-4 mb-4">
               <div className="text-sm text-gray-500 mb-2">Quick links</div>
               <div className="flex gap-2 flex-wrap">
-                <a href="/what-can-i-cook" className="px-3 py-2 rounded-lg bg-[var(--primary)] text-white text-sm hover:bg-[var(--accent)] transition">
+                <Link href="/what-can-i-cook" className="px-3 py-2 rounded-lg bg-[var(--primary)] text-white text-sm hover:bg-[var(--accent)] transition">
                   Recipe Discovery
-                </a>
-                <a href="/meal-planner" className="px-3 py-2 rounded-lg bg-[var(--primary)] text-white text-sm hover:bg-[var(--accent)] transition">
+                </Link>
+                <Link href="/meal-planner" className="px-3 py-2 rounded-lg bg-[var(--primary)] text-white text-sm hover:bg-[var(--accent)] transition">
                   Meal Planner
-                </a>
+                </Link>
               </div>
             </div>
 
