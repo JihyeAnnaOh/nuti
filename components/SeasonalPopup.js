@@ -116,7 +116,7 @@ export default function SeasonalPopup() {
       return ['mooncake', 'lantern', 'osmanthus', 'pomelo', 'tea egg'];
     }
     if (festivalKey === 'lunarNewYear') {
-      return ['dumpling', 'spring roll', 'nian gao', 'lantern'];
+      return ['dumpling', 'spring roll', 'lantern'];
     }
     if (festivalKey === 'diwali') {
       return ['gulab jamun', 'samosa', 'diya'];

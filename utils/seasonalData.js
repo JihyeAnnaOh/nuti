@@ -27,15 +27,6 @@ export const seasonalData = {
         category: 'Appetizer',
         culturalSignificance: 'Represents the coming of spring and new opportunities',
         ingredients: ['rice paper', 'vegetables', 'shrimp', 'pork', 'vermicelli']
-      },
-      {
-        name: 'Nian Gao (年糕)',
-        description: 'Sweet sticky rice cake, symbolizing higher achievements in the new year',
-        image: '/images/landpage/nian-gao.jpg',
-        calories: '~250-300',
-        category: 'Dessert',
-        culturalSignificance: 'Symbolizes progress and advancement',
-        ingredients: ['glutinous rice flour', 'brown sugar', 'red dates']
       }
     ],
     activities: [
