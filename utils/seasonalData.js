@@ -13,7 +13,7 @@ export const seasonalData = {
       {
         name: 'Dumplings (饺子)',
         description: 'Symbolic of wealth and prosperity, shaped like ancient Chinese gold ingots',
-        image: '/images/landpage/dumplings.jpg',
+        image: '/images/Dumplings.jpg',
         calories: '~200-300',
         category: 'Main Dish',
         culturalSignificance: 'Symbolizes wealth and good fortune',
@@ -22,7 +22,7 @@ export const seasonalData = {
       {
         name: 'Spring Rolls (春卷)',
         description: 'Crispy rolls filled with vegetables and meat, symbolizing wealth',
-        image: '/images/landpage/spring-rolls.jpg',
+        image: '/images/Spring%20rolls.jpg',
         calories: '~150-200',
         category: 'Appetizer',
         culturalSignificance: 'Represents the coming of spring and new opportunities',
