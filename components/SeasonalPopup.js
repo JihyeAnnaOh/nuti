@@ -118,6 +118,9 @@ export default function SeasonalPopup() {
     if (festivalKey === 'lunarNewYear') {
       return ['dumpling', 'spring roll', 'lantern'];
     }
+    if (festivalKey === 'ramadan') {
+      return ['dates', 'samosa', 'lentil soup', 'kebab'];
+    }
     if (festivalKey === 'diwali') {
       return ['gulab jamun', 'samosa', 'diya'];
     }

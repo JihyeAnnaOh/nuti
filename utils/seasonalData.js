@@ -48,6 +48,51 @@ export const seasonalData = {
     ]
   },
 
+  // Ramadan - Lunar month (approx date for 2026)
+  ramadan: {
+    name: 'Ramadan',
+    date: '2026-03-01',
+    description: 'Islamic month of fasting, reflection, and community; ends with Eid al-Fitr',
+    theme: 'purple-blue',
+    dishes: [
+      {
+        name: 'Dates',
+        description: 'Traditional food to break the fast at Iftar',
+        image: '',
+        calories: '~20 per date',
+        category: 'Snack',
+        culturalSignificance: 'Prophetic tradition to break fast with dates and water',
+        ingredients: ['dates']
+      },
+      {
+        name: 'Samosa',
+        description: 'Crispy pastry with savory fillings served at Iftar',
+        image: '',
+        calories: '~120-180',
+        category: 'Appetizer',
+        culturalSignificance: 'Popular Iftar snack across many regions',
+        ingredients: ['flour', 'potato', 'peas', 'minced meat', 'spices']
+      }
+    ],
+    activities: [
+      {
+        icon: '🌙',
+        title: 'Fasting',
+        description: 'Fast from dawn (Suhoor) to sunset (Iftar)'
+      },
+      {
+        icon: '🕌',
+        title: 'Taraweeh',
+        description: 'Night prayers observed during Ramadan'
+      },
+      {
+        icon: '🤝',
+        title: 'Charity',
+        description: 'Give Zakat and support those in need'
+      }
+    ]
+  },
+
   // Christmas - December
   christmas: {
     name: 'Christmas',

@@ -1,3 +1,17 @@
+## Technical Overview (Quick)
+
+- Stack: Next.js 15 (App Router), React 19, TailwindCSS, Vercel
+- Auth: Firebase Auth (client) + Firebase Admin SDK (server token verification)
+- Data: Firestore (`users/{uid}`, `rate_limits/{subject_YYYYMMDD}`, `feedback`, `users/{uid}/saved_recipes`)
+- Server APIs (Node runtime):
+  - `/api/recipes/search` — membership gating + rate limit + Spoonacular proxy
+  - `/api/usage` — remaining daily searches, current plan
+  - `/api/saved-recipes` — list/save/remove user’s saved recipes
+- External APIs: Spoonacular (findByIngredients + informationBulk), Google Vision, Google Maps/Places
+- Membership: Free users (and guests) = 2 searches/day; Members = unlimited
+- Key features: My Page (gated), Saved recipes, Seasonal popup/banner, Meal Planner, Calorie Finder, Recipe Discovery
+- Env strategy: `NEXT_PUBLIC_*` for client; server-only: `FIREBASE_*`, `SPOONACULAR_API_KEY`, `GOOGLE_MAPS_API_KEY`
+
 ### ON-GOING PERSONAL PROJECT ###
 
 
