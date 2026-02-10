@@ -185,3 +185,35 @@ npm run dev
 - **PDF Export:** Allows users to download recipe details as a formatted PDF using `jsPDF`.
 - **Responsive UI:** Built with React and TailwindCSS for a seamless experience across devices.
 - **Tech Stack:** React, Next.js, Spoonacular API, Google Maps API, jsPDF.
+
+
+## 🔐 Security & Architecture
+
+Nuti is built with a clear client–server separation to ensure security and scalability.
+
+- Firebase Authentication is used on the client for user sign-in.
+- All protected operations (recipe search, usage tracking) are enforced on the server using Firebase Admin SDK for token verification.
+- External APIs (Spoonacular, Google Vision, Google Maps) are accessed through server-side API routes to prevent API key exposure.
+- Membership access and daily rate limits are enforced server-side and cannot be bypassed from the client.
+
+## 📊 Engineering Trade-offs
+
+- **Firestore vs SQL**: Firestore was chosen for its flexible schema and seamless integration with Firebase Auth, enabling fast iteration and per-user data isolation.
+- **Server-side API proxying**: All third-party APIs are proxied through Next.js API routes to improve security, control costs, and enable centralized rate limiting.
+- **Rate limiting**: Daily usage limits are implemented to protect external API quotas and demonstrate real-world SaaS constraints.
+- **Client-side image handling**: Images are processed efficiently before AI analysis to reduce payload size and improve performance.
+
+## 🧪 Engineering Quality
+
+- Clear separation between UI components, hooks, and API logic
+- Centralized error handling for external API failures
+- Defensive programming around network and quota errors
+- Designed with extensibility in mind for future features such as paid subscriptions and analytics
+
+
+## 🚀 Future Improvements
+
+- Introduce Redis-based caching for frequently requested recipe queries
+- Add Stripe subscriptions for paid memberships
+- Improve food recognition confidence with label aggregation and user confirmation
+- Add background jobs for analytics and usage reporting

@@ -1,12 +1,18 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import FeedbackWidget from './FeedbackWidget';
 
 /**
  * Compact recipe card with a CTA and embedded feedback block.
  */
 export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency }) {
+  const [saving, setSaving] = useState(false);
+  const [saveNotice, setSaveNotice] = useState(null); // { type: 'success'|'error', text: string }
   const handleSave = async () => {
     try {
+      if (saving) return;
+      setSaving(true);
+      setSaveNotice(null);
       // Try include ID token if signed in (optional)
       let idToken = null;
       try {
@@ -26,9 +32,11 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
       if (!res.ok) {
         throw new Error('Failed to save');
       }
-      alert('Saved to My Page');
+      setSaveNotice({ type: 'success', text: 'Saved to My Page' });
     } catch (e) {
-      alert('Sign in to save recipes');
+      setSaveNotice({ type: 'error', text: 'Sign in to save recipes' });
+    } finally {
+      setSaving(false);
     }
   };
   return (
@@ -50,9 +58,10 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700"
+            className={`px-4 py-2 rounded ${saving ? 'bg-blue-300 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold`}
+            disabled={saving}
           >
-            Save
+            {saving ? 'Saving…' : 'Save'}
           </button>
           <FeedbackWidget 
             context={`recipe:${recipe.title}`}
@@ -60,6 +69,11 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
             latency={latency}
             className="border-t pt-3"
           />
+          {saveNotice && (
+            <div className={`mt-2 text-xs px-3 py-2 rounded ${saveNotice.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+              {saveNotice.text}
+            </div>
+          )}
         </div>
       </div>
     </div>

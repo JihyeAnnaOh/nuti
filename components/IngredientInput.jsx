@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 /**
  * Controlled input to add/remove ingredients for recipe search.

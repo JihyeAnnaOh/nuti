@@ -168,7 +168,14 @@ export default function MyPage() {
                 </div>
               )}
               <div>
-                <div className="text-lg font-semibold">{user.displayName || user.email}</div>
+                <div className="text-lg font-semibold flex items-center gap-2">
+                  {user.displayName || user.email}
+                  {plan === 'member' ? (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 border border-green-200">Member</span>
+                  ) : (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">Free</span>
+                  )}
+                </div>
                 <div className="text-sm text-gray-600">{user.email}</div>
               </div>
             </div>

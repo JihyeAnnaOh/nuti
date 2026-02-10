@@ -11,7 +11,7 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
 import Image from 'next/image';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import LocationSearch from '../../../components/LocationSearch';
 import { toPng } from 'html-to-image';
@@ -83,7 +83,6 @@ function MealPlannerPage() {
       // TheMealDB does not have meal type, so we filter by area and pick random
       const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
       const data = await res.json();
-      console.log(`[MealDB] ${area} - ${mealType}:`, data);
       if (data.meals && data.meals.length > 0) {
         plan[mealType] = getRandomItems(data.meals, 2); // 2 dishes per meal
         foundAny = true;
@@ -161,16 +160,21 @@ function MealPlannerPage() {
     window.open(`https://www.threads.net/intent/post?text=${encodeURIComponent(text)}`);
   };
 
+  const [shareNotice, setShareNotice] = useState(null); // { type: 'info'|'error', text }
+  const clearShareNotice = () => setShareNotice(null);
   const shareToKakao = () => {
-    alert('KakaoTalk sharing is not supported directly via URL. Please use the Kakao SDK for full integration.');
+    setShareNotice({ type: 'info', text: 'KakaoTalk sharing requires SDK. Please download the image and share manually.' });
+    setTimeout(clearShareNotice, 3000);
   };
 
   const shareToWeChat = () => {
-    alert('WeChat sharing is not supported directly via URL. Please use the WeChat SDK or share manually.');
+    setShareNotice({ type: 'info', text: 'WeChat sharing requires SDK. Please download the image and share manually.' });
+    setTimeout(clearShareNotice, 3000);
   };
 
   const shareToInstagram = () => {
-    alert('Instagram sharing is not supported directly via web. Please screenshot and share manually.');
+    setShareNotice({ type: 'info', text: 'Instagram does not support direct web sharing. Please download the image and post it.' });
+    setTimeout(clearShareNotice, 3000);
   };
 
   // Fetch nearby restaurants for a dish and location (via internal API proxy)
@@ -221,7 +225,8 @@ function MealPlannerPage() {
       link.click();
       setShowDownloadModal(true);
     } catch (err) {
-      alert('Failed to export image.');
+      setShareNotice({ type: 'error', text: 'Failed to export image. Please try again.' });
+      setTimeout(clearShareNotice, 3000);
     }
   };
 
@@ -251,17 +256,45 @@ function MealPlannerPage() {
               </div>
             </div>
             {error && (
-              <div className="text-center text-red-500 font-semibold mb-4">{error}</div>
+              <div className="text-center text-red-500 font-semibold mb-4">
+                {error}
+                <div className="mt-3">
+                  <button
+                    className="px-4 py-2 rounded-full bg-white text-[var(--primary)] font-semibold border border-[var(--primary)] hover:bg-[var(--primary-light)] transition"
+                    onClick={() => fetchMealPlan(cuisine)}
+                    type="button"
+                  >
+                    Retry
+                  </button>
+                </div>
+              </div>
             )}
             {loading ? (
-              <div className="text-center text-gray-400">Loading meal plan...</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex flex-col gap-2 border rounded-xl p-4 bg-gray-50 animate-pulse">
+                    <div className="h-5 bg-gray-200 rounded w-1/3 mb-2"></div>
+                    {[...Array(2)].map((__, j) => (
+                      <div key={j} className="flex items-center gap-3 mb-2">
+                        <div className="w-24 h-24 bg-gray-200 rounded-2xl"></div>
+                        <div className="flex-1">
+                          <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                          <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                        </div>
+                      </div>
+                    ))}
+                    <div className="h-8 bg-gray-200 rounded w-full mt-2"></div>
+                  </div>
+                ))}
+              </div>
             ) : mealPlan ? (
               <div className="bg-white rounded-2xl shadow p-6 mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Your Daily Plan</h2>
                   <button
-                    className="px-5 py-2 rounded-full bg-[var(--primary)] text-white font-bold text-base shadow hover:bg-[var(--accent)] hover:text-[var(--primary)] ml-4 transition-all duration-200 tracking-wide"
+                    className={`px-5 py-2 rounded-full ${loading ? 'bg-[var(--primary-light)] cursor-not-allowed' : 'bg-[var(--primary)] hover:bg-[var(--accent)]'} text-white font-bold text-base shadow ml-4 transition-all duration-200 tracking-wide`}
                     onClick={regeneratePlan}
+                    disabled={loading}
                     type="button"
                   >
                     Regenerate Plan
@@ -340,6 +373,11 @@ function MealPlannerPage() {
                   <span className="text-sm text-gray-500 font-medium mt-1">Show off your meal plan to the world!</span>
 
                     <div className="flex flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 mt-5 flex-wrap">
+                  {shareNotice && (
+                    <div className={`w-full max-w-xl text-center text-sm px-3 py-2 rounded ${shareNotice.type === 'error' ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-blue-50 text-blue-700 border border-blue-200'}`}>
+                      {shareNotice.text}
+                    </div>
+                  )}
                       {/* Download as Image button first */}
                       <button
                         className="w-40 md:w-48 lg:w-52 h-12 md:h-14 lg:h-16 flex items-center justify-center rounded-full bg-[var(--primary)] !text-white font-bold text-sm md:text-base lg:text-lg shadow-lg hover:bg-[var(--accent)] hover:!text-[var(--text-light)] transition whitespace-nowrap"

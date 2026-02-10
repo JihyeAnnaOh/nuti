@@ -338,10 +338,28 @@ export default function SeasonalPopup() {
                   Places Nearby
                 </h3>
                 {nearbyLoading && (
-                  <p className="text-sm text-gray-500">Searching nearby places...</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 animate-pulse">
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="p-3 border border-[#EECFD4] rounded-lg bg-white/80">
+                        <div className="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-1/2 mb-2"></div>
+                        <div className="h-6 bg-gray-200 rounded w-20"></div>
+                      </div>
+                    ))}
+                  </div>
                 )}
                 {nearbyError && (
-                  <p className="text-sm text-red-600">{nearbyError}</p>
+                  <div className="text-sm text-red-600">
+                    {nearbyError}
+                    <div className="mt-2">
+                      <button
+                        onClick={findNearbyFestivalFoods}
+                        className="text-xs px-3 py-1 rounded-full bg-white text-[var(--primary)] border border-[var(--primary)] hover:bg-[var(--primary-light)] transition"
+                      >
+                        Retry
+                      </button>
+                    </div>
+                  </div>
                 )}
                 {!nearbyLoading && !nearbyError && nearbyResults.length === 0 && (
                   <p className="text-sm text-gray-500">No nearby places found yet.</p>

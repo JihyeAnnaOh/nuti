@@ -7,7 +7,8 @@
  * - Shows missing ingredients with handy Google Maps links
  * - Offers print and PDF download for a selected recipe
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
 import IngredientInput from '../../../components/IngredientInput';
@@ -15,8 +16,10 @@ import RecipeFilters from '../../../components/RecipeFilters';
 import RecipeResultCard from '../../../components/RecipeResultCard';
 import { getRecipesByIngredients } from '../../../lib/recipesApi';
 import { getMapsSearchUrl } from '../../../lib/mapsApi';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import Image from 'next/image';
+import { auth } from '../../../lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function WhatCanICookPage() {
   const [ingredients, setIngredients] = useState([]);
@@ -28,6 +31,38 @@ export default function WhatCanICookPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showRecipeModal, setShowRecipeModal] = useState(false);
+  const [user, setUser] = useState(null);
+  const [usageRemaining, setUsageRemaining] = useState(null);
+  const [plan, setPlan] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      setUser(u);
+    });
+    return () => unsub();
+  }, []);
+
+  useEffect(() => {
+    const loadUsage = async () => {
+      setUsageRemaining(null);
+      setPlan(null);
+      if (!user) return;
+      try {
+        const idToken = await user.getIdToken();
+        const res = await fetch('/api/usage', {
+          headers: { Authorization: `Bearer ${idToken}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setUsageRemaining(typeof data.remaining === 'number' ? data.remaining : null);
+          setPlan(data.plan || null);
+        }
+      } catch {
+        // ignore
+      }
+    };
+    loadUsage();
+  }, [user]);
 
   // Query Spoonacular with current ingredients and filters
   const handleSearch = async () => {
@@ -37,7 +72,13 @@ export default function WhatCanICookPage() {
       const res = await getRecipesByIngredients(ingredients, filters);
       setRecipes(res);
     } catch (e) {
-      setError('Failed to fetch recipes.');
+      if (e && e.code === 429) {
+        setError('Daily search limit reached. Sign in for unlimited searches.');
+      } else if (e && e.code === 401) {
+        setError('Sign in required to continue.');
+      } else {
+        setError('Something went wrong — please try again.');
+      }
     }
     setLoading(false);
   };
@@ -173,13 +214,62 @@ export default function WhatCanICookPage() {
               <button
                 onClick={handleSearch}
                 className="mt-4 px-4 py-2 rounded-full bg-[var(--primary)] text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-[var(--accent)] transition-all duration-200 w-full"
-                disabled={loading || ingredients.length === 0}
+                disabled={loading || ingredients.length === 0 || (error.includes('Daily search limit') ? true : false)}
               >
                 {loading ? 'Searching...' : 'Find Recipes'}
               </button>
-              {error && <p className="text-red-500 mt-2 font-semibold">{error}</p>}
+              {/* Usage/plan indicator */}
+              <div className="mt-2 flex items-center justify-between">
+                <div className="text-xs text-gray-500">
+                  {plan === 'member' ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 border border-green-200">Member · Unlimited</span>
+                  ) : user ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">Free · {usageRemaining == null ? '2/day' : `${usageRemaining}/2 left today`}</span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">Guest · 2/day</span>
+                  )}
+                </div>
+              </div>
+              {error && (
+                <div className="mt-3 p-3 rounded-lg bg-red-50 border border-red-200">
+                  <p className="text-red-700 text-sm font-semibold">{error}</p>
+                  {(error.includes('Sign in') || error.includes('unlimited')) && (
+                    <div className="mt-2">
+                      <Link
+                        href="/my"
+                        className="inline-block px-3 py-1 rounded-full bg-[var(--primary)] text-white text-xs font-semibold hover:bg-[var(--accent)] transition"
+                      >
+                        Go to My Page
+                      </Link>
+                    </div>
+                  )}
+                  {!error.includes('Sign in') && (
+                    <div className="mt-2">
+                      <button
+                        onClick={handleSearch}
+                        className="inline-block px-3 py-1 rounded-full bg-white text-[var(--primary)] text-xs font-semibold border border-[var(--primary)] hover:bg-[var(--primary-light)] transition"
+                        disabled={loading}
+                      >
+                        Retry
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
             <div className="mt-8">
+              {loading && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="bg-white/90 rounded-2xl shadow-lg p-4 border border-[#EECFD4] animate-pulse">
+                      <div className="h-32 w-full bg-gray-200 rounded-xl mb-4"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                      <div className="mt-4 h-8 bg-gray-200 rounded w-full"></div>
+                    </div>
+                  ))}
+                </div>
+              )}
               {recipes.length === 0 && !loading && (
                 <div className="text-center text-gray-400">
                   <p className="text-lg">No recipes yet. Add ingredients and search!</p>
