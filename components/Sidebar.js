@@ -44,6 +44,13 @@ export default function Sidebar({ open }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mobile menu on route change to avoid interfering with link navigation
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
   // Auth state for conditional My Page link
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setUser(u));
@@ -61,7 +68,7 @@ export default function Sidebar({ open }) {
       className={`
         fixed top-28 w-full px-6 space-y-0
         transition-all duration-300 ease-in-out
-        z-40 ${open ? 'opacity-100' : 'opacity-0'}
+        z-60 ${open ? 'opacity-100' : 'opacity-0'}
         bg-transparent md:bg-transparent
       `}
       style={{
@@ -102,7 +109,6 @@ export default function Sidebar({ open }) {
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
             onMouseEnter={() => router.prefetch('/')}
-            onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
           >
             <span role="img" aria-label="Home" className="text-lg"></span> HOME
           </Link>
@@ -117,7 +123,6 @@ export default function Sidebar({ open }) {
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
             onMouseEnter={() => router.prefetch('/meal-planner')}
-            onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
           >
             <span role="img" aria-label="Meal Planner" className="text-lg"></span>MEAL PLANNER
           </Link>
@@ -132,7 +137,6 @@ export default function Sidebar({ open }) {
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
             onMouseEnter={() => router.prefetch('/calorie')}
-            onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
           >
             <span role="img" aria-label="Calorie Finder" className="text-lg"></span>CALORIE FINDER
           </Link>
@@ -147,7 +151,6 @@ export default function Sidebar({ open }) {
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
             onMouseEnter={() => router.prefetch('/what-can-i-cook')}
-            onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
           >
             <span role="img" aria-label="Recipe Discovery" className="text-lg"></span>RECIPE DISCOVERY
           </Link>
@@ -163,7 +166,6 @@ export default function Sidebar({ open }) {
                   : 'hover:bg-[var(--primary-light)] hover:text-[var(--primary)]'}
               `}
               onMouseEnter={() => router.prefetch('/my')}
-              onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
             >
               <span role="img" aria-label="My Page" className="text-lg"></span>MY PAGE
             </Link>
