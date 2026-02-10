@@ -27,7 +27,6 @@ export default function NearbyResults({ keyword }) {
           });
         },
         (error) => {
-          console.error("Error getting location:", error);
           setError("Location access denied. Showing results for Sydney.");
           // Fallback to Sydney if user denies location access
           setUserLocation({ lat: -33.8688, lng: 151.2093 });
@@ -64,7 +63,6 @@ export default function NearbyResults({ keyword }) {
         const endTime = performance.now();
         setSearchLatency(Math.round(endTime - startTime));
       } catch (err) {
-        console.error('Failed to fetch nearby results:', err);
         setError('Failed to fetch nearby places');
         setResults([]);
       }
@@ -183,7 +181,6 @@ export async function GET(req) {
       status: 200
     });
   } catch (err) {
-    console.error('Google Maps API error:', err);
     return new Response(JSON.stringify({ error: 'Failed to fetch nearby places' }), {
       headers: { 'Content-Type': 'application/json' },
       status: 500
