@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { adminAuth, adminDb } from '../../../../../lib/firebaseAdmin';
+import { adminAuth, adminDb, adminAvailable } from '../../../../../lib/firebaseAdmin';
 
 const SPOONACULAR_BASE = 'https://api.spoonacular.com';
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
@@ -28,7 +28,7 @@ async function verifyIdTokenFromRequest(req) {
 }
 
 async function getUserPlan(uid) {
-  if (!uid) return 'free';
+  if (!uid || !adminAvailable) return 'free';
   const docRef = adminDb.collection('users').doc(uid);
   const snap = await docRef.get();
   const plan = snap.exists && snap.data()?.plan ? String(snap.data().plan) : 'free';
@@ -36,6 +36,10 @@ async function getUserPlan(uid) {
 }
 
 async function incrementAndCheckLimit(subjectId, dailyLimit) {
+  if (!adminAvailable) {
+    // Admin not configured; skip limiting but report unknown remaining
+    return { allowed: true, remaining: null };
+  }
   const todayKey = getTodayKeyUtc();
   const docId = `${subjectId}_${todayKey}`;
   const docRef = adminDb.collection('rate_limits').doc(docId);
@@ -178,7 +182,7 @@ export async function POST(req) {
 
   // Identify user or guest
   const uid = await verifyIdTokenFromRequest(req);
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   let visitorId = cookieStore.get('visitorId')?.value;
   if (!uid && !visitorId) {
     visitorId = crypto.randomUUID();
