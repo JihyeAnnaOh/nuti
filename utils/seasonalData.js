@@ -93,6 +93,60 @@ export const seasonalData = {
     ]
   },
 
+  // Easter - March/April (Western)
+  easter: {
+    name: 'Easter',
+    date: '2026-04-05',
+    description: 'Christian celebration of the resurrection of Jesus; family gatherings and festive meals',
+    theme: 'orange-yellow',
+    dishes: [
+      {
+        name: 'Hot Cross Buns',
+        description: 'Spiced sweet buns marked with a cross, traditionally eaten during Easter',
+        image: '',
+        calories: '~180-220',
+        category: 'Bakery',
+        culturalSignificance: 'Associated with Good Friday and Easter traditions',
+        ingredients: ['flour', 'milk', 'yeast', 'raisins', 'spices']
+      },
+      {
+        name: 'Roast Lamb',
+        description: 'Traditional Easter Sunday roast served with spring vegetables',
+        image: '',
+        calories: '~350-450',
+        category: 'Main Dish',
+        culturalSignificance: 'Symbolic in many Christian cultures during Easter',
+        ingredients: ['lamb', 'garlic', 'rosemary', 'olive oil', 'salt']
+      },
+      {
+        name: 'Chocolate Eggs',
+        description: 'Chocolate confections shaped like eggs, popular for children’s egg hunts',
+        image: '',
+        calories: '~70-100',
+        category: 'Dessert',
+        culturalSignificance: 'Represents new life; common gift during Easter',
+        ingredients: ['cocoa', 'sugar', 'milk solids']
+      }
+    ],
+    activities: [
+      {
+        icon: '🐣',
+        title: 'Egg Hunt',
+        description: 'Children search for hidden eggs in gardens and parks'
+      },
+      {
+        icon: '⛪',
+        title: 'Church Service',
+        description: 'Attend Easter Mass or sunrise service'
+      },
+      {
+        icon: '🍽️',
+        title: 'Family Brunch',
+        description: 'Share a festive meal with family and friends'
+      }
+    ]
+  },
+
   // Christmas - December
   christmas: {
     name: 'Christmas',
@@ -170,8 +224,7 @@ export function getCurrentSeasonalData() {
     const daysDiff = daysBetweenCalendarDates(now, targetDate);
 
     // Show festivals within [-30, 90] day window relative to now
-    // Always include Chinese New Year regardless of window
-    if ((daysDiff >= -30 && daysDiff <= 90) || key === 'lunarNewYear') {
+    if (daysDiff >= -30 && daysDiff <= 90) {
       upcomingFestivals.push({
         ...festival,
         key,
@@ -184,14 +237,16 @@ export function getCurrentSeasonalData() {
   });
 
   // Sort: future first (ascending), then past (ascending by absolute)
-  upcomingFestivals.sort((a, b) => {
-    const aFuture = a.daysUntil >= 0;
-    const bFuture = b.daysUntil >= 0;
+  const futureOnly = upcomingFestivals.filter(f => f.daysUntil > 0);
+  const listToSort = futureOnly.length > 0 ? futureOnly : upcomingFestivals;
+  listToSort.sort((a, b) => {
+    const aFuture = a.daysUntil > 0;
+    const bFuture = b.daysUntil > 0;
     if (aFuture !== bFuture) return aFuture ? -1 : 1;
     return aFuture ? a.daysUntil - b.daysUntil : Math.abs(a.daysUntil) - Math.abs(b.daysUntil);
   });
 
-  return upcomingFestivals;
+  return listToSort;
 }
 
 // Get festival by key

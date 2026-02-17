@@ -41,6 +41,8 @@ export default function SeasonalBanner() {
         return '🧨';
       case 'ramadan':
         return '🌙';
+      case 'easter':
+        return '🐣';
       case 'diwali':
         return '🪔';
       case 'christmas':
