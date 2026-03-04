@@ -277,7 +277,7 @@ export default function WhatCanICookPage() {
               )}
               {recipes.map(recipe => (
                 <div key={recipe.id} className="mb-6">
-                  <RecipeResultCard recipe={recipe} onViewRecipe={handleViewRecipe} cardClassName="bg-white/90 rounded-2xl shadow-lg p-6 border border-[#EECFD4] hover:shadow-xl transition-shadow" btnClassName="mt-4 px-4 py-2 rounded-full bg-blue-500 text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-blue-600 transition-all duration-200 w-full" />
+                  <RecipeResultCard recipe={recipe} onViewRecipe={handleViewRecipe} user={user} cardClassName="bg-white/90 rounded-2xl shadow-lg p-6 border border-[#EECFD4] hover:shadow-xl transition-shadow" btnClassName="mt-4 px-4 py-2 rounded-full bg-blue-500 text-white font-bold text-xs uppercase tracking-wide shadow hover:bg-blue-600 transition-all duration-200 w-full" />
                   {recipe.missingIngredients && recipe.missingIngredients.length > 0 && (
                     <div className="ml-4 p-4 bg-white/90 rounded-2xl shadow-lg border border-[#EECFD4] hover:shadow-xl transition-shadow">
                       <span className="text-ml font-semibold text-[#B48C8C] block mb-3">🔍 Find missing ingredients nearby:</span>

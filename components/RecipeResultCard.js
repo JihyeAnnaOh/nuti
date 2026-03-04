@@ -5,7 +5,7 @@ import FeedbackWidget from './FeedbackWidget';
 /**
  * Compact recipe card with a CTA and embedded feedback block.
  */
-export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency }) {
+export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency, user }) {
   const [saving, setSaving] = useState(false);
   const [saveNotice, setSaveNotice] = useState(null); // { type: 'success'|'error', text: string }
   const handleSave = async () => {
@@ -13,12 +13,16 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
       if (saving) return;
       setSaving(true);
       setSaveNotice(null);
-      // Try include ID token if signed in (optional)
+      // Try include ID token if signed in
       let idToken = null;
       try {
-        const { auth } = await import('../lib/firebase');
-        if (auth.currentUser) {
-          idToken = await auth.currentUser.getIdToken();
+        if (user) {
+          idToken = await user.getIdToken();
+        } else {
+          const { auth } = await import('../lib/firebase');
+          if (auth.currentUser) {
+            idToken = await auth.currentUser.getIdToken();
+          }
         }
       } catch {}
       const res = await fetch('/api/saved-recipes', {
@@ -30,11 +34,16 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
         body: JSON.stringify({ recipe: { id: recipe.id, title: recipe.title, image: recipe.image } })
       });
       if (!res.ok) {
-        throw new Error('Failed to save');
+        if (res.status === 401) {
+          setSaveNotice({ type: 'error', text: 'Sign in to save recipes' });
+        } else {
+          setSaveNotice({ type: 'error', text: 'Could not save recipe. Please try again.' });
+        }
+        return;
       }
       setSaveNotice({ type: 'success', text: 'Saved to My Page' });
     } catch (e) {
-      setSaveNotice({ type: 'error', text: 'Sign in to save recipes' });
+      setSaveNotice({ type: 'error', text: 'Could not save recipe. Please try again.' });
     } finally {
       setSaving(false);
     }
