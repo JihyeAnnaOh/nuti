@@ -7,7 +7,7 @@ import Sidebar from '../../../components/Sidebar';
 import { auth } from '../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db } from '../../../lib/firebase';
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc, collection, getDocs, query, orderBy, limit, deleteDoc } from 'firebase/firestore';
 
 export default function MyPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -99,10 +99,30 @@ export default function MyPage() {
           const data = await res.json();
           setSaved(Array.isArray(data.items) ? data.items : []);
         } else {
-          setSaved([]);
+          // Fallback: read from client Firestore when server rejects (e.g., admin not configured)
+          const q = query(
+            collection(db, 'users', user.uid, 'saved_recipes'),
+            orderBy('savedAt', 'desc'),
+            limit(100)
+          );
+          const snap = await getDocs(q);
+          const items = snap.docs.map(d => ({ id: d.id, ...(d.data() || {}) }));
+          setSaved(items);
         }
       } catch {
-        setSaved([]);
+        // Final fallback: attempt direct client Firestore read
+        try {
+          const q = query(
+            collection(db, 'users', user.uid, 'saved_recipes'),
+            orderBy('savedAt', 'desc'),
+            limit(100)
+          );
+          const snap = await getDocs(q);
+          const items = snap.docs.map(d => ({ id: d.id, ...(d.data() || {}) }));
+          setSaved(items);
+        } catch {
+          setSaved([]);
+        }
       } finally {
         setSavedLoading(false);
       }
@@ -119,6 +139,10 @@ export default function MyPage() {
         headers: { Authorization: `Bearer ${idToken}` }
       });
       if (res.ok) {
+        setSaved(cur => cur.filter(r => String(r.recipeId || r.id) !== String(id)));
+      } else {
+        // Fallback: delete directly from client Firestore
+        await deleteDoc(doc(db, 'users', user.uid, 'saved_recipes', String(id)));
         setSaved(cur => cur.filter(r => String(r.recipeId || r.id) !== String(id)));
       }
     } catch {}
