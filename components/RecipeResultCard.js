@@ -1,11 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
+import { auth, db } from '../lib/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 import FeedbackWidget from './FeedbackWidget';
 
 /**
  * Compact recipe card with a CTA and embedded feedback block.
  */
-export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency, user }) {
+export default function RecipeResultCard({ recipe, onViewRecipe, confidence, latency }) {
   const [saving, setSaving] = useState(false);
   const [saveNotice, setSaveNotice] = useState(null); // { type: 'success'|'error', text: string }
   const handleSave = async () => {
@@ -13,37 +17,60 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
       if (saving) return;
       setSaving(true);
       setSaveNotice(null);
-      // Try include ID token if signed in
-      let idToken = null;
-      try {
-        if (user) {
-          idToken = await user.getIdToken();
-        } else {
-          const { auth } = await import('../lib/firebase');
-          if (auth.currentUser) {
-            idToken = await auth.currentUser.getIdToken();
-          }
-        }
-      } catch {}
-      const res = await fetch('/api/saved-recipes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {})
-        },
-        body: JSON.stringify({ recipe: { id: recipe.id, title: recipe.title, image: recipe.image } })
-      });
-      if (!res.ok) {
-        if (res.status === 401) {
-          setSaveNotice({ type: 'error', text: 'Sign in to save recipes' });
-        } else {
-          setSaveNotice({ type: 'error', text: 'Could not save recipe. Please try again.' });
-        }
+      const user = auth.currentUser;
+      if (!user) {
+        setSaveNotice({ type: 'error', text: 'Sign in to save recipes' });
         return;
       }
-      setSaveNotice({ type: 'success', text: 'Saved to My Page' });
+
+      // Acquire token and attempt server save
+      let token = await user.getIdToken();
+      const payload = { recipe: { id: recipe.id, title: recipe.title, image: recipe.image } };
+      const attempt = async (withToken) => {
+        return await fetch('/api/saved-recipes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${withToken}`,
+          },
+          body: JSON.stringify(payload),
+        });
+      };
+
+      let res = await attempt(token);
+      if (res.status === 401) {
+        // Refresh token once and retry
+        token = await user.getIdToken(true);
+        res = await attempt(token);
+      }
+
+      if (res.ok) {
+        setSaveNotice({ type: 'success', text: 'Saved to My Page' });
+        return;
+      }
+
+      // Fallback: try client-side Firestore write (works if rules allow)
+      try {
+        const docRef = doc(db, 'users', user.uid, 'saved_recipes', String(recipe.id));
+        await setDoc(docRef, {
+          recipeId: String(recipe.id),
+          title: recipe.title,
+          image: recipe.image || '',
+          savedAt: new Date().toISOString(),
+        }, { merge: true });
+        setSaveNotice({ type: 'success', text: 'Saved to My Page' });
+        return;
+      } catch (clientErr) {
+        // Fall through to generic error below
+      }
+
+      // If we reach here, saving failed
+      const msg = res.status === 401
+        ? 'Session expired. Please sign in again.'
+        : 'Could not save this recipe. Please try again.';
+      setSaveNotice({ type: 'error', text: msg });
     } catch (e) {
-      setSaveNotice({ type: 'error', text: 'Could not save recipe. Please try again.' });
+      setSaveNotice({ type: 'error', text: 'Could not save this recipe. Please try again.' });
     } finally {
       setSaving(false);
     }
