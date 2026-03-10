@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getCurrentSeasonalData } from '../utils/seasonalData';
+import { getBannerSeasonalData } from '../utils/seasonalData';
 
 /**
  * Slim banner that cycles through upcoming seasonal festivals with CTA links.
@@ -10,9 +10,10 @@ import { getCurrentSeasonalData } from '../utils/seasonalData';
 export default function SeasonalBanner() {
   const [upcomingFestivals, setUpcomingFestivals] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
 
   useEffect(() => {
-    const festivals = getCurrentSeasonalData();
+    const festivals = getBannerSeasonalData();
     setUpcomingFestivals(festivals);
   }, []);
 
@@ -68,10 +69,28 @@ export default function SeasonalBanner() {
     return 'bg-[var(--primary)] text-[#3B3B3B]';
   };
 
+  const goPrev = () => setCurrentIndex((prev) => (prev - 1 + upcomingFestivals.length) % upcomingFestivals.length);
+  const goNext = () => setCurrentIndex((prev) => (prev + 1) % upcomingFestivals.length);
+
+  const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchEnd = (e) => {
+    if (!touchStart || upcomingFestivals.length <= 1) {
+      setTouchStart(null);
+      return;
+    }
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) (diff > 0 ? goNext : goPrev)();
+    setTouchStart(null);
+  };
+
   return (
     <div className="w-full">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="bg-white/80 backdrop-blur-sm border border-[#EECFD4] rounded-2xl shadow-sm px-4 py-2">
+        <div
+          className="bg-white/80 backdrop-blur-sm border border-[#EECFD4] rounded-2xl shadow-sm px-4 py-2"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{getFestivalIcon(currentFestival.key)}</span>
@@ -101,8 +120,6 @@ export default function SeasonalBanner() {
               </Link>
             </div>
           </div>
-
-          {/* Progress dots removed per branding preference */}
         </div>
       </div>
     </div>

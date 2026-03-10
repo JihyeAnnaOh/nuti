@@ -190,6 +190,53 @@ export const seasonalData = {
         description: 'Sing traditional Christmas songs'
       }
     ]
+  },
+
+  // Mid-Autumn Festival (中秋节) - September
+  moonFestival: {
+    name: 'Mid-Autumn Festival',
+    chineseName: '中秋节',
+    date: '2026-09-17',
+    description: 'Chinese harvest festival celebrating the full moon and family reunion',
+    theme: 'gold-amber',
+    showInPopup: false,
+    dishes: [
+      {
+        name: 'Mooncakes (月饼)',
+        description: 'Rich pastries with sweet or savory fillings, symbolizing the full moon',
+        image: '',
+        calories: '~200-350',
+        category: 'Dessert',
+        culturalSignificance: 'Central treat shared with family under the full moon',
+        ingredients: ['lotus seed paste', 'red bean paste', 'flour', 'golden syrup', 'egg']
+      },
+      {
+        name: 'Pomelo (柚子)',
+        description: 'Large citrus fruit often eaten during the festival',
+        image: '',
+        calories: '~35 per 100g',
+        category: 'Fruit',
+        culturalSignificance: 'Symbolizes abundance and family unity',
+        ingredients: ['pomelo']
+      }
+    ],
+    activities: [
+      {
+        icon: '🌕',
+        title: 'Moon Gazing',
+        description: 'Families gather to admire the full moon together'
+      },
+      {
+        icon: '🏮',
+        title: 'Lanterns',
+        description: 'Children carry and display colorful lanterns'
+      },
+      {
+        icon: '👨‍👩‍👧‍👦',
+        title: 'Family Reunion',
+        description: 'Share a meal and mooncakes with loved ones'
+      }
+    ]
   }
 };
 
@@ -246,6 +293,44 @@ export function getCurrentSeasonalData() {
     return aFuture ? a.daysUntil - b.daysUntil : Math.abs(a.daysUntil) - Math.abs(b.daysUntil);
   });
 
+  return listToSort;
+}
+
+// Banner uses wider window (210 days ahead) so festivals like Moon Festival show
+const BANNER_FUTURE_DAYS = 210;
+export function getBannerSeasonalData() {
+  const now = new Date();
+  const upcomingFestivals = [];
+
+  Object.entries(seasonalData).forEach(([key, festival]) => {
+    const baseDate = new Date(festival.date);
+    const thisYearDate = new Date(now.getFullYear(), baseDate.getMonth(), baseDate.getDate());
+    let targetDate = thisYearDate;
+    const daysFromNowThisYear = daysBetweenCalendarDates(now, thisYearDate);
+    if (daysFromNowThisYear < -30) {
+      targetDate = new Date(now.getFullYear() + 1, baseDate.getMonth(), baseDate.getDate());
+    }
+    const daysDiff = daysBetweenCalendarDates(now, targetDate);
+    if (daysDiff >= -30 && daysDiff <= BANNER_FUTURE_DAYS) {
+      upcomingFestivals.push({
+        ...festival,
+        key,
+        date: targetDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+        daysUntil: daysDiff,
+        isToday: daysDiff === 0,
+        isPast: daysDiff < 0
+      });
+    }
+  });
+
+  const futureOnly = upcomingFestivals.filter(f => f.daysUntil > 0);
+  const listToSort = futureOnly.length > 0 ? futureOnly : upcomingFestivals;
+  listToSort.sort((a, b) => {
+    const aFuture = a.daysUntil > 0;
+    const bFuture = b.daysUntil > 0;
+    if (aFuture !== bFuture) return aFuture ? -1 : 1;
+    return aFuture ? a.daysUntil - b.daysUntil : Math.abs(a.daysUntil) - Math.abs(b.daysUntil);
+  });
   return listToSort;
 }
 

@@ -24,8 +24,8 @@ export default function SeasonalPopup() {
       return;
     }
 
-    // Get current seasonal data
-    const upcomingFestivals = getCurrentSeasonalData();
+    // Get current seasonal data (exclude festivals that are banner-only, e.g. showInPopup: false)
+    const upcomingFestivals = getCurrentSeasonalData().filter((f) => f.showInPopup !== false);
     if (upcomingFestivals.length > 0) {
       const festival = upcomingFestivals[0];
       setCurrentFestival(festival);

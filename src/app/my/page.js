@@ -42,6 +42,7 @@ export default function MyPage() {
           // Seed a default plan for new users
           await setDoc(ref, {
             plan: 'free',
+            role: 'user',
             createdAt: serverTimestamp(),
             displayName: user.displayName || '',
             photoURL: user.photoURL || '',
