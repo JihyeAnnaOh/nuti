@@ -8,6 +8,7 @@ import { auth } from '../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db } from '../../../lib/firebase';
 import { doc, getDoc, serverTimestamp, setDoc, collection, getDocs, query, orderBy, limit, deleteDoc } from 'firebase/firestore';
+import { DEFAULT_MEMBER_ROLE } from '../../../lib/userModel';
 
 export default function MyPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -42,7 +43,7 @@ export default function MyPage() {
           // Seed a default plan for new users
           await setDoc(ref, {
             plan: 'free',
-            role: 'user',
+            role: DEFAULT_MEMBER_ROLE,
             createdAt: serverTimestamp(),
             displayName: user.displayName || '',
             photoURL: user.photoURL || '',

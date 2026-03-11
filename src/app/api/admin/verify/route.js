@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import { adminAuth, adminDb, adminAvailable } from '../../../../lib/firebaseAdmin';
+import { ROLE_ADMIN, ROLE_USER } from '../../../../lib/userModel';
 
 /**
  * GET /api/admin/verify
- * Verifies the user's Firebase token and checks if they have admin role.
+ * Verifies the user's Firebase token and checks if they have Admin role.
+ * Admin = single person; only role === ROLE_ADMIN is allowed.
  * Requires Authorization: Bearer <idToken>
  * Returns { ok: true, isAdmin: true } or { ok: false }
  */
@@ -31,9 +33,9 @@ export async function GET(req) {
   }
 
   const userSnap = await adminDb.collection('users').doc(uid).get();
-  const role = userSnap.exists ? (userSnap.data()?.role || 'user') : 'user';
+  const role = userSnap.exists ? (userSnap.data()?.role || ROLE_USER) : ROLE_USER;
 
-  if (role !== 'admin') {
+  if (role !== ROLE_ADMIN) {
     return NextResponse.json({ ok: false, isAdmin: false }, { status: 403 });
   }
 

@@ -25,16 +25,14 @@ export default function AuthButton() {
     try {
       await signInWithPopup(auth, provider);
     } catch (e) {
+      // User closed popup - no error
+      if (e?.code === 'auth/popup-closed-by-user') return;
       // Fallback to redirect if popup is blocked or not permitted
-      if (e && (e.code === 'auth/popup-blocked' || e.code === 'auth/cancelled-popup-request')) {
+      if (e?.code === 'auth/popup-blocked' || e?.code === 'auth/cancelled-popup-request') {
         await signInWithRedirect(auth, provider);
         return;
       }
-      // Surface minimal error for unexpected cases
       setAuthError('Sign-in failed. Please try again.');
-      // Optional: still log for debugging (non-intrusive)
-      // eslint-disable-next-line no-console
-      console.error(e);
     }
   };
 

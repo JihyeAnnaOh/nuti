@@ -8,8 +8,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 /**
  * Admin layout: protects all /admin/* routes.
- * Requires signed-in user with role === 'admin' in Firestore users/{uid}.
- * Redirects to home if not signed in or not admin.
+ * Requires Member (signed in) with Admin role (users/{uid}.role === 'admin').
+ * Non-members and non-admin Members are redirected to home.
  */
 export default function AdminLayout({ children }) {
   const router = useRouter();
