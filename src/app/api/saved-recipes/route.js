@@ -5,11 +5,23 @@ import { adminAuth, adminDb } from '../../../../lib/firebaseAdmin';
 async function verifyIdTokenFromRequest(req) {
   const authHeader = req.headers.get('authorization') || '';
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+
+  if (process.env.NODE_ENV === 'development') {
+    if (!token) console.error('[saved-recipes] No Authorization header or token received');
+    else if (!adminAuth) console.error('[saved-recipes] Firebase Admin not configured (check env vars)');
+  }
+
   if (!token) return null;
+  if (!adminAuth) return null;
+
   try {
     const decoded = await adminAuth.verifyIdToken(token);
     return decoded?.uid || null;
-  } catch {
+  } catch (e) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[saved-recipes] Token verification failed:', e?.message || e);
+      console.error('[saved-recipes] Full error:', e?.code || e?.errorInfo?.code || 'unknown');
+    }
     return null;
   }
 }

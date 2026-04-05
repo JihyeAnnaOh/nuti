@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { db } from '../../../lib/firebase';
 import { doc, getDoc, serverTimestamp, setDoc, collection, getDocs, query, orderBy, limit, deleteDoc } from 'firebase/firestore';
 import { DEFAULT_MEMBER_ROLE } from '../../../lib/userModel';
+import { getSpoonacularRecipeUrl } from '../../../lib/recipeLinks';
 
 export default function MyPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -227,10 +228,16 @@ export default function MyPage() {
                 <Link href="/meal-planner" className="px-3 py-2 rounded-lg bg-[var(--primary)] text-white text-sm hover:bg-[var(--accent)] transition">
                   Meal Planner
                 </Link>
+                <a
+                  href="#saved-recipes"
+                  className="px-3 py-2 rounded-lg border border-[var(--primary)] text-[var(--primary)] text-sm hover:bg-[var(--primary-light)] transition"
+                >
+                  Saved recipes
+                </a>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl border p-4">
+            <div id="saved-recipes" className="bg-white rounded-2xl border p-4 scroll-mt-28">
               <div className="text-sm text-gray-500 mb-3">Saved recipes</div>
               {savedLoading ? (
                 <div className="text-gray-500 text-sm">Loading...</div>
@@ -238,21 +245,36 @@ export default function MyPage() {
                 <div className="text-gray-500 text-sm">No saved recipes yet.</div>
               ) : (
                 <ul className="space-y-3">
-                  {saved.map(item => (
-                    <li key={String(item.recipeId || item.id)} className="flex items-center gap-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={item.image || '/images/logo.png'} alt={item.title} className="w-14 h-14 rounded object-cover border" />
-                      <div className="flex-1">
-                        <div className="font-semibold">{item.title}</div>
-                      </div>
-                      <button
-                        onClick={() => handleRemoveSaved(item.recipeId || item.id)}
-                        className="px-3 py-1 rounded text-xs bg-white text-[var(--primary)] border border-[var(--primary)] hover:bg-[var(--primary-light)] transition"
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  ))}
+                  {saved.map(item => {
+                    const rid = item.recipeId || item.id;
+                    const viewUrl = getSpoonacularRecipeUrl(rid, item.title);
+                    return (
+                      <li key={String(rid)} className="flex flex-wrap items-center gap-3">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={item.image || '/images/logo.png'} alt={item.title} className="w-14 h-14 rounded object-cover border" />
+                        <div className="flex-1 min-w-[140px]">
+                          <div className="font-semibold">{item.title}</div>
+                          <a
+                            href={viewUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-blue-600 hover:underline mt-1 inline-block"
+                          >
+                            View recipe
+                          </a>
+                        </div>
+                        <div className="flex gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveSaved(rid)}
+                            className="px-3 py-1 rounded text-xs bg-white text-[var(--primary)] border border-[var(--primary)] hover:bg-[var(--primary-light)] transition"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>

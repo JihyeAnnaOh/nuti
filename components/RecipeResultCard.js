@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { auth, db } from '../lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
@@ -39,7 +40,8 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
 
       let res = await attempt(token);
       if (res.status === 401) {
-        // Refresh token once and retry
+        // Refresh token and retry (handles "just signed in" timing)
+        await new Promise((r) => setTimeout(r, 300));
         token = await user.getIdToken(true);
         res = await attempt(token);
       }
@@ -66,7 +68,7 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
 
       // If we reach here, saving failed
       const msg = res.status === 401
-        ? 'Session expired. Please sign in again.'
+        ? 'Could not verify your sign-in. Please sign out and sign in again, then try saving.'
         : 'Could not save this recipe. Please try again.';
       setSaveNotice({ type: 'error', text: msg });
     } catch (e) {
@@ -107,7 +109,12 @@ export default function RecipeResultCard({ recipe, onViewRecipe, confidence, lat
           />
           {saveNotice && (
             <div className={`mt-2 text-xs px-3 py-2 rounded ${saveNotice.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
-              {saveNotice.text}
+              <p>{saveNotice.text}</p>
+              {saveNotice.type === 'success' && (
+                <Link href="/my#saved-recipes" className="mt-2 inline-block font-semibold text-[var(--primary)] hover:underline">
+                  Open saved recipes on My Page
+                </Link>
+              )}
             </div>
           )}
         </div>
