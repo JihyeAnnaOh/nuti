@@ -517,7 +517,8 @@ function MealPlannerPage() {
             border: '1.5px solid #EECFD4',
           }}
         >
-          {/* Big Logo on Top */}
+          {/* Big Logo on Top — native <img> for export-to-image capture */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/logo.png"
             alt="NUTI Logo"
@@ -540,15 +541,18 @@ function MealPlannerPage() {
                   <div style={{ fontWeight: 800, color: '#DDB7AB', fontSize: 20, marginBottom: 8, textTransform: 'capitalize', letterSpacing: 0.2 }}>{mealType}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 18, minHeight: 64 }}>
                     {dish && (
-                      <img
-                        src={dish.strMealThumb}
-                        alt={dish.strMeal}
-                        width="64"
-                        height="64"
-                        crossOrigin="anonymous"
-                        referrerPolicy="no-referrer"
-                        style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #eee', background: '#faf7f6' }}
-                      />
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element -- external thumb + CORS for export capture */}
+                        <img
+                          src={dish.strMealThumb}
+                          alt={dish.strMeal}
+                          width="64"
+                          height="64"
+                          crossOrigin="anonymous"
+                          referrerPolicy="no-referrer"
+                          style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #eee', background: '#faf7f6' }}
+                        />
+                      </>
                     )}
                     <span style={{ color: '#3B3B3B', fontWeight: 400, fontSize: 15 }}>{dish ? dish.strMeal : '-'}</span>
                   </div>

@@ -121,8 +121,8 @@ export default function SeasonalPopup() {
     if (festivalKey === 'ramadan') {
       return ['dates', 'samosa', 'lentil soup', 'kebab'];
     }
-    if (festivalKey === 'easter') {
-      return ['hot cross bun', 'roast lamb', 'chocolate egg'];
+    if (festivalKey === 'cincoDeMayo') {
+      return ['taco', 'guacamole', 'salsa', 'churro', 'enchilada'];
     }
     if (festivalKey === 'diwali') {
       return ['gulab jamun', 'samosa', 'diya'];
@@ -200,6 +200,7 @@ export default function SeasonalPopup() {
                 <span className="text-3xl">
                   {currentFestival.key === 'moonFestival' ? '🌕' : 
                    currentFestival.key === 'lunarNewYear' ? '🧨' :
+                   currentFestival.key === 'cincoDeMayo' ? '🌮' :
                    currentFestival.key === 'diwali' ? '🪔' :
                    currentFestival.key === 'christmas' ? '🎄' : '🎊'}
                 </span>
@@ -216,6 +217,9 @@ export default function SeasonalPopup() {
                   )}
                   {currentFestival.hindiName && (
                     <p className="text-white/80 text-sm">{currentFestival.hindiName}</p>
+                  )}
+                  {currentFestival.spanishName && (
+                    <p className="text-white/80 text-sm">{currentFestival.spanishName}</p>
                   )}
                 </div>
               </div>
@@ -408,6 +412,7 @@ export default function SeasonalPopup() {
               <div className="text-xs text-gray-400">
                 {currentFestival.chineseName ? `${currentFestival.chineseName} • ` : ''}
                 {currentFestival.hindiName ? `${currentFestival.hindiName} • ` : ''}
+                {currentFestival.spanishName ? `${currentFestival.spanishName} • ` : ''}
                 {currentFestival.date}
               </div>
             </div>

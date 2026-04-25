@@ -42,8 +42,8 @@ export default function SeasonalBanner() {
         return '🧨';
       case 'ramadan':
         return '🌙';
-      case 'easter':
-        return '🐣';
+      case 'cincoDeMayo':
+        return '🌮';
       case 'diwali':
         return '🪔';
       case 'christmas':
@@ -102,6 +102,9 @@ export default function SeasonalBanner() {
                   )}
                   {currentFestival.hindiName && (
                     <span className="text-[#7C6A6A] ml-2">({currentFestival.hindiName})</span>
+                  )}
+                  {currentFestival.spanishName && (
+                    <span className="text-[#7C6A6A] ml-2">({currentFestival.spanishName})</span>
                   )}
                 </h3>
                 <p className="text-xs text-[#7C6A6A]">{currentFestival.description}</p>

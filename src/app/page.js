@@ -11,8 +11,6 @@
  */
 
 import { useEffect, useState } from "react";
-import { db } from "../../lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import UploadBox from "../../components/UploadBox";

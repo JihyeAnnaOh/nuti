@@ -93,56 +93,57 @@ export const seasonalData = {
     ]
   },
 
-  // Easter - March/April (Western)
-  easter: {
-    name: 'Easter',
-    date: '2026-04-05',
-    description: 'Christian celebration of the resurrection of Jesus; family gatherings and festive meals',
+  // Cinco de Mayo – 5 May (Mexican heritage; widely celebrated in North America)
+  cincoDeMayo: {
+    name: 'Cinco de Mayo',
+    spanishName: '5 de Mayo',
+    date: '2026-05-05',
+    description: 'Celebration of Mexican culture and heritage with bold flavors, music, and gathering with friends',
     theme: 'orange-yellow',
     dishes: [
       {
-        name: 'Hot Cross Buns',
-        description: 'Spiced sweet buns marked with a cross, traditionally eaten during Easter',
+        name: 'Tacos',
+        description: 'Soft or crispy tortillas with seasoned fillings—party food that’s easy to share',
         image: '',
-        calories: '~180-220',
-        category: 'Bakery',
-        culturalSignificance: 'Associated with Good Friday and Easter traditions',
-        ingredients: ['flour', 'milk', 'yeast', 'raisins', 'spices']
-      },
-      {
-        name: 'Roast Lamb',
-        description: 'Traditional Easter Sunday roast served with spring vegetables',
-        image: '',
-        calories: '~350-450',
+        calories: '~150-300',
         category: 'Main Dish',
-        culturalSignificance: 'Symbolic in many Christian cultures during Easter',
-        ingredients: ['lamb', 'garlic', 'rosemary', 'olive oil', 'salt']
+        culturalSignificance: 'Core of festive Mexican and Tex-Mex spreads',
+        ingredients: ['tortillas', 'beef or chicken', 'onion', 'cilantro', 'lime']
       },
       {
-        name: 'Chocolate Eggs',
-        description: 'Chocolate confections shaped like eggs, popular for children’s egg hunts',
+        name: 'Guacamole & Salsa',
+        description: 'Fresh avocado dip and tomato-based salsas with chips',
         image: '',
-        calories: '~70-100',
+        calories: '~80-200',
+        category: 'Appetizer',
+        culturalSignificance: 'Classic starters for gatherings and potlucks',
+        ingredients: ['avocado', 'tomato', 'onion', 'jalapeño', 'lime', 'cilantro']
+      },
+      {
+        name: 'Churros',
+        description: 'Fried dough dusted with cinnamon sugar, often served with chocolate sauce',
+        image: '',
+        calories: '~200-280',
         category: 'Dessert',
-        culturalSignificance: 'Represents new life; common gift during Easter',
-        ingredients: ['cocoa', 'sugar', 'milk solids']
+        culturalSignificance: 'Sweet finish to a festive meal',
+        ingredients: ['flour', 'butter', 'sugar', 'cinnamon', 'chocolate']
       }
     ],
     activities: [
       {
-        icon: '🐣',
-        title: 'Egg Hunt',
-        description: 'Children search for hidden eggs in gardens and parks'
+        icon: '🎺',
+        title: 'Music & Dance',
+        description: 'Enjoy mariachi, Latin beats, and dancing with friends'
       },
       {
-        icon: '⛪',
-        title: 'Church Service',
-        description: 'Attend Easter Mass or sunrise service'
+        icon: '🌮',
+        title: 'Cook together',
+        description: 'Make tacos, salsas, and sides as a group'
       },
       {
-        icon: '🍽️',
-        title: 'Family Brunch',
-        description: 'Share a festive meal with family and friends'
+        icon: '🎉',
+        title: 'Gather & celebrate',
+        description: 'Share food and stories in a relaxed, colorful setting'
       }
     ]
   },
