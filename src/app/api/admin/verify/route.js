@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { adminAuth, adminDb, adminAvailable } from '../../../../lib/firebaseAdmin';
-import { ROLE_ADMIN, ROLE_USER } from '../../../../lib/userModel';
+import { adminAuth, adminDb, adminAvailable } from '../../../../../lib/firebaseAdmin';
+import { ROLE_ADMIN, ROLE_USER } from '../../../../../lib/userModel';
 
 /**
  * GET /api/admin/verify
